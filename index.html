@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fairbanks Christmas Aurora Trip</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* Layout: 單欄繪本手帳 — 置頂選單、圓角粗框卡片一張一張往下疊，手機優先 */
+:root{
+  --paper:#FFF7E6;      /* 內層紙色 */
+  --paper-2:#FFF1D6;    /* 稍深的紙 */
+  --card:#FFFCF0;       /* 和紙白卡片 */
+  --ink:#3E3A39;        /* 墨灰 */
+  --ink-soft:#7A716E;
+  --coral:#F2A497;      /* 珊瑚粉 */
+  --coral-pale:#FBE1DB;
+  --yamabuki:#F6D27A;   /* 山吹黃 */
+  --yamabuki-pale:#FCF0CC;
+  --mizu:#A8D3E6;       /* 水色 */
+  --mizu-pale:#E3F1F7;
+  --wakatake:#B9DAA5;   /* 若竹綠 */
+  --wakatake-pale:#E6F2DE;
+  --page:#E6F2DE;        /* 淡若竹綠底 */
+  --snow:#FFFDF5;
+  --bw:3px;
+  --r:24px;
+  --r-sm:14px;
+  --font:"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background-color:var(--page);
+  background-image:radial-gradient(circle,var(--snow) 2.2px,transparent 2.6px),radial-gradient(circle,var(--snow) 1.4px,transparent 1.8px);
+  background-size:46px 46px,30px 30px;
+  background-position:0 0,15px 22px;color:var(--ink);
+  font-family:var(--font);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--page)}
+h1,h2,h3,h4{font-weight:400;margin:0;text-wrap:balance;line-height:1.3}
+p{margin:0}
+button,input{font-family:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:3px dashed var(--coral);outline-offset:3px;border-radius:8px}
+
+/* ---------- 置頂選單 ---------- */
+.nav{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:9;
+  background:var(--page);border-bottom:var(--bw) solid var(--ink);
+}
+.nav-in{
+  max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px;
+  padding-block:8px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.nav-logo{flex:none;width:34px;height:34px}
+.nav-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  flex:none;text-decoration:none;font-size:14px;padding:4px 12px;border-radius:999px;
+  border:2px solid transparent;white-space:nowrap;
+}
+.nav-links a:hover{border-color:var(--ink);background:var(--yamabuki-pale)}
+
+/* ---------- 版面 ---------- */
+main{
+  max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:36px;
+  padding-block:20px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+section{display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;align-items:center;gap:10px}
+.sec-head svg{width:36px;height:36px;flex:none}
+.sec-head h2{font-size:24px}
+.sec-head .en{display:none;font-size:12px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-left:auto}
+.card{background:var(--card);border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px}
+.muted{color:var(--ink-soft);font-size:13px}
+.ink{stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+svg{display:block;max-width:100%}
+svg *{transform-box:fill-box;transform-origin:center}
+
+/* ---------- 首頁 ---------- */
+.hero{padding:0;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.hero-sky{position:relative;background:var(--mizu-pale);border-bottom:var(--bw) solid var(--ink)}
+.hero-sky canvas{position:absolute;left:0;top:0;width:100%;height:58%;display:block}
+.hero-art{position:relative;width:100%;height:auto;display:block}
+.aurora-btn{cursor:pointer;background:var(--wakatake);font-family:inherit;color:var(--ink)}
+.aurora-btn:active{transform:translateY(2px)}
+#auroraOverlay{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50;opacity:0;transition:opacity 1.2s ease}
+#auroraOverlay.on{opacity:1}
+.hero-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:13px;letter-spacing:.14em;color:var(--ink-soft)}
+.hero h1{font-size:clamp(28px,8vw,40px)}
+.hero h1 .hl{background:linear-gradient(transparent 58%,var(--yamabuki) 58%)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:3px 12px;border:2px solid var(--ink);border-radius:999px;background:var(--paper)}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.count div{border:var(--bw) solid var(--ink);border-radius:var(--r-sm);text-align:center;padding:8px 2px 6px;background:var(--paper)}
+.count div:nth-child(1){background:var(--coral-pale)}
+.count b{display:block;font-weight:400;font-size:clamp(24px,7vw,32px);line-height:1.1;font-variant-numeric:tabular-nums}
+.count span{font-size:12px;color:var(--ink-soft)}
+.count-label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+
+/* 動畫：插圖 */
+@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+@keyframes wave{from{transform:translateX(-6px) scaleY(.94)}to{transform:translateX(6px) scaleY(1.06)}}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes fall{from{transform:translateY(-10px)}to{transform:translateY(250px)}}
+@keyframes sled{from{transform:translateX(-140px)}to{transform:translateX(420px)}}
+@keyframes trot{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+@keyframes bump{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-3deg)}60%{transform:translateY(0) rotate(1deg)}}
+@keyframes steam{0%{transform:translateY(2px);opacity:0}40%{opacity:1}100%{transform:translateY(-5px);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{0%{transform:translateY(14px) scale(.96);opacity:.2}55%{transform:translateY(-6px) scale(1.02);opacity:1}75%{transform:translateY(2px) scale(.995)}100%{transform:none}}
+
+.aurora-band{animation:wave 4.5s ease-in-out infinite alternate}
+.aurora-band.b2{animation-duration:6s;animation-delay:-2s}
+.aurora-band.b3{animation-duration:5.2s;animation-delay:-1s}
+.tw{animation:twinkle 2.4s ease-in-out infinite}
+.tw.d1{animation-delay:-.6s}.tw.d2{animation-delay:-1.2s}.tw.d3{animation-delay:-1.8s}
+.flake{animation:fall linear infinite}
+.sled-run{animation:sled 16s linear infinite}
+.sled-run .leg{animation:trot .28s ease-in-out infinite alternate}
+.float{animation:floaty 2.6s ease-in-out infinite alternate}
+.star-spin{animation:spin 9s linear infinite}
+
+/* ---------- 航班 ---------- */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.flight{display:flex;flex-direction:column;gap:12px;position:relative}
+.flight.out{background:var(--mizu-pale)}
+.flight.back{background:var(--coral-pale)}
+.ticket-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.badge{font-size:13px;padding:2px 10px;border-radius:999px;border:2px solid var(--ink);background:var(--card)}
+.route{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.route .code{font-size:30px;line-height:1;min-height:1em}
+.route .city{font-size:12px;color:var(--ink-soft)}
+.route .r{text-align:right}
+.route svg{width:56px;height:28px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;border-top:2px dashed var(--ink);padding-top:10px}
+.field label{display:block;font-size:12px;color:var(--ink-soft)}
+.field [data-field]{display:block;min-height:1.6em;border-radius:6px;padding:0 4px;margin-left:-4px;overflow-wrap:anywhere}
+.editing [data-field]{background:var(--card);outline:2px dashed var(--ink);outline-offset:1px}
+.edit-btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;font-size:13px;padding:2px 12px;cursor:pointer}
+.editing .edit-btn{background:var(--yamabuki)}
+
+/* ---------- 每日行程 ---------- */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:none;cursor:pointer;border:var(--bw) solid var(--ink);border-radius:18px;background:var(--card);
+  padding:6px 12px 4px;text-align:center;min-width:66px;line-height:1.2;
+  transition:transform .2s ease;
+}
+.tab b{display:block;font-weight:400;font-size:20px;font-variant-numeric:tabular-nums}
+.tab small{font-size:12px;color:var(--ink-soft)}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{background:var(--tabc,var(--yamabuki));box-shadow:3px 3px 0 var(--ink);transform:translateY(-2px)}
+.tab[aria-selected="true"] small{color:var(--ink)}
+.day{display:flex;flex-direction:column;gap:14px}
+.day.pop{animation:pop .55s cubic-bezier(.3,1.4,.5,1)}
+.day-head{display:flex;gap:14px;align-items:center;background:var(--dayc,var(--paper-2))}
+.stamp{flex:none;width:68px;height:68px;border-radius:50%;border:var(--bw) solid var(--ink);background:var(--card);display:grid;place-items:center;text-align:center;line-height:1.1}
+.stamp b{font-weight:400;font-size:20px;font-variant-numeric:tabular-nums}
+.stamp small{display:block;font-size:11px}
+.day-head h3{font-size:22px}
+.day-head p{font-size:14px}
+
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;position:relative}
+.timeline::before{content:"";position:absolute;left:61.5px;top:8px;bottom:8px;border-left:3px dotted var(--ink)}
+.tl{display:grid;grid-template-columns:52px 1fr;gap:22px;align-items:start}
+.tl-time{font-size:13px;text-align:right;padding-top:18px;font-variant-numeric:tabular-nums;line-height:1.25;overflow-wrap:anywhere}
+.tl-card{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:20px;min-width:0;position:relative}
+.tl-card::before{content:"";position:absolute;left:-20px;top:22px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2.5px solid var(--ink)}
+.tl.empty .tl-card{border-style:dashed;background:var(--paper)}
+.tl.must .tl-card{background:var(--yamabuki-pale)}
+.tl.must .tl-card::before{background:var(--coral)}
+.tl-ic{flex:none;width:52px;height:52px;border:2px solid var(--ink);border-radius:16px;background:var(--paper);display:grid;place-items:center}
+.tl-ic svg{width:44px;height:44px}
+.tl-body{min-width:0;display:flex;flex-direction:column;gap:4px}
+.tl-body h4{font-size:17px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.tl-body p{font-size:14px;color:var(--ink-soft)}
+.must-tag{font-size:12px;padding:1px 8px;border-radius:999px;background:var(--coral);border:2px solid var(--ink);color:var(--ink);transform:rotate(-4deg);display:inline-block}
+.sugg-tag{font-size:12px;padding:1px 8px;border-radius:999px;border:2px dashed var(--ink);color:var(--ink-soft)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tag{font-size:12px;padding:1px 9px;border-radius:999px;border:2px solid var(--ink);display:inline-flex;align-items:center;gap:4px}
+.t-plane{background:var(--mizu)}
+.t-van{background:var(--coral)}
+.t-walk{background:var(--wakatake)}
+.t-sled{background:var(--yamabuki)}
+.t-snowmo{background:var(--mizu-pale)}
+.t-tbd{background:var(--paper);border-style:dashed}
+.ideas{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.idea{font-family:inherit;color:var(--ink);font-size:13px;padding:3px 10px;border-radius:12px;background:var(--card);border:2px solid var(--ink);cursor:pointer;text-align:left}
+.idea.on{background:var(--wakatake)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+
+/* 小插圖動畫 */
+.anim .a-wave{animation:wave 2.6s ease-in-out infinite alternate}
+.anim .a-wave.w2{animation-delay:-1.3s}
+.anim .a-blink{animation:twinkle 1.1s steps(2,end) infinite}
+.anim .a-blink.k2{animation-delay:-.55s}
+.anim .a-trot{animation:trot .3s ease-in-out infinite alternate}
+.anim .a-trot.k2{animation-delay:-.15s}
+.anim .a-bump{animation:bump 1.2s ease-in-out infinite}
+.anim .a-steam{animation:steam 2s ease-out infinite}
+.anim .a-steam.k2{animation-delay:-1s}
+.anim .a-spin{animation:spin 6s linear infinite}
+
+/* ---------- 費用 ---------- */
+.cost-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}
+.cost-grid label{font-size:13px;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px}
+.cost-grid input{width:100%;border:var(--bw) solid var(--ink);border-radius:12px;padding:6px 10px;font-size:18px;background:var(--paper);font-variant-numeric:tabular-nums}
+.cost-out{margin-top:14px;display:flex;flex-direction:column;gap:6px;border-top:2px dashed var(--ink);padding-top:12px}
+.row{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.row.total{font-size:20px;padding:6px 12px;border-radius:12px;background:var(--wakatake-pale);border:2px solid var(--ink);margin-top:4px}
+
+/* ---------- 待辦 ---------- */
+.prog{display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:16px;border:var(--bw) solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--wakatake);border-right:var(--bw) solid var(--ink);transition:width .4s ease}
+.prog b{font-weight:400;font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+.todo-group h3{font-size:17px;margin:12px 0 6px;display:flex;align-items:center;gap:8px}
+.todo-group h3::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--gc,var(--coral));border:2px solid var(--ink);transform:rotate(45deg)}
+.todo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.todo li{display:flex;align-items:center;gap:10px;padding:6px 4px;border-radius:10px}
+.todo li:hover{background:var(--paper)}
+.todo input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;border:var(--bw) solid var(--ink);border-radius:8px;background:var(--card);cursor:pointer;display:grid;place-items:center;margin:0}
+.todo input[type=checkbox]:checked{background:var(--wakatake)}
+.todo input[type=checkbox]:checked::after{content:"";width:6px;height:11px;border:solid var(--ink);border-width:0 3px 3px 0;transform:translateY(-2px) rotate(45deg)}
+.todo label{flex:1;cursor:pointer;min-width:0;overflow-wrap:anywhere}
+.todo input:checked + label{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink-soft)}
+.del{border:none;background:none;cursor:pointer;font-size:18px;color:var(--ink-soft);padding:0 6px;line-height:1}
+.add{display:flex;gap:8px;margin-top:12px}
+.add input{flex:1;min-width:0;border:var(--bw) solid var(--ink);border-radius:12px;padding:8px 12px;font-size:15px;background:var(--paper)}
+.add button,.btn{border:var(--bw) solid var(--ink);border-radius:12px;background:var(--yamabuki);padding:6px 14px;font-size:15px;cursor:pointer}
+.add button:active,.btn:active{transform:translateY(2px)}
+
+/* ---------- 住宿 ---------- */
+.stay{background:var(--mizu-pale);display:flex;flex-direction:column;gap:14px}
+.stay-top{display:flex;gap:14px;align-items:center}
+.stay-top svg{width:84px;height:84px;flex:none}
+.stay-top h3{font-size:20px}
+.stay .fields{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+
+/* ---------- 提醒 ---------- */
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tip{border:var(--bw) solid var(--ink);border-radius:20px;padding:14px;background:var(--card);display:flex;flex-direction:column;gap:6px}
+.tip h3{font-size:17px;display:flex;align-items:center;gap:8px}
+.tip h3 i{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:var(--c)}
+.tip p,.tip li{font-size:14px}
+.tip ul{margin:0;padding-left:1.1em}
+.link-btn{display:inline-block;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:14px;background:var(--mizu);align-self:flex-start}
+
+
+/* ---------- 分頁 ---------- */
+[hidden]{display:none!important}
+.view.enter{animation:pop .5s cubic-bezier(.3,1.4,.5,1)}
+.nav-links a[aria-current="page"]{background:var(--yamabuki);border-color:var(--ink)}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.q{display:flex;align-items:center;gap:10px;text-decoration:none;border:var(--bw) solid var(--ink);border-radius:18px;padding:8px 10px;background:var(--card);font-size:15px;transition:transform .15s ease}
+.q:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink)}
+.q-ic{flex:none;width:40px;height:40px;border-radius:12px;border:2px solid var(--ink);background:var(--qc);display:grid;place-items:center}
+.q-ic svg{width:32px;height:32px}
+
+/* ---------- 推薦 ---------- */
+.seg{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:var(--bw) solid var(--ink);border-radius:999px;background:var(--card);padding:4px 14px;font-size:15px;color:var(--ink);font-family:inherit}
+.seg-btn svg{width:24px;height:24px}
+.seg-btn[aria-selected="true"],.seg-btn[aria-pressed="true"]{background:var(--yamabuki);box-shadow:3px 3px 0 var(--ink)}
+.note-box{font-size:14px;border:2px dashed var(--ink);border-radius:14px;padding:8px 12px;background:var(--yamabuki-pale)}
+.rec-list{display:flex;flex-direction:column;gap:12px}
+.rec-list.pop{animation:pop .5s cubic-bezier(.3,1.4,.5,1)}
+.rec{display:flex;gap:12px;padding:14px}
+.rec-no{flex:none;width:34px;height:34px;border-radius:50%;border:var(--bw) solid var(--ink);background:var(--coral-pale);display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.rec-body{min-width:0;display:flex;flex-direction:column;gap:6px}
+.rec-body h3{font-size:18px;overflow-wrap:anywhere}
+.rec-body p{font-size:14px}
+.t-plain{background:var(--paper)}
+.rec-act{display:flex;flex-wrap:wrap;gap:8px}
+.mini-btn{display:inline-block;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;font-size:13px;background:var(--mizu)}
+.mini-btn.alt{background:var(--wakatake)}
+
+/* ---------- 地圖 ---------- */
+.map-card{padding:10px;display:flex;flex-direction:column;gap:8px}
+.map-wrap{border:2px solid var(--ink);border-radius:16px;overflow:hidden}
+#mapSvg{width:100%;height:auto;font-family:var(--font)}
+.map-label{font-size:10px;fill:var(--ink);paint-order:stroke;stroke:#FFFCF0;stroke-width:3px;stroke-linejoin:round}
+.map-label.big{font-size:14px}
+.map-label.river{fill:#4E86A0;font-size:9px}
+.map-label.road{font-size:8px;fill:#7A716E}
+.pin{cursor:pointer;outline:none}
+.pin-in{animation:pinDrop .5s cubic-bezier(.3,1.6,.5,1) both}
+.pin.sel .pin-in{animation:pinBounce 1s ease-in-out infinite}
+.pin:focus-visible circle{stroke:var(--coral)}
+.pin-no{font-size:10px;fill:var(--ink);font-family:var(--font)}
+.pulse{animation:twinkle 1.2s ease-in-out infinite}
+@keyframes pinDrop{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+@keyframes pinBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px}
+.map-legend span{display:inline-flex;align-items:center;gap:5px}
+.map-legend i{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);background:var(--c)}
+.place-card{display:flex;flex-direction:column;gap:6px;background:var(--yamabuki-pale)}
+.place-card h3{font-size:18px}
+.place-card p{font-size:14px}
+.place-card .mini-btn{align-self:flex-start}
+.place-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.place-btn{width:100%;display:flex;align-items:center;gap:8px;text-align:left;cursor:pointer;border:2px solid var(--ink);border-radius:14px;background:var(--card);padding:6px 10px;font-size:14px;color:var(--ink);font-family:inherit}
+.place-btn.on{background:var(--yamabuki)}
+.pin-dot{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-size:11px}
+.map-foot{font-size:13px}
+.zoom{display:inline-flex;align-self:flex-start;border:var(--bw) solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card)}
+.zoom-btn{border:none;background:none;padding:4px 16px;font-family:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+.zoom-btn+.zoom-btn{border-left:2px solid var(--ink)}
+.zoom-btn[aria-pressed="true"]{background:var(--mizu)}
+.far{margin-left:auto;font-size:11px;border:1.5px dashed var(--ink);border-radius:999px;padding:0 6px}
+
+.tracker{display:flex;flex-direction:column;gap:14px;text-decoration:none;background:var(--mizu-pale);box-shadow:4px 4px 0 var(--ink);transition:transform .15s ease}
+.tracker:hover{transform:translateY(-2px)}
+.tracker-bars{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:110px;border:2px solid var(--ink);border-radius:16px;background:var(--card);padding:10px}
+.tracker-bars i{flex:1;max-width:30px;height:var(--h);border:2px solid var(--ink);border-radius:8px;background:var(--wakatake);transform-origin:bottom;animation:barGlow 2.4s ease-in-out infinite alternate}
+.tracker-bars i:nth-child(2n){background:var(--mizu);animation-delay:-.6s}
+.tracker-bars i:nth-child(3n){background:var(--coral);animation-delay:-1.2s}
+@keyframes barGlow{from{transform:scaleY(.86)}to{transform:scaleY(1)}}
+.tracker-body{display:flex;flex-direction:column;gap:6px}
+.tracker-body h3{font-size:22px}
+.tracker-body p{font-size:14px}
+.tracker-body .mini-btn{align-self:flex-start;font-size:14px;padding:4px 14px}
+.mini-map{display:flex;flex-direction:column;gap:10px;padding:12px}
+.mini-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mini-head h4{font-size:17px}
+.mini-svg{border:2px solid var(--ink);border-radius:14px;overflow:hidden}
+.mini-svg svg{width:100%;height:auto;font-family:var(--font)}
+.mini-stops{font-size:13px}
+.members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.member{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px 12px;background:var(--card)}
+.member:nth-child(odd){transform:rotate(-1deg)}
+.member:nth-child(even){transform:rotate(1deg)}
+.avatar{width:100%;max-width:150px;aspect-ratio:120/122;border-radius:50%}
+.avatar svg{width:100%;height:auto;overflow:visible}
+.members.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sec-head.sub h2{font-size:20px}
+.m-tag{font-size:12px;padding:1px 9px;border-radius:999px;border:2px solid var(--ink);background:var(--paper)}
+.mystery{cursor:pointer;font-family:inherit;color:var(--ink);background:var(--paper-2);border-style:dashed;position:relative;padding-top:18px;transform:none!important}
+.mystery .lid{position:absolute;left:-3px;right:-3px;top:-3px;height:14px;border:var(--bw) solid var(--ink);border-radius:var(--r) var(--r) 6px 6px;background:var(--yamabuki)}
+.mystery .lid::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:10px;margin-left:-5px;background:var(--coral);border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+.mystery h3{font-size:17px;background:var(--card)}
+.mystery .avatar{max-width:110px}
+.m-tag.letter{font-size:16px;padding:0 14px;background:var(--yamabuki)}
+.mystery.shake{animation:shakeBox .6s ease}
+@keyframes shakeBox{0%,100%{transform:none}20%{transform:rotate(-6deg)}40%{transform:rotate(5deg)}60%{transform:rotate(-3deg)}80%{transform:rotate(2deg)}}
+.q-mark{font-family:var(--font);font-size:30px;fill:#FFFFFF;stroke:var(--ink);stroke-width:1.4px;paint-order:stroke}
+.member h3{font-size:22px;padding:0 14px;border-radius:999px;background:var(--mc);border:2px solid var(--ink)}
+.bob{animation:floaty 2.4s ease-in-out infinite alternate;animation-delay:calc(var(--d) * -1)}
+.blink{transform-origin:60px 63px;transform-box:view-box;animation:blinkEye 4.5s infinite;animation-delay:var(--d)}
+@keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.snow-dot{animation:twinkle 2.2s ease-in-out infinite}
+.snow-dot.s2{animation-delay:-.7s}.snow-dot.s3{animation-delay:-1.4s}
+.scarf-tail{transform-box:fill-box;transform-origin:top center;animation:sway 1.8s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .sled-run{transform:translateX(150px)}
+  .flake{display:none}
+}
+</style>
+
+<!-- ================= 選單 ================= -->
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main menu">
+  <div class="nav-in">
+    <svg class="nav-logo" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="17" fill="#A8D3E6" class="ink"/>
+      <path d="M20 8 L28 22 H12Z M20 15 L30 30 H10Z" fill="#B9DAA5" class="ink"/>
+      <path d="M18 30h4v4h-4z" fill="#F2A497" class="ink"/>
+      <circle cx="20" cy="8" r="2.6" fill="#F6D27A" class="ink"/>
+    </svg>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#flights">Flights</a>
+      <a href="#plan">Plan</a>
+      <a href="#members">Crew</a>
+      <a href="#recs">Picks</a>
+      <a href="#map">Map</a>
+      <a href="#todo">List</a>
+      <a href="#stay">Stay</a>
+      <a href="#tips">Tips</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ================= 首頁 ================= -->
+<section id="v-home" class="view" aria-label="Home">
+  <div class="card hero">
+    <div class="hero-sky"><canvas id="heroAurora" aria-hidden="true"></canvas>
+    <svg class="hero-art" viewBox="0 0 360 230" role="img" aria-label="Illustration of Santa Claus House, a Christmas tree, the aurora and a dog sled in the snow">
+      <!-- 月亮與星星 -->
+      <g class="float"><circle cx="314" cy="38" r="14" fill="#F6D27A" class="ink"/><circle cx="320" cy="33" r="13" fill="#E3F1F7"/></g>
+      <circle class="tw" cx="40" cy="22" r="2.4" fill="#F6D27A"/>
+      <circle class="tw d1" cx="120" cy="16" r="2" fill="#F6D27A"/>
+      <circle class="tw d2" cx="250" cy="20" r="2.4" fill="#F6D27A"/>
+      <circle class="tw d3" cx="200" cy="12" r="1.8" fill="#F6D27A"/>
+      <!-- 山 -->
+      <path d="M-4 150 L58 100 L104 136 L168 82 L236 140 L290 108 L364 150 V170 H-4Z" fill="#FFFFFF" class="ink"/>
+      <path d="M58 100 L46 110 L58 108 L68 114Z M168 82 L152 96 L166 92 L180 98Z M290 108 L280 116 L292 114 L300 118Z" fill="#A8D3E6" class="ink" stroke-width="1.8"/>
+      <!-- 雪地 -->
+      <path d="M-4 168 Q90 150 180 164 T364 160 V234 H-4Z" fill="#FFFCF0" class="ink"/>
+      <!-- 聖誕老人屋 -->
+      <g>
+        <rect x="40" y="128" width="78" height="46" rx="4" fill="#F2A497" class="ink"/>
+        <path d="M32 132 L79 100 L126 132Z" fill="#FFFFFF" class="ink"/>
+        <rect x="70" y="148" width="18" height="26" rx="8" fill="#F6D27A" class="ink"/>
+        <rect x="48" y="140" width="14" height="14" rx="3" fill="#A8D3E6" class="ink"/>
+        <rect x="96" y="140" width="14" height="14" rx="3" fill="#A8D3E6" class="ink"/>
+        <circle class="tw" cx="44" cy="128" r="2.6" fill="#F6D27A"/>
+        <circle class="tw d1" cx="58" cy="118" r="2.6" fill="#B9DAA5"/>
+        <circle class="tw d2" cx="72" cy="108" r="2.6" fill="#A8D3E6"/>
+        <circle class="tw d3" cx="86" cy="108" r="2.6" fill="#F6D27A"/>
+        <circle class="tw" cx="100" cy="118" r="2.6" fill="#B9DAA5"/>
+        <circle class="tw d1" cx="114" cy="128" r="2.6" fill="#A8D3E6"/>
+        <!-- 拐杖糖柱 -->
+        <rect x="132" y="120" width="8" height="54" rx="4" fill="#FFFFFF" class="ink"/>
+        <path d="M132 130 l8 -6 M132 142 l8 -6 M132 154 l8 -6 M132 166 l8 -6" stroke="#F2A497" stroke-width="3"/>
+        <circle cx="136" cy="118" r="6" fill="#F6D27A" class="ink"/>
+      </g>
+      <!-- 聖誕樹 -->
+      <g>
+        <rect x="265" y="160" width="12" height="14" fill="#F2A497" class="ink"/>
+        <path d="M271 104 L292 136 H250Z" fill="#B9DAA5" class="ink"/>
+        <path d="M271 120 L298 162 H244Z" fill="#B9DAA5" class="ink"/>
+        <circle class="tw" cx="262" cy="150" r="3" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/>
+        <circle class="tw d2" cx="282" cy="144" r="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+        <circle class="tw d1" cx="272" cy="130" r="3" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+        <path class="star-spin ink" d="M271 92 l3 6 6 1 -4.5 4 1 6.5 -5.5 -3 -5.5 3 1 -6.5 -4.5 -4 6 -1Z" fill="#F6D27A" stroke-width="1.8"/>
+      </g>
+      <!-- 麋鹿 -->
+      <g class="float" style="animation-duration:3.4s">
+        <path d="M310 168 q0 -14 14 -14 h12 q8 0 8 8 v6Z" fill="#F2A497" class="ink" stroke-width="2"/>
+        <path d="M314 168 v12 M322 168 v12 M332 168 v12 M340 168 v12" class="ink" stroke-width="2"/>
+        <path d="M342 158 q8 -2 10 6 l-6 3Z" fill="#F2A497" class="ink" stroke-width="2"/>
+        <path d="M344 156 l-3 -9 M344 156 l5 -8 M346 152 l6 -2" class="ink" stroke-width="2" fill="none"/>
+      </g>
+      <!-- 狗拉雪橇 -->
+      <defs>
+        <g id="dog">
+          <ellipse cx="0" cy="0" rx="11" ry="6" fill="#FFFFFF" class="ink" stroke-width="2"/>
+          <circle cx="11" cy="-5" r="5" fill="#FFFFFF" class="ink" stroke-width="2"/>
+          <path d="M9 -10 l2 -5 3 4Z" fill="#A8D3E6" class="ink" stroke-width="1.6"/>
+          <path d="M-11 -2 q-6 -6 -3 -10" fill="none" class="ink" stroke-width="2"/>
+          <path class="leg ink" d="M-7 5 v6 M7 5 v6" stroke-width="2"/>
+          <circle cx="13" cy="-6" r=".9" fill="#3E3A39"/>
+        </g>
+      </defs>
+      <g class="sled-run">
+        <g transform="translate(0 196)">
+          <use href="#dog" x="88" y="0"/>
+          <use href="#dog" x="62" y="2"/>
+          <path d="M46 -2 L78 -2" class="ink" stroke-width="1.6" fill="none"/>
+          <path d="M8 4 h34 l6 -6" fill="none" class="ink"/>
+          <path d="M10 4 v-14 h26 v14" fill="#F2A497" class="ink" stroke-width="2"/>
+          <circle cx="24" cy="-18" r="6" fill="#F6D27A" class="ink" stroke-width="2"/>
+          <path d="M18 -20 q6 -10 12 0Z" fill="#F2A497" class="ink" stroke-width="2"/>
+        </g>
+      </g>
+      <!-- 雪 -->
+      <g fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.2">
+        <circle class="flake" cx="20" cy="-6" r="3" style="animation-duration:7s"/>
+        <circle class="flake" cx="70" cy="-6" r="2.4" style="animation-duration:9s;animation-delay:-3s"/>
+        <circle class="flake" cx="110" cy="-6" r="3" style="animation-duration:8s;animation-delay:-5s"/>
+        <circle class="flake" cx="155" cy="-6" r="2.2" style="animation-duration:10s;animation-delay:-1s"/>
+        <circle class="flake" cx="200" cy="-6" r="3" style="animation-duration:7.5s;animation-delay:-6s"/>
+        <circle class="flake" cx="235" cy="-6" r="2.4" style="animation-duration:9.5s;animation-delay:-2s"/>
+        <circle class="flake" cx="280" cy="-6" r="3" style="animation-duration:8.5s;animation-delay:-4s"/>
+        <circle class="flake" cx="330" cy="-6" r="2.4" style="animation-duration:7s;animation-delay:-2.5s"/>
+        <circle class="flake" cx="350" cy="-6" r="2" style="animation-duration:11s;animation-delay:-7s"/>
+      </g>
+    </svg>
+    </div>
+    <div class="hero-body">
+      <p class="eyebrow">ALASKA · FAIRBANKS · 2026</p>
+      <h1>Alaska<br><span class="hl">Christmas Aurora Trip</span></h1>
+      <div class="chips">
+        <span class="chip">📅 12/20 – 12/25</span>
+        <span class="chip">👥 12 people</span>
+        <span class="chip">🌌 3 aurora nights</span>
+        <button type="button" class="chip aurora-btn" id="auroraBtn">✨ Summon the aurora</button>
+      </div>
+      <div class="count-label">
+        <span id="countTitle">Countdown to the trip</span>
+        <span class="muted">Alaska time, 12/20 00:00</span>
+      </div>
+      <div class="count" id="count" aria-live="off">
+        <div><b id="cD">--</b><span>days</span></div>
+        <div><b id="cH">--</b><span>hrs</span></div>
+        <div><b id="cM">--</b><span>min</span></div>
+        <div><b id="cS">--</b><span>sec</span></div>
+      </div>
+      <nav class="quick" id="quick" aria-label="Quick links"></nav>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 航班 ================= -->
+<section id="v-flights" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#A8D3E6" class="ink"/><path d="M10 27 L38 17 L35 23 L25 27 L29 36 L26 37 L19 29 L13 31Z" fill="#FFFFFF" class="ink" stroke-width="2"/></svg>
+    <h2>Flights</h2><span class="en">Flights</span>
+  </div>
+  <div class="grid-2">
+    <article class="card flight out" data-card="out">
+      <div class="ticket-top"><span class="badge">Outbound ✈︎</span><button class="edit-btn" type="button">Edit</button></div>
+      <div class="route">
+        <div><div class="code" data-field="out-from-code">SEA</div><div class="city" data-field="out-from-city">Seattle</div></div>
+        <svg viewBox="0 0 56 28" aria-hidden="true"><path d="M2 20 Q28 0 54 20" fill="none" stroke="#3E3A39" stroke-width="2" stroke-dasharray="3 4"/><path d="M22 12 L36 8 L34 11 L30 12 L32 17 L30 17 L27 13 L24 14Z" fill="#F6D27A" class="ink" stroke-width="1.6"/></svg>
+        <div class="r"><div class="code">FAI</div><div class="city">Fairbanks</div></div>
+      </div>
+      <div class="fields">
+        <div class="field"><label>Date</label><span data-field="out-date">12/20 – 12/21</span></div>
+        <div class="field"><label>Flight</label><span data-field="out-no">TBA</span></div>
+        <div class="field"><label>Departs</label><span data-field="out-dep">TBA</span></div>
+        <div class="field"><label>Arrives</label><span data-field="out-arr">TBA</span></div>
+        <div class="field"><label>Connection</label><span data-field="out-via">TBA (e.g. SEA / ANC)</span></div>
+        <div class="field"><label>Booking ref</label><span data-field="out-pnr">TBA</span></div>
+      </div>
+    </article>
+    <article class="card flight back" data-card="back">
+      <div class="ticket-top"><span class="badge">Return ✈︎</span><button class="edit-btn" type="button">Edit</button></div>
+      <div class="route">
+        <div><div class="code">FAI</div><div class="city">Fairbanks</div></div>
+        <svg viewBox="0 0 56 28" aria-hidden="true"><path d="M2 20 Q28 0 54 20" fill="none" stroke="#3E3A39" stroke-width="2" stroke-dasharray="3 4"/><path d="M22 12 L36 8 L34 11 L30 12 L32 17 L30 17 L27 13 L24 14Z" fill="#F6D27A" class="ink" stroke-width="1.6"/></svg>
+        <div class="r"><div class="code" data-field="back-to-code"></div><div class="city" data-field="back-to-city">Welcome Everyone to Las Vegas</div></div>
+      </div>
+      <div class="fields">
+        <div class="field"><label>Date</label><span data-field="back-date">TBD</span></div>
+        <div class="field"><label>Flight</label><span data-field="back-no">TBA</span></div>
+        <div class="field"><label>Departs</label><span data-field="back-dep">TBA</span></div>
+        <div class="field"><label>Arrives</label><span data-field="back-arr">TBA</span></div>
+        <div class="field"><label>Connection</label><span data-field="back-via">TBA</span></div>
+        <div class="field"><label>Booking ref</label><span data-field="back-pnr">TBA</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= 每日行程 ================= -->
+<section id="v-plan" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="9" width="36" height="33" rx="7" fill="#FFFFFF" class="ink"/><path d="M6 19 H42" class="ink"/><path d="M15 5 v8 M33 5 v8" class="ink"/><path d="M6 16 v-0 q0 -7 7 -7 h22 q7 0 7 7 v3 H6Z" fill="#F2A497" class="ink"/><circle cx="24" cy="30" r="5" fill="#F6D27A" class="ink" stroke-width="2"/></svg>
+    <h2>Daily Plan</h2><span class="en">Itinerary</span>
+  </div>
+  <div class="tabs" role="tablist" id="tabs" aria-label="Choose a day"></div>
+  <div class="day" id="day" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<!-- ================= 成員 ================= -->
+<section id="v-members" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="17" cy="18" r="7" fill="#F6D27A" class="ink"/><circle cx="31" cy="18" r="7" fill="#F2A497" class="ink"/><path d="M4 42 q2 -14 13 -14 q11 0 13 14Z" fill="#A8D3E6" class="ink"/><path d="M18 42 q2 -14 13 -14 q11 0 13 14Z" fill="#B9DAA5" class="ink"/></svg>
+    <h2>The Crew</h2><span class="en">Crew</span>
+  </div>
+  <div class="members" id="members"></div>
+  <div class="sec-head sub"><h2>Secret Members</h2><span class="en">Mystery box</span></div>
+  <div class="members three" id="mystery"></div>
+</section>
+
+<!-- ================= 推薦 ================= -->
+<section id="v-recs" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 l5 12 13 1 -10 8 3 13 -11 -7 -11 7 3 -13 -10 -8 13 -1Z" fill="#F6D27A" class="ink"/></svg>
+    <h2>Picks</h2><span class="en">Picks</span>
+  </div>
+  <div class="seg" role="tablist" id="recTabs" aria-label="Pick categories"></div>
+  <p class="note-box">Call ahead to book. Winter hours change often.</p>
+  <div class="rec-list" id="recList"></div>
+</section>
+
+<!-- ================= 地圖 ================= -->
+<section id="v-map" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 44 C12 30 9 24 9 18 a15 15 0 0 1 30 0 c0 6 -3 12 -15 26Z" fill="#F2A497" class="ink"/><circle cx="24" cy="18" r="6" fill="#FFFFFF" class="ink" stroke-width="2"/></svg>
+    <h2>Map</h2><span class="en">Map</span>
+  </div>
+  <div class="seg" id="mapFilters" aria-label="Map filters"></div>
+  <div class="zoom" id="mapZoom" aria-label="Map range"></div>
+  <div class="card map-card">
+    <div class="map-wrap"><svg id="mapSvg" viewBox="0 0 400 258" role="img" aria-label="Map of the Fairbanks area with our stops and picks"></svg></div>
+    <div class="map-legend">
+      <span><i style="--c:#F2A497;border-radius:3px"></i>Airbnb / Plan</span><span><i style="--c:#F6D27A"></i>Food</span><span><i style="--c:#B9DAA5"></i>Sights</span><span><i style="--c:#A8D3E6"></i>Aurora spots</span>
+    </div>
+  </div>
+  <div class="card place-card" id="placeCard" aria-live="polite"></div>
+  <ol class="place-list" id="placeList"></ol>
+  <p class="map-foot">A simplified map drawn from real coordinates. Roads and rivers are approximate. Use “Town” for the Airbnb area and “Wide” for Santa Claus House and the aurora spots.</p>
+</section>
+
+<!-- ================= 待辦清單 ================= -->
+<section id="v-todo" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="6" width="30" height="38" rx="6" fill="#FFFFFF" class="ink"/><rect x="17" y="3" width="14" height="7" rx="3" fill="#F6D27A" class="ink" stroke-width="2"/><path d="M15 20 l3 3 5 -6 M15 32 l3 3 5 -6" class="ink" fill="none" stroke-width="2"/><path d="M27 21 h6 M27 33 h6" class="ink" stroke-width="2"/></svg>
+    <h2>Checklist</h2><span class="en">To-do</span>
+  </div>
+  <div class="card">
+    <div class="prog"><div class="bar"><i id="bar"></i></div><b id="progTxt">0 / 0</b></div>
+    <div id="todoWrap"></div>
+    <form class="add" id="addForm">
+      <label for="addInput" class="muted" hidden>New item</label>
+      <input id="addInput" type="text" placeholder="Add your own item…" autocomplete="off">
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= 住宿 ================= -->
+<section id="v-stay" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 24 L24 9 L40 24 V41 H8Z" fill="#F2A497" class="ink"/><rect x="20" y="29" width="8" height="12" rx="3" fill="#F6D27A" class="ink" stroke-width="2"/><path d="M5 25 L24 7 L43 25" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/><path d="M5 25 L24 7 L43 25" fill="none" class="ink"/></svg>
+    <h2>Where We Stay</h2><span class="en">Stay</span>
+  </div>
+  <article class="card stay" data-card="stay">
+    <div class="stay-top">
+      <svg viewBox="0 0 84 84" aria-hidden="true">
+        <circle cx="42" cy="42" r="38" fill="#E3F1F7" class="ink"/>
+        <path d="M18 46 L42 24 L66 46 V66 H18Z" fill="#FFFFFF" class="ink"/>
+        <path d="M14 48 L42 21 L70 48" fill="none" class="ink" stroke-width="4"/>
+        <rect x="36" y="50" width="12" height="16" rx="5" fill="#F2A497" class="ink" stroke-width="2"/>
+        <rect x="24" y="48" width="9" height="9" rx="2" fill="#F6D27A" class="ink" stroke-width="2"/>
+        <rect x="51" y="48" width="9" height="9" rx="2" fill="#F6D27A" class="ink" stroke-width="2"/>
+        <path class="float ink" d="M58 24 v-8 h6 v12" fill="#F2A497" stroke-width="2"/>
+        <circle class="tw" cx="62" cy="10" r="2.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+      </svg>
+      <div style="min-width:0;flex:1">
+        <h3 data-field="stay-name">Fairbanks Airbnb</h3>
+        <p class="muted">12 of us · check-in 12/20 – 21</p>
+      </div>
+      <button class="edit-btn" type="button">Edit</button>
+    </div>
+    <div class="fields">
+      <div class="field"><label>Address</label><span data-field="stay-addr">TBA</span></div>
+      <div class="field"><label>Check-in</label><span data-field="stay-in">12/20 4:00 PM</span></div>
+      <div class="field"><label>Check-out</label><span data-field="stay-out">12/25 10:00 AM</span></div>
+      <div class="field"><label>Host contact</label><span data-field="stay-host">TBA</span></div>
+      <div class="field"><label>Wi‑Fi</label><span data-field="stay-wifi">TBA</span></div>
+      <div class="field"><label>Door code</label><span data-field="stay-code">TBA</span></div>
+      <div class="field"><label>Booking ref</label><span data-field="stay-ref">TBA</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= 提醒 ================= -->
+<section id="v-tips" class="view" hidden>
+  <div class="sec-head">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 v40 M7 14 l34 20 M41 14 L7 34" class="ink" stroke-width="3"/><circle cx="24" cy="24" r="7" fill="#A8D3E6" class="ink" stroke-width="2.5"/></svg>
+    <h2>Aurora &amp; Cold Tips</h2><span class="en">Tips</span>
+  </div>
+  <a class="card tracker" href="https://www.explorefairbanks.com/explore-the-area/aurora-season/aurora-tracker/" target="_blank" rel="noopener">
+    <div class="tracker-bars" aria-hidden="true">
+      <i style="--h:92%"></i><i style="--h:84%"></i><i style="--h:78%"></i><i style="--h:70%"></i><i style="--h:62%"></i><i style="--h:56%"></i><i style="--h:50%"></i>
+    </div>
+    <div class="tracker-body">
+      <p class="eyebrow">AURORA TRACKER</p>
+      <h3>Can we see the aurora right now?</h3>
+      <p>Explore Fairbanks runs a live aurora tracker that shows the current chance of seeing the lights, based on aurora activity, weather and daylight.</p>
+      <span class="mini-btn">Open the live aurora tracker ↗</span>
+    </div>
+  </a>
+  <div class="tips">
+    <div class="tip"><h3><i style="--c:#B9DAA5"></i>Seeing the aurora</h3>
+      <ul><li>Best hours are usually 22:00 – 02:00. Clear skies matter most.</li><li>Check the aurora forecast and cloud cover before heading out.</li></ul>
+      <a class="link-btn" href="https://www.gi.alaska.edu/monitors/aurora-forecast" target="_blank" rel="noopener">UAF aurora forecast ↗</a>
+    </div>
+    <div class="tip"><h3><i style="--c:#A8D3E6"></i>Photographing it</h3>
+      <ul><li>Try ISO 1600–3200, a 5–15 second shutter and the widest aperture.</li><li>On a phone, use night mode with the phone on a tripod.</li></ul>
+    </div>
+    <div class="tip"><h3><i style="--c:#F2A497"></i>Extreme cold</h3>
+      <ul><li>Dress in layers: a wicking base, a warm middle layer and a windproof shell.</li><li>Cold drains phones and power banks fast. Keep them in an inside pocket.</li></ul>
+    </div>
+    <div class="tip"><h3><i style="--c:#F6D27A"></i>Short days</h3>
+      <ul><li>Around the solstice there are only about 3–4 hours of daylight: light around 11 AM, dark by about 3 PM.</li><li>Plan outdoor activities around midday.</li></ul>
+    </div>
+  </div>
+</section>
+
+<canvas id="auroraOverlay" aria-hidden="true"></canvas>
+<footer>🎄 Merry Christmas</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var store = {
+    get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+    set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  };
+  var C={ink:"#3E3A39",coral:"#F2A497",yam:"#F6D27A",mizu:"#A8D3E6",waka:"#B9DAA5",paper:"#FFFCF0",white:"#FFFFFF"};
+  var S='class="ink"';
+
+  /* ---------- 小插圖 ---------- */
+  var ICONS={
+    plane:'<path d="M5 28 L42 15 L38 23 L25 28 L31 40 L27 41 L19 30 L11 33Z" fill="'+C.mizu+'" '+S+'/>',
+    house:'<path d="M8 25 L24 11 L40 25 V41 H8Z" fill="'+C.coral+'" '+S+'/><rect x="20" y="29" width="8" height="12" rx="3" fill="'+C.yam+'" '+S+' stroke-width="2"/><path d="M5 26 L24 9 L43 26" fill="none" '+S+' stroke-width="3"/>',
+    van:'<g class="a-bump"><path d="M4 30 V18 q0 -5 5 -5 h22 l9 9 h1 q4 0 4 4 v4Z" fill="'+C.coral+'" '+S+'/><path d="M10 17 h9 v6 h-9Z M23 17 h7 l5 6 h-12Z" fill="'+C.mizu+'" '+S+' stroke-width="2"/></g><circle cx="14" cy="32" r="4.5" fill="'+C.white+'" '+S+'/><circle cx="35" cy="32" r="4.5" fill="'+C.white+'" '+S+'/><path d="M4 40 h40" '+S+' stroke-width="2" stroke-dasharray="4 4"/>',
+    bowl:'<path class="a-steam" d="M18 14 q-3 -4 0 -8" fill="none" '+S+' stroke-width="2"/><path class="a-steam k2" d="M28 14 q-3 -4 0 -8" fill="none" '+S+' stroke-width="2"/><path d="M7 22 H41 Q40 38 24 39 Q8 38 7 22Z" fill="'+C.yam+'" '+S+'/><path d="M30 6 L42 20 M35 5 L45 18" '+S+' stroke-width="2"/>',
+    cart:'<path d="M14 15 H42 L37 31 H17Z" fill="'+C.waka+'" '+S+'/><path d="M4 9 H10 L17 31 H37" fill="none" '+S+'/><circle cx="19" cy="38" r="3.5" fill="'+C.white+'" '+S+' stroke-width="2"/><circle cx="35" cy="38" r="3.5" fill="'+C.white+'" '+S+' stroke-width="2"/>',
+    santa:'<rect x="7" y="22" width="28" height="20" rx="3" fill="'+C.coral+'" '+S+'/><path d="M3 24 L21 9 L39 24Z" fill="'+C.white+'" '+S+'/><rect x="17" y="30" width="8" height="12" rx="3" fill="'+C.yam+'" '+S+' stroke-width="2"/><circle class="a-blink" cx="9" cy="21" r="2.4" fill="'+C.yam+'"/><circle class="a-blink k2" cx="15" cy="16" r="2.4" fill="'+C.waka+'"/><circle class="a-blink" cx="21" cy="11" r="2.4" fill="'+C.mizu+'"/><circle class="a-blink k2" cx="27" cy="16" r="2.4" fill="'+C.yam+'"/><circle class="a-blink" cx="33" cy="21" r="2.4" fill="'+C.waka+'"/><rect x="39" y="18" width="5" height="24" rx="2.5" fill="'+C.white+'" '+S+' stroke-width="2"/><path d="M39 24 l5 -3 M39 31 l5 -3 M39 38 l5 -3" stroke="'+C.coral+'" stroke-width="2.4"/>',
+    aurora:'<rect x="3" y="3" width="42" height="42" rx="10" fill="'+C.mizu+'" opacity=".35"/><path class="a-wave" d="M2 18 C12 8 20 22 30 12 S42 8 46 12 L46 20 C40 16 34 24 26 22 S10 20 2 28Z" fill="'+C.waka+'" '+S+' stroke-width="2"/><path class="a-wave w2" d="M2 26 C14 20 22 30 32 24 S42 22 46 24 L46 30 C40 28 32 34 24 32 S10 30 2 34Z" fill="'+C.coral+'" opacity=".8" '+S+' stroke-width="2"/><path d="M2 40 L14 33 L22 38 L32 31 L46 40" fill="'+C.white+'" '+S+' stroke-width="2"/><circle class="a-blink" cx="10" cy="8" r="1.8" fill="'+C.yam+'"/><circle class="a-blink k2" cx="38" cy="6" r="1.8" fill="'+C.yam+'"/>',
+    dog:'<ellipse cx="22" cy="26" rx="13" ry="7" fill="'+C.white+'" '+S+'/><circle cx="35" cy="20" r="6" fill="'+C.white+'" '+S+'/><path d="M33 14 l2 -6 4 5Z" fill="'+C.mizu+'" '+S+' stroke-width="2"/><circle cx="37" cy="19" r="1.2" fill="'+C.ink+'"/><path d="M9 24 q-6 -6 -2 -12" fill="none" '+S+'/><path class="a-trot" d="M14 32 v7 M30 32 v7" '+S+'/><path class="a-trot k2" d="M19 32 v7 M25 32 v7" '+S+'/><path d="M2 43 h44" '+S+' stroke-width="2" stroke-dasharray="3 5"/>',
+    snowmo:'<g class="a-bump"><path d="M6 30 q0 -8 8 -8 h14 l8 -6 h4 l-2 8 h4 q4 0 4 4 v4Z" fill="'+C.mizu+'" '+S+'/><circle cx="22" cy="14" r="5" fill="'+C.yam+'" '+S+' stroke-width="2"/><path d="M18 19 h8 l2 4 h-12Z" fill="'+C.coral+'" '+S+' stroke-width="2"/></g><path d="M4 38 H40 q5 0 5 -4" fill="none" '+S+'/><path d="M10 32 v6 M34 32 v6" '+S+' stroke-width="2"/>',
+    tree:'<rect x="21" y="36" width="6" height="7" fill="'+C.coral+'" '+S+' stroke-width="2"/><path d="M24 8 L35 24 H13Z" fill="'+C.waka+'" '+S+'/><path d="M24 16 L39 37 H9Z" fill="'+C.waka+'" '+S+'/><circle class="a-blink" cx="18" cy="31" r="2.2" fill="'+C.coral+'"/><circle class="a-blink k2" cx="29" cy="28" r="2.2" fill="'+C.yam+'"/><circle class="a-blink" cx="25" cy="21" r="2.2" fill="'+C.mizu+'"/><path class="a-spin" d="M24 1 l2 4 4.5 .6 -3.3 3 .8 4.4 -4 -2.2 -4 2.2 .8 -4.4 -3.3 -3 4.5 -.6Z" fill="'+C.yam+'" '+S+' stroke-width="1.6"/>',
+    gift:'<rect x="8" y="20" width="32" height="22" rx="3" fill="'+C.coral+'" '+S+'/><rect x="5" y="14" width="38" height="8" rx="3" fill="'+C.coral+'" '+S+'/><path d="M24 14 V42" stroke="'+C.yam+'" stroke-width="5"/><path d="M24 14 V42" fill="none" '+S+' stroke-width="1.5"/><path d="M24 14 q-10 -10 -12 -2 q2 4 12 2 q10 -10 12 -2 q-2 4 -12 2" fill="'+C.yam+'" '+S+' stroke-width="2"/>',
+    moon:'<path d="M30 8 A16 16 0 1 0 40 32 A13 13 0 1 1 30 8Z" fill="'+C.yam+'" '+S+'/><path d="M34 10 h6 l-6 6 h6" fill="none" '+S+' stroke-width="2"/>',
+    alaska:'<rect x="2" y="2" width="44" height="44" rx="10" fill="'+C.mizu+'" opacity=".35"/><path class="a-wave" d="M2 14 C12 6 22 18 32 10 S42 6 46 9 L46 15 C40 12 32 20 24 17 S10 14 2 20Z" fill="'+C.waka+'" '+S+' stroke-width="1.8"/><path d="M2 40 L15 20 L22 29 L30 16 L46 40Z" fill="'+C.white+'" '+S+' stroke-width="2.2"/><path d="M15 20 L11 26 L15 25 L19 27Z M30 16 L25 23 L30 21 L35 24Z" fill="'+C.mizu+'" '+S+' stroke-width="1.6"/><path d="M2 40 H46" '+S+' stroke-width="2.2"/><g class="a-bump"><path d="M30 31 L42 27 L40 30 L36 31 L38 35 L36 35 L33 32 L31 33Z" fill="'+C.yam+'" '+S+' stroke-width="1.5"/></g><circle class="a-blink" cx="9" cy="28" r="1.6" fill="'+C.yam+'"/><circle class="a-blink k2" cx="40" cy="20" r="1.6" fill="'+C.yam+'"/>',
+    spark:'<path d="M24 4 l5 12 13 1 -10 8 3 13 -11 -7 -11 7 3 -13 -10 -8 13 -1Z" fill="'+C.yam+'" '+S+'/><circle cx="40" cy="40" r="3" fill="'+C.waka+'" '+S+' stroke-width="2"/>'
+  };
+  function icon(n){
+    var body=(ICONS[n]||ICONS.spark).replace(/<(\w+)([^>]*?)class="([^"]*)"([^>]*?)class="([^"]*)"/g,'<$1$2class="$3 $5"$4');
+    return '<svg viewBox="0 0 48 48" aria-hidden="true">'+body+'</svg>'}
+
+  var TAGS={plane:"✈︎ Flight",van:"🚐 Van",walk:"👣 Walk",sled:"🐕 Dog sled",snowmo:"🛷 Snowmobile",tbd:"Transport TBD"};
+
+  /* ---------- 行程資料 ---------- */
+  var DAYS=[
+    {date:"12/20",wk:"Sun",route:"d20",iso:"2026-12-20",color:C.mizu,pale:"var(--mizu-pale)",title:"Arrive in Fairbanks",sub:"Everyone arrives 12/20 – 12/21",items:[
+      {t:"Arrive",name:"Fly into Fairbanks (FAI)",note:"",tags:["plane"],ic:"alaska",anim:true}
+    ]},
+    {date:"12/21",wk:"Mon",route:"d21",iso:"2026-12-21",color:C.coral,pale:"var(--coral-pale)",title:"Private Van Day",sub:"Private van $2,000/day · 10:00 – 01:00",items:[
+      {t:"10:00",name:"Meet at the Airbnb",note:"",tags:["van"],ic:"van",anim:true},
+      {t:"Noon",name:"Lunch",note:"",tags:["van"],ic:"bowl",anim:true},
+      {t:"PM",name:"Santa Claus House",note:"",tags:["van"],ic:"santa",must:true,anim:true},
+      {t:"PM",name:"Costco",note:"",tags:["van"],ic:"cart"},
+      {t:"Dusk",name:"Rest at the Airbnb",note:"",tags:["van"],ic:"house"},
+      {t:"Night",name:"Aurora Chasing",note:"",tags:["van"],ic:"aurora",must:true,anim:true},
+      {t:"01:00",name:"Back to the Airbnb",note:"",tags:["van"],ic:"moon"}
+    ]},
+    {date:"12/22",wk:"Tue",iso:"2026-12-22",color:C.yam,pale:"var(--yamabuki-pale)",title:"Snow Adventure Day",sub:"Activities $160+ per person",items:[
+      {t:"TBD",name:"Dog Sledding (30 min)",note:"",tags:["sled"],ic:"dog",must:true,anim:true},
+      {t:"TBD",name:"Snowmobiling (30 min)",note:"",tags:["snowmo"],ic:"snowmo",must:true,anim:true},
+      {t:"Night",name:"Aurora Chasing",note:"",tags:["van"],ic:"aurora",must:true,anim:true}
+    ]},
+    {date:"12/23",wk:"Wed",iso:"2026-12-23",color:C.waka,pale:"var(--card)",title:"Where should we go?",sub:"",items:[
+      {t:"Day",name:"Where should we go?",note:"",tags:["tbd"],ic:"spark",ideas:["Chena Hot Springs","Aurora Ice Museum (Chena)","UA Museum of the North","Running Reindeer Ranch walk","Ice fishing","Snowshoeing","Creamer's Field trails","Morris Thompson Cultural Center","Pioneer Park","Downtown shops + coffee","Sleep in"]},
+      {t:"Night",name:"Aurora Chasing",note:"",tags:["tbd"],ic:"aurora",must:true,anim:true}
+    ]},
+    {date:"12/24",wk:"Thu",iso:"2026-12-24",color:C.coral,pale:"var(--coral-pale)",title:"Christmas Eve",sub:"",items:[
+      {t:"AM",name:"Breakfast",tags:[],ic:"bowl",empty:true},
+      {t:"Noon",name:"Lunch",tags:[],ic:"bowl",empty:true},
+      {t:"Night",name:"Dinner",tags:[],ic:"tree",empty:true}
+    ]}
+  ];
+
+  /* ---------- 日期切換 ---------- */
+  var renderMini=null, pendingRoute=null;
+  var tabsEl=document.getElementById("tabs"), dayEl=document.getElementById("day");
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  DAYS.forEach(function(d,i){
+    var b=document.createElement("button");
+    b.type="button";b.className="tab";b.id="tab-"+i;b.setAttribute("role","tab");
+    b.style.setProperty("--tabc",d.color);
+    b.innerHTML="<b>"+d.date+"</b><small>"+d.wk+"</small>";
+    b.addEventListener("click",function(){show(i,true)});
+    tabsEl.appendChild(b);
+  });
+  tabsEl.addEventListener("keydown",function(e){
+    var cur=+(store.get("fbxen-day",0));
+    if(e.key==="ArrowRight"){show(Math.min(DAYS.length-1,cur+1),true);tabsEl.children[Math.min(DAYS.length-1,cur+1)].focus()}
+    if(e.key==="ArrowLeft"){show(Math.max(0,cur-1),true);tabsEl.children[Math.max(0,cur-1)].focus()}
+  });
+
+  function show(i,animate){
+    var d=DAYS[i];
+    Array.prototype.forEach.call(tabsEl.children,function(t,j){t.setAttribute("aria-selected",j===i?"true":"false");t.tabIndex=j===i?0:-1});
+    dayEl.setAttribute("aria-labelledby","tab-"+i);
+    var uni=d.items.length>1&&d.items[0].tags.length&&d.items.every(function(it){return it.tags.join()===d.items[0].tags.join()})?d.items[0].tags:null;
+    var html='<div class="card day-head" style="--dayc:'+d.pale+'"><div class="stamp"><div><b>'+d.date+'</b><small>'+d.wk+'</small></div></div><div style="min-width:0;display:flex;flex-direction:column;gap:4px"><h3>'+esc(d.title)+'</h3>'+(d.sub?'<p>'+esc(d.sub)+'</p>':'')+(uni?'<div class="tags">'+uni.map(function(t){return '<span class="tag t-'+t+'">'+TAGS[t]+'</span>'}).join("")+'</div>':'')+'</div></div>'+(d.items.length?'<ol class="timeline">':'');
+    d.items.forEach(function(it){
+      html+='<li class="tl'+(it.must?" must":"")+(it.empty?" empty":"")+'"><div class="tl-time">'+esc(it.t)+'</div><div class="card tl-card"><div class="tl-ic'+(it.anim?" anim":"")+'">'+icon(it.ic)+'</div><div class="tl-body">'+(uni?'':'<div class="tags">'+it.tags.map(function(t){return '<span class="tag t-'+t+'">'+TAGS[t]+'</span>'}).join("")+'</div>')+'<h4>'+esc(it.name)+(it.sugg?'<span class="sugg-tag">Idea</span>':'')+'</h4>';
+      if(it.ideas){var picks=store.get("fbxen-picks",{});html+='<div class="ideas">'+it.ideas.map(function(x){var on=!!picks[x];return '<button type="button" class="idea'+(on?" on":"")+'" aria-pressed="'+on+'" data-idea="'+esc(x)+'">'+(on?"✓ ":"")+esc(x)+'</button>'}).join("")+'</div>'}
+      html+='</div></div></li>';
+    });
+    if(d.items.length)html+='</ol>';
+    if(d.route)html+='<div class="card mini-map"><div class="mini-head"><h4>Today’s route</h4><a class="mini-btn" href="#map" data-route="'+d.route+'">Open full map</a></div><div class="mini-svg" id="miniSvg"></div><p class="mini-stops" id="miniStops"></p></div>';
+    dayEl.innerHTML=html;
+    if(renderMini)renderMini(d.route);
+    if(animate){dayEl.classList.remove("pop");void dayEl.offsetWidth;dayEl.classList.add("pop")}
+    store.set("fbxen-day",i);
+    var t=tabsEl.children[i];
+    if(t&&animate){var l=t.offsetLeft-tabsEl.clientWidth/2+t.clientWidth/2;tabsEl.scrollTo({left:l,behavior:"smooth"})}
+  }
+  dayEl.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("[data-idea]");if(!b)return;
+    var k=b.getAttribute("data-idea"),picks=store.get("fbxen-picks",{});
+    if(picks[k])delete picks[k];else picks[k]=true;store.set("fbxen-picks",picks);
+    var on=!!picks[k];b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.textContent=(on?"✓ ":"")+k;
+  });
+  // 旅途中自動跳到當天
+  var startIdx=store.get("fbxen-day",0);
+  var todayAK=new Date(Date.now()-9*3600e3).toISOString().slice(0,10);
+  DAYS.forEach(function(d,i){if(d.iso===todayAK)startIdx=i});
+  if(!(startIdx>=0&&startIdx<DAYS.length))startIdx=0;
+  show(startIdx,false);
+
+  /* ---------- 倒數 ---------- */
+  var START=Date.parse("2026-12-20T00:00:00-09:00"), END=Date.parse("2026-12-25T00:00:00-09:00");
+  var cD=document.getElementById("cD"),cH=document.getElementById("cH"),cM=document.getElementById("cM"),cS=document.getElementById("cS"),cT=document.getElementById("countTitle");
+  function pad(n){return n<10?"0"+n:""+n}
+  function tick(){
+    var now=Date.now(),diff;
+    if(now<START){diff=START-now;cT.textContent="Countdown to the trip"}
+    else if(now<END){diff=END-now;cT.textContent="We're in Alaska 🎄 Christmas in"}
+    else{cT.textContent="The trip is over. Merry Christmas!";diff=0}
+    var s=Math.floor(diff/1000);
+    cD.textContent=Math.floor(s/86400);cH.textContent=pad(Math.floor(s%86400/3600));cM.textContent=pad(Math.floor(s%3600/60));cS.textContent=pad(s%60);
+  }
+  tick();setInterval(tick,1000);
+
+  /* ---------- 可編輯卡片 ---------- */
+  var fields=store.get("fbxen-fields-v3",{});
+  document.querySelectorAll("[data-field]").forEach(function(el){
+    var k=el.getAttribute("data-field");
+    if(fields[k]!=null)el.textContent=fields[k];
+    el.addEventListener("blur",function(){fields[k]=el.textContent.trim();store.set("fbxen-fields-v3",fields)});
+    el.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();el.blur()}});
+  });
+  document.querySelectorAll("[data-card]").forEach(function(card){
+    var btn=card.querySelector(".edit-btn");
+    btn.addEventListener("click",function(){
+      var on=!card.classList.contains("editing");
+      card.classList.toggle("editing",on);
+      card.querySelectorAll("[data-field]").forEach(function(el){el.contentEditable=on?"true":"false"});
+      btn.textContent=on?"Done":"Edit";
+      if(on){var f=card.querySelector("[data-field]");if(f)f.focus()}
+    });
+  });
+
+  /* ---------- 待辦清單 ---------- */
+  var GROUPS=[
+    {id:"pack",name:"Packing",color:C.mizu,items:["Down jacket + wind pants","Snow boots (rated to −30°C)","Hat, neck warmer, two layers of gloves","Thermal base layers, wool socks","Hand and toe warmers","Tripod + camera","Power bank","Moisturizer, lip balm"]},
+    {id:"go",name:"Travel day",color:C.waka,items:["ID","Phone","Check the aurora forecast"]}
+  ];
+  var todo=store.get("fbxen-todo",{done:{},custom:[]});
+  if(!todo.done)todo.done={};if(!todo.custom)todo.custom=[];
+  var wrap=document.getElementById("todoWrap");
+  function renderTodo(){
+    var html="",total=0,done=0;
+    GROUPS.forEach(function(g){
+      var list=g.items.map(function(t,i){return {id:g.id+"-"+i,text:t}});
+      todo.custom.forEach(function(c){if(c.g===g.id)list.push({id:c.id,text:c.text,custom:true})});
+      html+='<div class="todo-group" style="--gc:'+g.color+'"><h3>'+g.name+'</h3><ul class="todo">';
+      list.forEach(function(it){
+        total++;var on=!!todo.done[it.id];if(on)done++;
+        html+='<li><input type="checkbox" id="td-'+it.id+'" data-id="'+it.id+'"'+(on?" checked":"")+'><label for="td-'+it.id+'">'+esc(it.text)+'</label>'+(it.custom?'<button class="del" type="button" data-del="'+it.id+'" aria-label="Delete '+esc(it.text)+'">×</button>':'')+'</li>';
+      });
+      html+='</ul></div>';
+    });
+    wrap.innerHTML=html;
+    document.getElementById("bar").style.width=(total?done/total*100:0)+"%";
+    document.getElementById("progTxt").textContent=done+" / "+total+(done===total&&total?" 🎉":"");
+  }
+  wrap.addEventListener("change",function(e){var id=e.target.getAttribute("data-id");if(!id)return;if(e.target.checked)todo.done[id]=true;else delete todo.done[id];store.set("fbxen-todo",todo);renderTodo();var n=document.getElementById("td-"+id);if(n)n.focus()});
+  wrap.addEventListener("click",function(e){var id=e.target.getAttribute&&e.target.getAttribute("data-del");if(!id)return;todo.custom=todo.custom.filter(function(c){return c.id!==id});delete todo.done[id];store.set("fbxen-todo",todo);renderTodo()});
+  document.getElementById("addForm").addEventListener("submit",function(e){
+    e.preventDefault();var inp=document.getElementById("addInput"),v=inp.value.trim();if(!v)return;
+    todo.custom.push({id:"c"+Date.now(),text:v,g:"pack"});store.set("fbxen-todo",todo);inp.value="";renderTodo();
+  });
+  renderTodo();
+
+  /* ---------- 推薦 ---------- */
+  function gmap(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q+" Fairbanks Alaska")}
+  var RECS={
+    breakfast:{label:"Breakfast",ic:"bowl",items:[
+      {n:"The Cookie Jar",d:"A long-running American breakfast spot with big portions. Known for desserts too.",tags:["Sit-down","Brunch"],q:"The Cookie Jar 1006 Cadillac Ct"},
+      {n:"Lulu's Bread and Bagels",d:"House-made bread and bagels. Easy to take back to the Airbnb for breakfast.",tags:["Takeout","Old Chena Pump Rd"],q:"Lulu's Bread and Bagels",map:"pump"},
+      {n:"Sunrise Bagel & Espresso",d:"A local favorite for coffee and bagel breakfast sandwiches. Drive-through, so grab some on the way out.",tags:["Drive-through","Several locations"],q:"Sunrise Bagel and Espresso"},
+      {n:"Bakery Restaurant",d:"Classic sit-down American breakfast with pancakes and eggs.",tags:["Sit-down"],q:"Bakery Restaurant"},
+      {n:"The Crepery",d:"Sweet and savory crepes downtown. Good for breakfast or lunch.",tags:["Downtown","Closed Mon"],q:"The Crepery 523 2nd Ave",map:"dt"},
+      {n:"Pump House Sunday Brunch",d:"A Sunday-only brunch buffet in a cozy old riverside building. 12/20 is a Sunday.",tags:["Sundays only","Book ahead"],q:"Pump House Restaurant Chena Pump Rd",map:"pump"}
+    ]},
+    lunch:{label:"Lunch",ic:"bowl",items:[
+      {n:"Big Daddy's BBQ",d:"The orange building downtown. Famous for brisket and featured on a US food show. Service is slow, so leave extra time.",tags:["Downtown","BBQ"],q:"Big Daddy's BBQ",map:"dt"},
+      {n:"Thai House",d:"Downtown Thai that many locals call the best in town.",tags:["Downtown","Closed Sun"],q:"Thai House 412 5th Ave",map:"dt"},
+      {n:"Chowder House",d:"Chowder and sandwiches. A warm bowl on a cold day.",tags:["Soup"],q:"Chowder House"},
+      {n:"Pita Place",d:"Affordable Middle Eastern food: pita wraps and salads.",tags:["College Rd","Closed Sun & Mon"],q:"Pita Place 3300 College Rd"},
+      {n:"Aurora Mediterranean",d:"Mediterranean food with strong local reviews.",tags:["Mediterranean"],q:"Aurora Mediterranean"}
+    ]},
+    dinner:{label:"Dinner",ic:"tree",items:[
+      {n:"Turtle Club",d:"Known for prime rib in a log building strung with Christmas lights. It is on the way to Cleary Summit, so you can go aurora chasing right after.",tags:["Fox","Dinner only","Book ahead"],q:"Turtle Club 2098 Old Steese Hwy",map:"turtle"},
+      {n:"Pike's Landing",d:"A large riverside restaurant focused on seafood. Open year-round with room for big groups.",tags:["Airport Way","Open year-round"],q:"Pike's Landing 4438 Airport Way",map:"pike"},
+      {n:"Pump House",d:"An old-style riverside saloon. Dinner Monday to Saturday.",tags:["Chena Pump Rd","Book ahead"],q:"Pump House Restaurant Chena Pump Rd",map:"pump"},
+      {n:"Lemongrass Thai",d:"Thai cooking with Alaskan seafood.",tags:["Old Chena Pump Rd","Closed Sun"],q:"Lemongrass Thai Cuisine 388 Old Chena Pump Rd",map:"pump"},
+      {n:"East Ramp Wood-Fired Pizza",d:"Wood-fired pizza next to the runway. Watch planes while you eat.",tags:["By the airport","Pizza"],q:"East Ramp Wood-Fired Pizza",map:"fai"},
+      {n:"Two Rivers Lodge",d:"Steak and seafood on Chena Hot Springs Rd, on the way to the hot springs.",tags:["Closed Mon","Book ahead"],q:"Two Rivers Lodge Chena Hot Springs Rd",map:"chena"}
+    ]},
+    trips:{label:"Things to do",ic:"spark",items:[
+      {n:"Chena Hot Springs + Aurora Ice Museum",d:"A bit over an hour's drive. Soak in the outdoor springs and visit the ice museum and ice bar. Best in winter.",tags:["Half day+","Aurora chasing nearby"],q:"Chena Hot Springs Resort",map:"chena"},
+      {n:"UA Museum of the North",d:"Alaska nature and Native culture, plus an aurora show in the planetarium.",tags:["Indoors","UAF campus"],q:"University of Alaska Museum of the North",map:"uaf"},
+      {n:"Large Animal Research Station",d:"See musk oxen and reindeer. Winter tours run about an hour outdoors, so dress warmly.",tags:["UAF","Animals"],q:"Large Animal Research Station",map:"lars"},
+      {n:"Running Reindeer Ranch walk",d:"Walk through the forest with reindeer. Book ahead.",tags:["Book ahead","Animals"],q:"Running Reindeer Ranch"},
+      {n:"Riverside walk + Morris Thompson Cultural Center",d:"Learn about Athabascan culture, then follow the Chena River to the Antler Arch and the Love Alaska sign. Stay off the river ice.",tags:["Downtown","Free"],q:"Morris Thompson Cultural Center",map:"dt"},
+      {n:"Creamer's Field trails",d:"Open meadow trails for winter walks or cross-country skiing.",tags:["Outdoors","Free"],q:"Creamer's Field Migratory Waterfowl Refuge",map:"creamer"},
+      {n:"Kicksledding at Pioneer Park",d:"Borealis Sparks rents kicksleds, which are easier than skiing. Book ahead.",tags:["Book ahead","Outdoors"],q:"Pioneer Park",map:"pioneer"},
+      {n:"Wait for the aurora at Aurora Pointe",d:"Wait indoors with hot drinks until the lights appear. Good if you hate the cold.",tags:["Book ahead","Aurora"],q:"Aurora Pointe"},
+      {n:"Fountainhead Antique Auto Museum",d:"Restored antique cars and period fashion.",tags:["Indoors"],q:"Fountainhead Antique Auto Museum"}
+    ]}
+  };
+  var recTabs=document.getElementById("recTabs"), recList=document.getElementById("recList"), recKey=store.get("fbxen-rec","breakfast");
+  if(!RECS[recKey])recKey="breakfast";
+  Object.keys(RECS).forEach(function(k){
+    var b=document.createElement("button");b.type="button";b.className="seg-btn";b.setAttribute("role","tab");b.dataset.k=k;
+    b.innerHTML=icon(RECS[k].ic)+'<span>'+RECS[k].label+'</span>';
+    b.addEventListener("click",function(){recKey=k;store.set("fbxen-rec",k);renderRecs(true)});
+    recTabs.appendChild(b);
+  });
+  function renderRecs(anim){
+    Array.prototype.forEach.call(recTabs.children,function(b){b.setAttribute("aria-selected",b.dataset.k===recKey?"true":"false")});
+    recList.innerHTML=RECS[recKey].items.map(function(r,i){
+      return '<article class="card rec"><div class="rec-no">'+(i+1)+'</div><div class="rec-body"><h3>'+esc(r.n)+'</h3><p>'+esc(r.d)+'</p><div class="tags">'+r.tags.map(function(t){return '<span class="tag t-plain">'+esc(t)+'</span>'}).join("")+'</div><div class="rec-act"><a class="mini-btn" href="'+gmap(r.q)+'" target="_blank" rel="noopener">Google Maps ↗</a>'+(r.map?'<a class="mini-btn alt" href="#map" data-goto="'+r.map+'">See on trip map</a>':'')+'</div></div></article>';
+    }).join("");
+    if(anim){recList.classList.remove("pop");void recList.offsetWidth;recList.classList.add("pop")}
+  }
+  renderRecs(false);
+  recList.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-goto]");if(a){pendingPlace=a.getAttribute("data-goto")}});
+
+  /* ---------- 地圖 ---------- */
+  var ZOOMS={city:{w:-147.97,e:-147.66,n:64.885,s:64.80,label:"Town"},wide:{w:-148.05,e:-147.25,n:65.08,s:64.72,label:"Wide"}};
+  var EXT=ZOOMS.city,MW=400,MH=258;
+  function setExt(z){EXT=ZOOMS[z];MH=Math.round(MW*(EXT.n-EXT.s)/((EXT.e-EXT.w)*Math.cos(64.85*Math.PI/180)));}
+  function P(lon,lat){return [+((lon-EXT.w)/(EXT.e-EXT.w)*MW).toFixed(1),+((EXT.n-lat)/(EXT.n-EXT.s)*MH).toFixed(1)]}
+  function pathOf(pts){return pts.map(function(p,i){var q=P(p[0],p[1]);return (i?"L":"M")+q[0]+" "+q[1]}).join(" ")}
+  var AIRBNB=[-147.905,64.830];
+  var ROADS={
+    rich:[[-147.716,64.8435],[-147.70,64.835],[-147.66,64.822],[-147.58,64.805],[-147.49,64.787],[-147.40,64.768],[-147.349,64.7559],[-147.27,64.737]],
+    steese:[[-147.716,64.8435],[-147.702,64.856],[-147.695,64.875],[-147.68,64.895],[-147.655,64.93],[-147.626,64.957],[-147.57,64.995],[-147.50,65.03],[-147.4317,65.0567]],
+    parks:[[-147.775,64.842],[-147.84,64.847],[-147.92,64.851],[-148.05,64.856]],
+    airport:[[-147.8561,64.8151],[-147.83,64.822],[-147.79,64.828],[-147.75,64.834],[-147.716,64.8435]],
+    college:[[-147.835,64.858],[-147.78,64.857],[-147.74,64.857],[-147.702,64.856]],
+    univ:[[-147.815,64.818],[-147.815,64.835],[-147.818,64.858]],
+    chhs:[[-147.68,64.895],[-147.58,64.90],[-147.45,64.905],[-147.25,64.91]],
+    gold:[[-147.655,64.93],[-147.75,64.925],[-147.86,64.915],[-147.95,64.905]],
+    chenapump:[[-147.775,64.842],[-147.80,64.832],[-147.84,64.826],[-147.87,64.828]],
+    ridge:[[-147.87,64.828],[-147.89,64.829],[-147.905,64.830],[-147.93,64.836],[-147.95,64.845]]
+  };
+  var CHENA=[[-147.25,64.862],[-147.38,64.848],[-147.52,64.838],[-147.63,64.842],[-147.70,64.845],[-147.75,64.840],[-147.80,64.830],[-147.85,64.818],[-147.89,64.802]];
+  var TANANA=[[-147.25,64.712],[-147.42,64.735],[-147.60,64.762],[-147.78,64.786],[-147.90,64.797],[-148.05,64.802]];
+  var CATC={home:C.coral,trip:C.coral,food:C.yam,spot:C.waka,aurora:C.mizu,base:C.white};
+  var PLACES=[
+    {id:"bnb",n:"Our Airbnb (Kentshire Dr)",cat:"home",lon:AIRBNB[0],lat:AIRBNB[1],d:"On Kentshire Dr in the Chena Ridge area. The pin is approximate.",q:"Kentshire Dr Fairbanks AK 99709"},
+    {id:"fai",n:"Fairbanks Airport (FAI)",cat:"base",lon:-147.8561,lat:64.8151,d:"Everyone arrives 12/20–12/21. East Ramp Pizza is right by the airport.",q:"Fairbanks International Airport"},
+    {id:"dt",n:"Downtown",cat:"spot",lon:-147.716,lat:64.8435,d:"Morris Thompson Cultural Center, the Chena riverwalk, Big Daddy's, Thai House and The Crepery are all here.",q:"Downtown Fairbanks"},
+    {id:"costco",n:"Costco",cat:"trip",lon:-147.6985,lat:64.8557,d:"12/21 van tour: stop here after Santa Claus House for breakfast food, snacks and hand warmers.",q:"Costco Fairbanks"},
+    {id:"santa",n:"Santa Claus House (North Pole)",cat:"trip",lon:-147.3494,lat:64.7559,d:"12/21 van tour. About 20–30 minutes southeast of downtown on the Richardson Hwy.",q:"Santa Claus House North Pole"},
+    {id:"cleary",n:"Cleary Summit",cat:"aurora",lon:-147.4317,lat:65.0567,d:"A summit on the Steese Hwy and a popular aurora spot, with little light pollution and wide views.",q:"Cleary Summit"},
+    {id:"turtle",n:"Turtle Club (Fox)",cat:"food",lon:-147.626,lat:64.957,d:"Prime rib dinner on the way to Cleary Summit.",q:"Turtle Club Fox"},
+    {id:"uaf",n:"Museum of the North",cat:"spot",lon:-147.8423,lat:64.8586,d:"On the UAF campus, with views of the Alaska Range.",q:"University of Alaska Museum of the North"},
+    {id:"lars",n:"Large Animal Research Station",cat:"spot",lon:-147.866,lat:64.878,d:"Musk oxen and reindeer. About an hour outdoors.",q:"Large Animal Research Station"},
+    {id:"creamer",n:"Creamer's Field",cat:"spot",lon:-147.738,lat:64.8631,d:"Snowy trails for walking or cross-country skiing.",q:"Creamer's Field"},
+    {id:"pioneer",n:"Pioneer Park",cat:"spot",lon:-147.7745,lat:64.8389,d:"Kicksled rentals are in the park.",q:"Pioneer Park Fairbanks"},
+    {id:"pike",n:"Pike's Landing",cat:"food",lon:-147.838,lat:64.8228,d:"Big riverside restaurant that fits 12, close to the Airbnb.",q:"Pike's Landing"},
+    {id:"pump",n:"Chena Pump Rd restaurants",cat:"food",lon:-147.803,lat:64.831,d:"Pump House, Lemongrass Thai and Lulu's bagels are all on this road, near the Airbnb.",q:"Pump House Restaurant Fairbanks"},
+    {id:"chena",n:"Chena Hot Springs (about 60 mi east)",cat:"spot",lon:-146.0556,lat:65.0531,d:"A bit over an hour east on Chena Hot Springs Rd. Two Rivers Lodge is on the way.",q:"Chena Hot Springs Resort"},
+    {id:"murphy",n:"Murphy Dome (northwest)",cat:"aurora",lon:-148.3555,lat:64.9523,d:"A northwest summit and another popular aurora spot.",q:"Murphy Dome"}
+  ];
+  var toDt=[AIRBNB,[-147.93,64.836],[-147.95,64.845],[-147.92,64.851],[-147.84,64.847],[-147.775,64.842],[-147.716,64.8435]];
+  var ROUTES={
+    d20:{label:"12/20 arrival",zoom:"city",pts:[[-147.8561,64.8151],[-147.83,64.822],[-147.84,64.826],[-147.87,64.828],[-147.89,64.829],AIRBNB],stops:["fai","bnb"]},
+    d21:{label:"12/21 van tour",zoom:"wide",pts:toDt.concat(ROADS.rich.slice(1,7)).concat(ROADS.rich.slice(0,6).reverse()).concat([[-147.702,64.856],[-147.6985,64.8557],[-147.702,64.856],[-147.716,64.8435]]).concat(toDt.slice(0,6).reverse()).concat(toDt.slice(1)).concat(ROADS.steese.slice(1)).concat(ROADS.steese.slice(0,8).reverse()).concat(toDt.slice().reverse()),stops:["bnb","dt","santa","costco","bnb","cleary"]}
+  };
+  var FILTERS=[{k:"all",l:"All"},{k:"d21",l:"12/21 van route"},{k:"d20",l:"12/20 arrival"},{k:"food",l:"Food"},{k:"spot",l:"Sights"},{k:"aurora",l:"Aurora spots"}];
+  var svgNS="http://www.w3.org/2000/svg", mapSvg=document.getElementById("mapSvg");
+  function el(tag,attrs,parent){var e=document.createElementNS(svgNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+  var routeLayer,markerLayer,vanLayer,vanG,curZoom=null;
+  function drawBase(z){
+    setExt(z);curZoom=z;
+    mapSvg.setAttribute("viewBox","0 0 "+MW+" "+MH);mapSvg.innerHTML="";
+    el("rect",{width:MW,height:MH,fill:"#FFFCF0"},mapSvg);
+    el("path",{d:"M0 22 C60 4 120 34 200 14 S330 0 400 16 L400 28 C330 12 270 40 200 28 S70 18 0 36Z",fill:C.waka,opacity:".5",class:"aurora-band"},mapSvg);
+    var seed=7;function rnd(){seed=(seed*9301+49297)%233280;return seed/233280}
+    for(var i=0;i<Math.round(MH/14);i++){var tx=10+rnd()*380,ty=40+rnd()*(MH-60);el("path",{d:"M"+tx.toFixed(0)+" "+(ty-8).toFixed(0)+" l5 9 h-10Z",fill:C.waka,stroke:C.ink,"stroke-width":"1.3","stroke-linejoin":"round",opacity:".8"},mapSvg)}
+    el("path",{d:pathOf(TANANA),fill:"none",stroke:C.mizu,"stroke-width":z==="city"?"14":"9","stroke-linecap":"round","stroke-linejoin":"round"},mapSvg);
+    el("path",{d:pathOf(CHENA),fill:"none",stroke:C.mizu,"stroke-width":z==="city"?"8":"5","stroke-linecap":"round","stroke-linejoin":"round"},mapSvg);
+    var rw=z==="city"?[7,3.5]:[5.5,2.5];
+    Object.keys(ROADS).forEach(function(k){el("path",{d:pathOf(ROADS[k]),fill:"none",stroke:C.ink,"stroke-width":rw[0],"stroke-linecap":"round","stroke-linejoin":"round"},mapSvg)});
+    Object.keys(ROADS).forEach(function(k){el("path",{d:pathOf(ROADS[k]),fill:"none",stroke:"#FFFFFF","stroke-width":rw[1],"stroke-linecap":"round","stroke-linejoin":"round"},mapSvg)});
+    function label(lon,lat,dx,dy,t,cls){var q=P(lon,lat);if(q[0]<-40||q[0]>MW+40||q[1]<-10||q[1]>MH+10)return;var e=el("text",{x:q[0]+dx,y:q[1]+dy,class:"map-label"+(cls?" "+cls:"")},mapSvg);e.textContent=t}
+    if(z==="city"){
+      label(-147.72,64.84,-30,26,"Downtown","big");
+      label(-147.92,64.83,-20,22,"Chena Ridge","big");
+      label(-147.83,64.858,-10,-8,"UAF");
+      label(-147.65,64.842,-70,-8,"Chena River","river");
+      label(-147.90,64.799,-10,-6,"Tanana River","river");
+      label(-147.93,64.851,-18,-8,"Parks Hwy","road");
+      label(-147.79,64.828,-20,14,"Airport Way","road");
+      label(-147.84,64.826,-10,-16,"Chena Pump Rd","road");
+    }else{
+      label(-147.72,64.825,-6,10,"Fairbanks","big");
+      label(-147.35,64.75,-22,20,"North Pole","big");
+      label(-147.626,64.957,10,4,"Fox");
+      label(-147.62,64.765,-20,16,"Tanana River","river");
+      label(-147.50,64.838,-24,-6,"Chena River","river");
+      label(-147.69,64.91,8,0,"Steese Hwy","road");
+      label(-147.53,64.796,4,-6,"Richardson Hwy","road");
+      label(-147.97,64.852,-10,-8,"Parks Hwy","road");
+    }
+    var g=el("g",{transform:"translate(24 "+(MH-26)+")"},mapSvg);
+    el("circle",{r:"13",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"2"},g);
+    el("path",{d:"M0 -9 L5 3 L0 0 L-5 3Z",fill:C.coral,stroke:C.ink,"stroke-width":"1.5","stroke-linejoin":"round"},g);
+    var nt=el("text",{x:"-3.5",y:"11",class:"map-label",style:"font-size:8px"},g);nt.textContent="N";
+    var kmPx=MW/((EXT.e-EXT.w)*111.32*Math.cos(64.85*Math.PI/180)), km=z==="city"?2:10;
+    var sb=el("g",{transform:"translate(50 "+(MH-20)+")"},mapSvg);
+    el("rect",{x:"0",y:"0",width:(km*kmPx).toFixed(1),height:"6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},sb);
+    el("rect",{x:"0",y:"0",width:(km*kmPx/2).toFixed(1),height:"6",fill:C.ink},sb);
+    var sbt=el("text",{x:(km*kmPx+6).toFixed(1),y:"7",class:"map-label"},sb);sbt.textContent=km+" km";
+    routeLayer=el("g",{},mapSvg);markerLayer=el("g",{},mapSvg);vanLayer=el("g",{},mapSvg);vanG=el("g",{},vanLayer);
+    el("rect",{x:"-9",y:"-6",width:"18",height:"10",rx:"3",fill:C.coral,stroke:C.ink,"stroke-width":"1.8"},vanG);
+    el("rect",{x:"1",y:"-4",width:"6",height:"4",rx:"1",fill:C.mizu,stroke:C.ink,"stroke-width":"1.2"},vanG);
+    el("circle",{cx:"-5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vanG);
+    el("circle",{cx:"5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vanG);
+    vanLayer.style.display="none";
+  }
+
+  var mapFilter=store.get("fbxen-mapf2","all"), zoomPref=store.get("fbxen-zoom","city"), selected=null, pendingPlace=null, rafId=0;
+  if(!ZOOMS[zoomPref])zoomPref="city";
+  var filterEl=document.getElementById("mapFilters"), zoomEl=document.getElementById("mapZoom"), cardEl=document.getElementById("placeCard"), listEl=document.getElementById("placeList");
+  FILTERS.forEach(function(f){var b=document.createElement("button");b.type="button";b.className="seg-btn";b.dataset.k=f.k;b.textContent=f.l;b.addEventListener("click",function(){mapFilter=f.k;store.set("fbxen-mapf2",f.k);selected=null;if(ROUTES[f.k])zoomPref=ROUTES[f.k].zoom;else if(f.k==="aurora")zoomPref="wide";renderMap()});filterEl.appendChild(b)});
+  Object.keys(ZOOMS).forEach(function(z){var b=document.createElement("button");b.type="button";b.className="zoom-btn";b.dataset.z=z;b.textContent=ZOOMS[z].label;b.addEventListener("click",function(){zoomPref=z;store.set("fbxen-zoom",z);renderMap()});zoomEl.appendChild(b)});
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function isOut(p){var q=P(p.lon,p.lat);return q[0]<14||q[0]>MW-14||q[1]<14||q[1]>MH-14}
+  function uniq(a){var o=[];a.forEach(function(x){if(o.indexOf(x)<0)o.push(x)});return o}
+  function seqText(stops){var seen=[];return stops.map(function(id){var p=byId(id);if(seen.indexOf(id)>=0)return "Back to "+p.n.replace(/\s*\(.*?\)/,"");seen.push(id);return seen.length+". "+p.n}).join("  →  ")}
+  function byId(id){return PLACES.filter(function(p){return p.id===id})[0]}
+  function visiblePlaces(){
+    if(ROUTES[mapFilter])return uniq(ROUTES[mapFilter].stops).map(byId);
+    if(mapFilter==="all")return PLACES;
+    return [byId("bnb")].concat(PLACES.filter(function(p){return p.cat===mapFilter}));
+  }
+  function renderMap(){
+    if(curZoom!==zoomPref)drawBase(zoomPref);
+    Array.prototype.forEach.call(filterEl.children,function(b){b.setAttribute("aria-pressed",b.dataset.k===mapFilter?"true":"false")});
+    Array.prototype.forEach.call(zoomEl.children,function(b){b.setAttribute("aria-pressed",b.dataset.z===zoomPref?"true":"false")});
+    routeLayer.innerHTML="";markerLayer.innerHTML="";cancelAnimationFrame(rafId);vanLayer.style.display="none";
+    var r=ROUTES[mapFilter], places=visiblePlaces();
+    if(r){
+      var d=pathOf(r.pts);
+      el("path",{d:d,fill:"none",stroke:C.ink,"stroke-width":"8","stroke-linecap":"round","stroke-linejoin":"round",opacity:".15"},routeLayer);
+      var line=el("path",{d:d,fill:"none",stroke:C.coral,"stroke-width":"4","stroke-linecap":"round","stroke-linejoin":"round"},routeLayer);
+      var len=line.getTotalLength();
+      if(!reduce&&len>0){
+        line.style.strokeDasharray=len;line.style.strokeDashoffset=len;line.getBoundingClientRect();
+        line.style.transition="stroke-dashoffset 2.4s ease-in-out";line.style.strokeDashoffset="0";
+        vanLayer.style.display="";
+        var t0=null,dur=Math.max(5000,len*18);
+        var step=function(ts){if(!t0)t0=ts;var k=((ts-t0)%dur)/dur;var pt=line.getPointAtLength(k*len),pt2=line.getPointAtLength(Math.min(len,k*len+1));var flip=pt2.x<pt.x?-1:1;vanG.setAttribute("transform","translate("+pt.x.toFixed(1)+" "+(pt.y-5).toFixed(1)+") scale("+flip+" 1)");rafId=requestAnimationFrame(step)};
+        rafId=requestAnimationFrame(step);
+      }
+    }
+    places.forEach(function(p,i){
+      var xy=P(p.lon,p.lat),out=null;
+      if(xy[0]<14||xy[0]>MW-14||xy[1]<14||xy[1]>MH-14){if(curZoom==="city")return;out=Math.atan2(xy[1]-MH/2,xy[0]-MW/2);xy=[Math.min(MW-16,Math.max(16,xy[0])),Math.min(MH-16,Math.max(16,xy[1]))]}
+      var g=el("g",{class:"pin"+(selected===p.id?" sel":""),transform:"translate("+xy[0]+" "+xy[1]+")",tabindex:"0",role:"button","aria-label":p.n,"data-id":p.id},markerLayer);
+      var inner=el("g",{class:"pin-in",style:"animation-delay:"+(i*0.05)+"s"},g);
+      if(out!==null){var deg=out*180/Math.PI;el("path",{d:"M12 -5 l7 5 -7 5Z",fill:C.ink,transform:"rotate("+deg.toFixed(0)+")"},inner)}
+      if(selected===p.id)el("circle",{r:"15",fill:"none",stroke:C.coral,"stroke-width":"3",class:"pulse"},inner);
+      if(p.cat==="home"){el("path",{d:"M-11 2 L0 -10 L11 2 V10 H-11Z",fill:C.coral,stroke:C.ink,"stroke-width":"2.2","stroke-linejoin":"round"},inner)}
+      else el("circle",{r:"9.5",fill:CATC[p.cat],stroke:C.ink,"stroke-width":"2.2",opacity:out!==null?".85":"1"},inner);
+      var t=el("text",{y:p.cat==="home"?"7":"3.6","text-anchor":"middle",class:"pin-no"},inner);t.textContent=i+1;
+    });
+    listEl.innerHTML=places.map(function(p,i){return '<li><button type="button" class="place-btn'+(selected===p.id?" on":"")+'" data-id="'+p.id+'"><span class="pin-dot" style="background:'+CATC[p.cat]+'">'+(i+1)+'</span><span>'+esc(p.n)+'</span>'+(curZoom==="city"&&isOut(p)?'<span class="far">Wide</span>':'')+'</button></li>'}).join("");
+    var sp=byId(selected);
+    if(sp){cardEl.hidden=false;cardEl.innerHTML='<h3>'+esc(sp.n)+'</h3><p>'+esc(sp.d)+'</p><a class="mini-btn" href="'+gmap(sp.q)+'" target="_blank" rel="noopener">Open in Google Maps ↗</a>'}
+    else if(r){cardEl.hidden=false;cardEl.innerHTML='<h3>'+esc(r.label)+'</h3><p>'+esc(seqText(r.stops))+'</p>'}
+    else{cardEl.hidden=true;cardEl.innerHTML=""}
+  }
+  function pick(id){selected=selected===id?null:id;var pp=byId(id),q=pp&&(function(){setExt(zoomPref);var r=P(pp.lon,pp.lat);if(curZoom)setExt(curZoom);return r})();if(selected&&q&&(q[0]<14||q[0]>MW-14||q[1]<14||q[1]>MH-14))zoomPref="wide";if(selected&&!visiblePlaces().some(function(p){return p.id===id})){mapFilter="all";store.set("fbxen-mapf2","all")}renderMap()}
+  mapSvg.addEventListener("click",function(e){var g=e.target.closest&&e.target.closest(".pin");if(g)pick(g.getAttribute("data-id"))});
+  mapSvg.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var g=e.target.closest&&e.target.closest(".pin");if(g){e.preventDefault();pick(g.getAttribute("data-id"))}}});
+  listEl.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".place-btn");if(b)pick(b.getAttribute("data-id"))});
+  if(!FILTERS.some(function(f){return f.k===mapFilter}))mapFilter="all";
+
+  /* ---------- 行程頁小地圖 ---------- */
+  var miniRaf=0;
+  renderMini=function(key){
+    cancelAnimationFrame(miniRaf);
+    var box=document.getElementById("miniSvg");if(!box||!ROUTES[key])return;
+    var r=ROUTES[key],saveExt=EXT,saveH=MH;setExt(r.zoom);
+    var svg=document.createElementNS(svgNS,"svg");svg.setAttribute("viewBox","0 0 "+MW+" "+MH);svg.setAttribute("role","img");svg.setAttribute("aria-label",r.label+" route map");
+    el("rect",{width:MW,height:MH,fill:"#FFFCF0"},svg);
+    el("path",{d:pathOf(TANANA),fill:"none",stroke:C.mizu,"stroke-width":r.zoom==="city"?"14":"9","stroke-linecap":"round","stroke-linejoin":"round"},svg);
+    el("path",{d:pathOf(CHENA),fill:"none",stroke:C.mizu,"stroke-width":r.zoom==="city"?"8":"5","stroke-linecap":"round","stroke-linejoin":"round"},svg);
+    Object.keys(ROADS).forEach(function(k){el("path",{d:pathOf(ROADS[k]),fill:"none",stroke:C.ink,"stroke-width":"5","stroke-linecap":"round","stroke-linejoin":"round"},svg)});
+    Object.keys(ROADS).forEach(function(k){el("path",{d:pathOf(ROADS[k]),fill:"none",stroke:"#FFFFFF","stroke-width":"2.4","stroke-linecap":"round","stroke-linejoin":"round"},svg)});
+    var d=pathOf(r.pts);
+    var line=el("path",{d:d,fill:"none",stroke:C.coral,"stroke-width":"4.5","stroke-linecap":"round","stroke-linejoin":"round"},svg);
+    uniq(r.stops).forEach(function(id,i){var p=byId(id),xy=P(p.lon,p.lat);var g=el("g",{transform:"translate("+xy[0]+" "+xy[1]+")"},svg);
+      if(p.cat==="home")el("path",{d:"M-11 2 L0 -10 L11 2 V10 H-11Z",fill:C.coral,stroke:C.ink,"stroke-width":"2.2","stroke-linejoin":"round"},g);
+      else el("circle",{r:"9.5",fill:CATC[p.cat],stroke:C.ink,"stroke-width":"2.2"},g);
+      var t=el("text",{y:p.cat==="home"?"7":"3.6","text-anchor":"middle",class:"pin-no"},g);t.textContent=i+1;});
+    var vg=el("g",{},svg);
+    el("rect",{x:"-9",y:"-6",width:"18",height:"10",rx:"3",fill:C.coral,stroke:C.ink,"stroke-width":"1.8"},vg);
+    el("rect",{x:"1",y:"-4",width:"6",height:"4",rx:"1",fill:C.mizu,stroke:C.ink,"stroke-width":"1.2"},vg);
+    el("circle",{cx:"-5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vg);
+    el("circle",{cx:"5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vg);
+    box.innerHTML="";box.appendChild(svg);
+    document.getElementById("miniStops").textContent=seqText(r.stops);
+    var len=line.getTotalLength();
+    if(reduce||!len){vg.style.display="none"}
+    else{
+      line.style.strokeDasharray=len;line.style.strokeDashoffset=len;line.getBoundingClientRect();
+      line.style.transition="stroke-dashoffset 2.2s ease-in-out";line.style.strokeDashoffset="0";
+      var t0=null,dur=Math.max(5000,len*18);
+      var step=function(ts){if(!t0)t0=ts;var k=((ts-t0)%dur)/dur;var pt=line.getPointAtLength(k*len),pt2=line.getPointAtLength(Math.min(len,k*len+1));vg.setAttribute("transform","translate("+pt.x.toFixed(1)+" "+(pt.y-5).toFixed(1)+") scale("+(pt2.x<pt.x?-1:1)+" 1)");miniRaf=requestAnimationFrame(step)};
+      miniRaf=requestAnimationFrame(step);
+    }
+    EXT=saveExt;MH=saveH;
+  };
+  dayEl.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-route]");if(a){pendingRoute=a.getAttribute("data-route")}});
+  var curDay=DAYS[+store.get("fbxen-day",0)]||DAYS[0];
+  if(curDay.route)renderMini(curDay.route);
+
+  /* ---------- 成員 ---------- */
+  var SKIN="#F9DEC9", SIL="#9A918E", SILD="#7E7573", SILL="#C2BAB7";
+  var BODY={normal:"M26 122 Q28 92 60 90 Q92 92 94 122Z",stocky:"M16 122 Q18 86 60 85 Q102 86 104 122Z"};
+  var HAIR={
+    bobBack:function(c,low){var y=low||94;return '<path d="M35 60 Q33 33 60 32 Q87 33 85 60 L87 '+y+' Q76 '+(y+4)+' 72 '+(y-4)+' L48 '+(y-4)+' Q44 '+(y+4)+' 33 '+y+'Z" fill="'+c+'" '+S+'/>'},
+    bobFront:function(c){return '<path d="M37 60 Q38 37 60 36 Q82 37 83 60 Q78 48 66 46 Q58 54 44 52 Q39 54 37 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
+    sideFront:function(c){return '<path d="M37 62 Q36 36 60 35 Q84 36 83 62 Q82 50 74 44 Q60 42 50 54 Q42 52 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
+    longBack:function(c){return '<path d="M36 60 Q34 32 60 31 Q86 32 84 60 L90 116 Q74 120 70 106 L50 106 Q46 120 30 116Z" fill="'+c+'" '+S+'/>'},
+    longStrands:function(c){return '<path d="M36 80 Q38 98 33 114 M84 80 Q82 98 87 114" fill="none" stroke="'+c+'" stroke-width="9" stroke-linecap="round"/>'},
+    middleFront:function(c){return '<path d="M37 62 Q37 36 60 35 Q83 36 83 62 Q78 44 61 42 L60 37 L59 42 Q42 44 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
+    sweepFront:function(c){return '<path d="M37 60 Q37 36 60 35 Q83 36 83 60 Q80 46 70 42 Q62 52 46 50 Q40 53 37 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
+    shortFront:function(c){return '<path d="M37 58 Q35 33 60 32 Q85 33 83 58 Q80 45 72 43 Q64 48 54 44 Q44 45 37 58Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
+    buzzFront:function(c){return '<path d="M39 54 Q40 35 60 34 Q80 35 81 54 Q76 44 66 43 Q60 41 54 43 Q44 44 39 54Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M52 38 l-1 4 M60 37 v4 M68 38 l1 4" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.4" stroke-linecap="round"/>'},
+    waveBack:function(c){return '<path d="M60 30 Q86 30 88 48 Q97 60 87 72 Q78 84 90 96 Q100 108 86 117 Q78 121 72 112 L48 112 Q42 121 34 117 Q20 108 30 96 Q42 84 33 72 Q23 60 32 48 Q34 30 60 30Z" fill="'+c+'" '+S+'/>'},
+    waveOver:function(c){return '<path d="M37 78 Q27 92 37 104 Q45 113 37 121 M83 78 Q93 92 83 104 Q75 113 83 121" fill="none" stroke="'+c+'" stroke-width="10" stroke-linecap="round"/><path d="M31 92 q4 -4 2 -9 M89 92 q-4 -4 -2 -9 M33 110 q4 -3 3 -7" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.6" stroke-linecap="round"/>'},
+    waveFront:function(c){return '<path d="M37 62 Q35 36 60 34 Q85 36 83 62 Q84 48 74 42 Q64 41 56 49 Q50 45 44 50 Q39 54 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M70 40 q6 2 8 8" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.6" stroke-linecap="round"/>'},
+    curlBob:function(c){var pts=[[40,40],[50,33],[62,31],[74,34],[82,42],[86,52],[87,63],[87,74],[87,85],[86,95],[34,52],[33,63],[33,74],[33,85],[34,95],[42,92],[78,92]],a='',b='';pts.forEach(function(q){a+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="8" fill="'+c+'" '+S+' stroke-width="2.2"/>';b+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="6.6" fill="'+c+'"/>'});return a+b+'<path d="M38 44 Q60 28 82 44 L86 94 L34 94Z" fill="'+c+'"/>'},
+    curlLower:function(c){var pts=[[34,62],[86,62],[33,73],[87,73],[33,84],[87,84],[34,95],[86,95],[42,94],[78,94]],a='',b='';pts.forEach(function(q){a+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="8" fill="'+c+'" '+S+' stroke-width="2.2"/>';b+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="6.6" fill="'+c+'"/>'});return '<path d="M37 64 Q36 36 60 35 Q84 36 83 64 L86 94 L34 94Z" fill="'+c+'"/>'+a+b+'<path d="M38 56 L82 56 L84 94 L36 94Z" fill="'+c+'"/>'},
+    looseBack:function(c){return '<path d="M60 30 Q88 30 90 52 Q97 70 91 88 Q98 104 94 122 L26 122 Q22 104 29 88 Q23 70 30 52 Q32 30 60 30Z" fill="'+c+'" '+S+'/>'},
+    looseOver:function(c){var hl="#7A5A45";return '<path d="M41 66 Q30 76 34 88 Q38 98 30 108 Q26 116 30 122 L50 122 Q46 112 50 102 Q54 92 46 82 Q42 74 45 66Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M79 66 Q90 76 86 88 Q82 98 90 108 Q94 116 90 122 L70 122 Q74 112 70 102 Q66 92 74 82 Q78 74 75 66Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M38 80 Q34 90 39 98 Q43 106 37 116 M82 80 Q86 90 81 98 Q77 106 83 116 M27 96 Q24 106 28 116 M93 96 Q96 106 92 116" fill="none" stroke="'+hl+'" stroke-width="2" stroke-linecap="round" opacity=".9"/>'},
+    looseFront:function(c){return '<path d="M37 66 Q35 35 60 34 Q85 35 83 66 Q80 46 62 40 L60 36 L58 40 Q40 46 37 66Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M44 44 Q40 52 40 62 M76 44 Q80 52 80 62" fill="none" stroke="#7A5A45" stroke-width="1.8" stroke-linecap="round"/>'},
+    waveBob:function(c){return '<path d="M35 60 Q33 33 60 32 Q87 33 85 60 Q90 68 86 76 Q83 82 88 88 Q78 93 72 84 L48 84 Q42 93 32 88 Q37 82 34 76 Q30 68 35 60Z" fill="'+c+'" '+S+'/><path d="M36 66 q-2 5 1 9 q2 4 -1 8 M84 66 q2 5 -1 9 q-2 4 1 8" fill="none" stroke="#B07D60" stroke-width="1.8" stroke-linecap="round"/>'},
+    curlOver:function(c){var pts=[[33,98],[87,98],[38,104],[82,104]],a='',b='';pts.forEach(function(q){a+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="7" fill="'+c+'" '+S+' stroke-width="2.2"/>';b+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="5.6" fill="'+c+'"/>'});return a+b},
+    curlFront:function(c){var pts=[[42,50],[48,43],[56,39],[65,39],[73,43],[79,50]],a='',b='';pts.forEach(function(q){a+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="6" fill="'+c+'" '+S+' stroke-width="2"/>';b+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="4.8" fill="'+c+'"/>'});return a+b+'<path d="M40 50 Q60 36 81 50 L80 44 Q60 32 41 44Z" fill="'+c+'"/>'},
+    kFront:function(c){return '<path d="M36 60 Q33 34 60 32 Q87 34 84 58 Q83 48 77 45 Q74 56 63 58 Q67 50 61 47 Q53 57 43 56 Q39 57 36 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'}
+  };
+  function av(o){
+    var sil=!!o.sil, sk=sil?SIL:SKIN, hc=sil?SILD:o.hair, sw=sil?SILL:o.sweater, sc=sil?SIL:o.scarf, dy=o.oval?2:0, r='';
+    if(o.back)r+=o.back(hc);
+    r+='<path d="'+BODY[o.build||"normal"]+'" fill="'+sw+'" '+S+'/>';
+    if(o.tee)r+='<path d="M50 90 Q60 99 70 90" fill="none" '+S+' stroke-width="2.2"/>';
+    else r+='<path d="M44 88 Q60 98 76 88 L78 96 Q60 106 42 96Z" fill="'+sc+'" '+S+' stroke-width="2.2"/><path class="scarf-tail" d="M66 98 l4 16 l7 -2 l-3 -15Z" fill="'+sc+'" '+S+' stroke-width="2.2"/>';
+    r+='<path d="M56 82 h8 v9 h-8Z" fill="'+sk+'"/>';
+    if(o.over)r+=o.over(hc);
+    if(o.ears){var ex=o.ears==="big"?[34.5,85.5]:[37,83],erx=o.ears==="big"?7:4,ery=o.ears==="big"?9.5:6;
+      r+='<ellipse cx="'+ex[0]+'" cy="64" rx="'+erx+'" ry="'+ery+'" fill="'+sk+'" '+S+' stroke-width="2.2"/><ellipse cx="'+ex[1]+'" cy="64" rx="'+erx+'" ry="'+ery+'" fill="'+sk+'" '+S+' stroke-width="2.2"/>';}
+    r+='<ellipse cx="60" cy="'+(62+dy)+'" rx="'+(o.oval?21:23)+'" ry="'+(o.oval?26:23)+'" fill="'+sk+'" '+S+'/>';
+    if(!sil){
+      if(o.eyes==="big")r+='<g class="blink"><circle cx="51" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="52.4" cy="62.6" r="1.4" fill="#FFFFFF"/><circle cx="69" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="70.4" cy="62.6" r="1.4" fill="#FFFFFF"/></g>';
+      else r+='<g class="blink"><ellipse cx="51" cy="63" rx="2.6" ry="3" fill="'+C.ink+'"/><ellipse cx="69" cy="63" rx="2.6" ry="3" fill="'+C.ink+'"/></g>';
+      if(o.brows)r+='<path d="M44 '+(o.brows==="thick"?53:54)+' q6 -3 11 0 M65 '+(o.brows==="thick"?53:54)+' q6 -3 11 0" fill="none" stroke="'+C.ink+'" stroke-width="'+(o.brows==="thick"?3.2:2)+'" stroke-linecap="round"/>';
+      if(o.lashes)r+='<path d="M53 63 q-2 -3 -5 -2 M67 63 q2 -3 5 -2" fill="none" stroke="'+C.ink+'" stroke-width="1.6" stroke-linecap="round"/>';
+      r+='<circle cx="44" cy="'+(72+dy)+'" r="4" fill="'+C.coral+'" opacity=".6"/><circle cx="76" cy="'+(72+dy)+'" r="4" fill="'+C.coral+'" opacity=".6"/>';
+      r+=o.sloth?'<path d="M55 '+(75+dy)+' q5 3 10 0" fill="none" '+S+' stroke-width="2.2"/>':'<path d="M54 '+(73+dy)+' q6 5 12 0" fill="none" '+S+' stroke-width="2.2"/>';
+      if(o.lines)r+='<path d="M41 68 q-1 3 1 5 M79 68 q1 3 -1 5" fill="none" stroke="'+C.ink+'" stroke-opacity=".4" stroke-width="1.4" stroke-linecap="round"/>';
+    }
+    if(o.front)r+=o.front(hc);
+    if(o.acc)r+=o.acc(sil);
+    if(sil)r+='<text x="60" y="'+(74+dy)+'" text-anchor="middle" class="q-mark">?</text>';
+    return r;
+  }
+  var ACC={
+    eddieGlasses:function(){return '<rect x="42.5" y="56.5" width="16" height="13" rx="5" fill="#FFFFFF" fill-opacity=".35" '+S+' stroke-width="2.2"/><rect x="61.5" y="56.5" width="16" height="13" rx="5" fill="#FFFFFF" fill-opacity=".35" '+S+' stroke-width="2.2"/><path d="M58.5 61 h3" '+S+' stroke-width="2.2"/>'},
+    roundGlasses:function(){return '<circle cx="51" cy="63" r="7.2" fill="#FFFFFF" fill-opacity=".3" stroke="'+C.coral+'" stroke-width="2.4"/><circle cx="69" cy="63" r="7.2" fill="#FFFFFF" fill-opacity=".3" stroke="'+C.coral+'" stroke-width="2.4"/><path d="M58 62 q2 -2 4 0" fill="none" stroke="'+C.coral+'" stroke-width="2.2"/>'},
+    pearls:function(){return '<circle cx="38" cy="75" r="2.6" fill="#FFFFFF" '+S+' stroke-width="1.4"/><circle cx="82" cy="75" r="2.6" fill="#FFFFFF" '+S+' stroke-width="1.4"/>'},
+    clip:function(){return '<circle cx="80" cy="44" r="4" fill="'+C.yam+'" '+S+' stroke-width="1.8"/>'},
+    bow:function(){return '<path d="M74 40 l-6 -5 v10Z M74 40 l6 -5 v10Z" fill="'+C.coral+'" '+S+' stroke-width="1.6"/><circle cx="74" cy="40" r="2" fill="'+C.coral+'" '+S+' stroke-width="1.4"/>'},
+    goggles:function(){return '<path d="M37 47 Q60 39 83 47" fill="none" stroke="'+C.ink+'" stroke-width="5" stroke-linecap="round"/><path d="M37 47 Q60 39 83 47" fill="none" stroke="'+C.coral+'" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="51" cy="44.5" rx="6.5" ry="4.5" fill="'+C.mizu+'" '+S+' stroke-width="2"/><ellipse cx="69" cy="44.5" rx="6.5" ry="4.5" fill="'+C.mizu+'" '+S+' stroke-width="2"/><path d="M48 43 l2 -1.4 M66 43 l2 -1.4" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/>'},
+    headband:function(){return '<path d="M37 52 Q60 30 83 52" fill="none" stroke="'+C.ink+'" stroke-width="8" stroke-linecap="round"/><path d="M37 52 Q60 30 83 52" fill="none" stroke="'+SILL+'" stroke-width="4.6" stroke-linecap="round"/>'}
+  };
+  var MEMBERS=[
+    {n:"Eddie",bg:C.mizu,hair:"#2B2726",sweater:C.waka,scarf:C.coral,front:function(c){return '<path d="M38 58 Q37 36 60 35 Q83 36 82 58 Q79 46 70 45 Q60 48 50 45 Q41 46 38 58Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M47 41 q4 -3 8 0 M63 40 q4 -3 8 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.6" stroke-linecap="round"/>'},ears:"normal",brows:"thin",lines:true,acc:ACC.eddieGlasses},
+    {n:"Jessica",bg:C.waka,hair:"#2A2524",sweater:C.coral,scarf:C.waka,back:function(c){return HAIR.bobBack(c,100)},front:HAIR.sideFront,lashes:true,lines:true,acc:ACC.pearls},
+    {n:"Stephanie",bg:C.coral,hair:"#2E2A29",sweater:C.yam,scarf:C.mizu,back:function(c){return HAIR.bobBack(c)},front:HAIR.bobFront,lashes:true},
+    {n:"Joanne",bg:C.yam,hair:"#4A3E3A",sweater:C.mizu,scarf:C.yam,back:function(c){return HAIR.bobBack(c,88)},front:HAIR.bobFront,lines:true,acc:ACC.roundGlasses},
+    {n:"Jason",bg:C.mizu,hair:"#2B2726",sweater:C.coral,scarf:C.yam,build:"stocky",front:HAIR.shortFront,ears:"normal",brows:"thick"},
+    {n:"Katie",bg:C.coral,hair:"#8A5A42",sweater:C.waka,scarf:C.mizu,oval:true,back:HAIR.waveBob,front:HAIR.bobFront,lashes:true},
+    {n:"Isabel",bg:C.waka,hair:"#6E4B3A",sweater:C.coral,scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,acc:ACC.clip},
+    {n:"Yvonne",bg:C.yam,hair:"#2F2627",sweater:C.mizu,scarf:C.coral,back:HAIR.looseBack,over:HAIR.looseOver,front:HAIR.looseFront,lashes:true},
+    {n:"Tata",bg:"#C4E2F5",hair:"#B98B6A",sweater:"#C4E2F5",scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,eyes:"big",sloth:true},
+    {n:"Nana",bg:C.waka,hair:"#7A5236",sweater:C.yam,scarf:C.coral,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.middleFront,eyes:"big",sloth:true,acc:ACC.bow},
+    {n:"Charles",bg:C.mizu,hair:"#3A2E2A",sweater:C.mizu,scarf:C.coral,oval:true,front:HAIR.shortFront,ears:"big",brows:"thin",acc:ACC.goggles},
+    {n:"Terry",bg:C.coral,hair:"#4A3B35",sweater:C.yam,scarf:C.mizu,oval:true,front:HAIR.buzzFront,ears:"big",acc:ACC.goggles,tee:true}
+  ];
+  var MYSTERY=[
+    {sil:true,front:HAIR.shortFront,ears:"normal",hint:"M"},
+    {sil:true,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,acc:ACC.headband,hint:"S"},
+    {sil:true,front:HAIR.kFront,ears:"normal",hint:"F"}
+  ];
+  function avSvg(o,label,bg){
+    var svg=av(o).replace(/<(\w+)([^>]*?)class="([^"]*)"([^>]*?)class="([^"]*)"/g,'<$1$2class="$3 $5"$4');
+    return '<svg viewBox="0 0 120 122" role="img" aria-label="'+label+'"><circle cx="60" cy="60" r="56" fill="'+bg+'" opacity=".45"/><circle class="snow-dot" cx="22" cy="26" r="2.5" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s2" cx="98" cy="22" r="2" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s3" cx="102" cy="58" r="2.4" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><g class="bob">'+svg+'</g></svg>';
+  }
+  document.getElementById("members").innerHTML=MEMBERS.map(function(m,i){
+    return '<article class="card member" style="--mc:'+m.bg+';--d:'+(i*0.35)+'s"><div class="avatar">'+avSvg(m,m.n+" illustration",m.bg)+'</div><h3>'+esc(m.n)+'</h3>'+(m.tag?'<span class="m-tag">'+m.tag+'</span>':'')+'</article>';
+  }).join("");
+  document.getElementById("mystery").innerHTML=MYSTERY.map(function(m,i){
+    return '<button type="button" class="card member mystery" style="--d:'+(i*0.5)+'s" aria-label="Mystery member '+(i+1)+'" data-hint="'+m.hint+'"><span class="lid" aria-hidden="true"></span><div class="avatar">'+avSvg(m,"Mystery member silhouette","#C2BAB7")+'</div><h3>???</h3><span class="m-tag hint">Tap to shake</span></button>';
+  }).join("");
+  document.getElementById("mystery").addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".mystery");if(!b)return;
+    b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");
+    var hn=b.querySelector(".hint");hn.textContent=b.getAttribute("data-hint");hn.classList.add("letter");
+    clearTimeout(b._t);b._t=setTimeout(function(){hn.textContent="Tap to shake";hn.classList.remove("letter")},1800);
+  });
+  /* ---------- 首頁捷徑 ---------- */
+  var QUICK=[{h:"#plan",l:"Daily Plan",ic:"van",c:C.coral},{h:"#recs",l:"Eat &amp; Explore",ic:"bowl",c:C.yam},{h:"#map",l:"Trip Map",ic:"aurora",c:C.mizu},{h:"#todo",l:"Checklist",ic:"gift",c:C.waka}];
+  document.getElementById("quick").innerHTML=QUICK.map(function(q){return '<a class="q" href="'+q.h+'" style="--qc:'+q.c+'"><span class="q-ic">'+icon(q.ic)+'</span><span>'+q.l+'</span></a>'}).join("");
+
+  /* ---------- 極光特效 ---------- */
+  var AUR_COLORS=[C.waka,C.mizu,"#8FD0B5",C.coral];
+  function makeAurora(cv,cfg){
+    var ctx=cv.getContext("2d"),W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1);
+    function size(){var r=cv.getBoundingClientRect();W=Math.max(1,r.width);H=Math.max(1,r.height);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+    size();
+    var bands=cfg.bands;
+    function frame(t){
+      ctx.clearRect(0,0,W,H);
+      var step=cfg.step||3;
+      bands.forEach(function(b,bi){
+        ctx.fillStyle=b.c;
+        for(var x=0;x<W;x+=step){
+          var u=x/W;
+          var y=H*b.y+Math.sin(u*6.2+t*b.s1+bi)*H*b.a1+Math.sin(u*13.1-t*b.s2)*H*b.a2;
+          var h=H*b.h*(0.45+0.55*Math.abs(Math.sin(u*9.7+t*b.s3+bi*2)));
+          var a=b.o*(0.35+0.65*Math.pow(Math.sin(u*21.3+t*b.s3*1.7+bi),2));
+          ctx.globalAlpha=a;ctx.fillRect(x,y,step,h);
+          ctx.globalAlpha=a*0.45;ctx.fillRect(x,y+h,step,h*0.45);
+        }
+      });
+      ctx.globalAlpha=1;
+    }
+    return {size:size,frame:frame};
+  }
+  var heroCv=document.getElementById("heroAurora");
+  var heroAur=makeAurora(heroCv,{step:3,bands:[
+    {c:C.waka,y:.18,h:.42,a1:.10,a2:.04,s1:.5,s2:.35,s3:.8,o:.85},
+    {c:"#8FD0B5",y:.30,h:.30,a1:.08,a2:.05,s1:.4,s2:.5,s3:1.1,o:.6},
+    {c:C.coral,y:.06,h:.18,a1:.06,a2:.03,s1:.6,s2:.3,s3:.9,o:.45}]});
+  var heroRaf=0,heroOn=true;
+  function heroLoop(ts){heroAur.frame(ts/1000);heroRaf=requestAnimationFrame(heroLoop)}
+  if(reduce)heroAur.frame(2);else heroRaf=requestAnimationFrame(heroLoop);
+  window.addEventListener("resize",function(){heroAur.size();if(reduce)heroAur.frame(2)});
+
+  var ovCv=document.getElementById("auroraOverlay"),ovAur=null,ovRaf=0,ovTimer=0;
+  document.getElementById("auroraBtn").addEventListener("click",function(){
+    if(!ovAur)ovAur=makeAurora(ovCv,{step:4,bands:[
+      {c:C.waka,y:.03,h:.26,a1:.06,a2:.03,s1:.7,s2:.5,s3:1.2,o:.5},
+      {c:"#8FD0B5",y:.12,h:.20,a1:.05,a2:.03,s1:.5,s2:.7,s3:1.4,o:.35},
+      {c:C.coral,y:.0,h:.12,a1:.04,a2:.02,s1:.8,s2:.3,s3:1.1,o:.3}]});
+    ovAur.size();cancelAnimationFrame(ovRaf);clearTimeout(ovTimer);
+    ovCv.classList.add("on");
+    var start=null;
+    function loop(ts){if(!start)start=ts;ovAur.frame(ts/1000*1.4);ovRaf=requestAnimationFrame(loop)}
+    if(reduce)ovAur.frame(3);else ovRaf=requestAnimationFrame(loop);
+    ovTimer=setTimeout(function(){ovCv.classList.remove("on");setTimeout(function(){cancelAnimationFrame(ovRaf)},1300)},reduce?3000:7000);
+  });
+
+  /* ---------- 分頁切換 ---------- */
+  var VIEWS=["home","flights","plan","members","recs","map","todo","stay","tips"];
+  var navLinks=document.querySelectorAll(".nav-links a");
+  function route(){
+    var h=(location.hash||"").replace("#","");if(VIEWS.indexOf(h)<0)h="home";
+    VIEWS.forEach(function(v){var s=document.getElementById("v-"+v);var on=v===h;s.hidden=!on;if(on){s.classList.remove("enter");void s.offsetWidth;s.classList.add("enter")}});
+    Array.prototype.forEach.call(navLinks,function(a){if(a.getAttribute("href")==="#"+h){a.setAttribute("aria-current","page");try{var nl=a.parentNode;nl.scrollLeft=a.offsetLeft-nl.clientWidth/2+a.clientWidth/2}catch(e){}}else a.removeAttribute("aria-current")});
+    try{window.scrollTo({top:0,behavior:"instant"})}catch(e){window.scrollTo(0,0)}
+    cancelAnimationFrame(heroRaf);if(h==="home"){heroAur.size();if(reduce)heroAur.frame(2);else heroRaf=requestAnimationFrame(heroLoop)}
+    if(h!=="plan")cancelAnimationFrame(miniRaf);else{var cd=DAYS[+store.get("fbxen-day",0)];if(cd&&cd.route)renderMini(cd.route)}
+    if(h==="map"&&pendingRoute){mapFilter=pendingRoute;zoomPref=ROUTES[pendingRoute].zoom;selected=null;pendingRoute=null;store.set("fbxen-mapf2",mapFilter)}
+    if(h==="map"){if(pendingPlace){var id=pendingPlace;pendingPlace=null;selected=null;pick(id)}else renderMap()}
+    else{cancelAnimationFrame(rafId)}
+  }
+  window.addEventListener("hashchange",route);
+  route();
+
+})();
+</script>
+
+</body>
+</html>
