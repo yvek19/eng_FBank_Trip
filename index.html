@@ -80,6 +80,7 @@ section{display:flex;flex-direction:column;gap:14px}
 .sec-head{display:flex;align-items:center;gap:10px}
 .sec-head svg{width:36px;height:36px;flex:none}
 .sec-head h2{font-size:24px}
+.sub-note{font-size:13px;color:var(--ink-soft);align-self:flex-end;padding-bottom:4px}
 .sec-head .en{display:none;font-size:12px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-left:auto}
 .card{background:var(--card);border:var(--bw) solid var(--ink);border-radius:var(--r);padding:18px}
 .muted{color:var(--ink-soft);font-size:13px}
@@ -114,7 +115,7 @@ svg *{transform-box:fill-box;transform-origin:center}
 @keyframes wave{from{transform:translateX(-6px) scaleY(.94)}to{transform:translateX(6px) scaleY(1.06)}}
 @keyframes twinkle{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes fall{from{transform:translateY(-10px)}to{transform:translateY(250px)}}
-@keyframes sled{from{transform:translateX(-140px)}to{transform:translateX(420px)}}
+@keyframes sled{from{transform:translateX(-200px)}to{transform:translateX(420px)}}
 @keyframes trot{from{transform:translateY(0)}to{transform:translateY(-2px)}}
 @keyframes bump{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-3px) rotate(-3deg)}60%{transform:translateY(0) rotate(1deg)}}
 @keyframes steam{0%{transform:translateY(2px);opacity:0}40%{opacity:1}100%{transform:translateY(-5px);opacity:0}}
@@ -127,7 +128,8 @@ svg *{transform-box:fill-box;transform-origin:center}
 .tw{animation:twinkle 2.4s ease-in-out infinite}
 .tw.d1{animation-delay:-.6s}.tw.d2{animation-delay:-1.2s}.tw.d3{animation-delay:-1.8s}
 .flake{animation:fall linear infinite}
-.sled-run{animation:sled 16s linear infinite}
+.sled-run{animation:sled 20s linear infinite}
+.crew-bob{animation:trot .5s ease-in-out infinite alternate}
 .sled-run .leg{animation:trot .28s ease-in-out infinite alternate}
 .float{animation:floaty 2.6s ease-in-out infinite alternate}
 .star-spin{animation:spin 9s linear infinite}
@@ -371,7 +373,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .sled-run{transform:translateX(150px)}
+  .sled-run{transform:translateX(130px)}
   .flake{display:none}
 }
 </style>
@@ -466,14 +468,16 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
         </g>
       </defs>
       <g class="sled-run">
-        <g transform="translate(0 196)">
-          <use href="#dog" x="88" y="0"/>
-          <use href="#dog" x="62" y="2"/>
-          <path d="M46 -2 L78 -2" class="ink" stroke-width="1.6" fill="none"/>
-          <path d="M8 4 h34 l6 -6" fill="none" class="ink"/>
-          <path d="M10 4 v-14 h26 v14" fill="#F2A497" class="ink" stroke-width="2"/>
-          <circle cx="24" cy="-18" r="6" fill="#F6D27A" class="ink" stroke-width="2"/>
-          <path d="M18 -20 q6 -10 12 0Z" fill="#F2A497" class="ink" stroke-width="2"/>
+        <g transform="translate(0 200)">
+          <use href="#dog" x="146" y="0"/>
+          <use href="#dog" x="120" y="2"/>
+          <use href="#dog" x="94" y="0"/>
+          <use href="#dog" x="68" y="2"/>
+          <path d="M50 -2 L136 -2" class="ink" stroke-width="1.6" fill="none"/>
+          <path d="M-44 4 h88 l6 -6" fill="none" class="ink"/>
+          <g id="sledCrew"></g>
+          <path d="M-42 4 v-11 h84 v11Z" fill="#F2A497" class="ink" stroke-width="2"/>
+          <path d="M-36 -3 h72" stroke="#FFFCF0" stroke-width="1.6" stroke-dasharray="4 4"/>
         </g>
       </g>
       <!-- 雪 -->
@@ -496,7 +500,6 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       <div class="chips">
         <span class="chip">📅 12/20 – 12/25</span>
         <span class="chip">👥 12 people</span>
-        <span class="chip">🌌 3 aurora nights</span>
         <button type="button" class="chip aurora-btn" id="auroraBtn">✨ Summon the aurora</button>
       </div>
       <div class="count-label">
@@ -560,7 +563,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
 <section id="v-plan" class="view" hidden>
   <div class="sec-head">
     <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="9" width="36" height="33" rx="7" fill="#FFFFFF" class="ink"/><path d="M6 19 H42" class="ink"/><path d="M15 5 v8 M33 5 v8" class="ink"/><path d="M6 16 v-0 q0 -7 7 -7 h22 q7 0 7 7 v3 H6Z" fill="#F2A497" class="ink"/><circle cx="24" cy="30" r="5" fill="#F6D27A" class="ink" stroke-width="2"/></svg>
-    <h2>Daily Plan</h2><span class="en">Itinerary</span>
+    <h2>Daily Plan</h2><span class="sub-note">(subject to change)</span><span class="en">Itinerary</span>
   </div>
   <div class="tabs" role="tablist" id="tabs" aria-label="Choose a day"></div>
   <div class="day" id="day" role="tabpanel" aria-live="polite"></div>
@@ -644,12 +647,12 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       </svg>
       <div style="min-width:0;flex:1">
         <h3 data-field="stay-name">Fairbanks Airbnb</h3>
-        <p class="muted">12 of us · check-in 12/20 – 21</p>
+        <p class="muted">Sleeps 15 · check-in 12/20 – 21</p>
       </div>
       <button class="edit-btn" type="button">Edit</button>
     </div>
     <div class="fields">
-      <div class="field"><label>Address</label><span data-field="stay-addr">TBA</span></div>
+      <div class="field"><label>Address</label><span data-field="stay-addr">Near Kentshire Dr</span></div>
       <div class="field"><label>Check-in</label><span data-field="stay-in">12/20 4:00 PM</span></div>
       <div class="field"><label>Check-out</label><span data-field="stay-out">12/25 10:00 AM</span></div>
       <div class="field"><label>Host contact</label><span data-field="stay-host">TBA</span></div>
@@ -736,7 +739,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     {date:"12/20",wk:"Sun",route:"d20",iso:"2026-12-20",color:C.mizu,pale:"var(--mizu-pale)",title:"Arrive in Fairbanks",sub:"Everyone arrives 12/20 – 12/21",items:[
       {t:"Arrive",name:"Fly into Fairbanks (FAI)",note:"",tags:["plane"],ic:"alaska",anim:true}
     ]},
-    {date:"12/21",wk:"Mon",route:"d21",iso:"2026-12-21",color:C.coral,pale:"var(--coral-pale)",title:"Private Van Day",sub:"Private van $2,000/day · 10:00 – 01:00",items:[
+    {date:"12/21",wk:"Mon",route:"d21",iso:"2026-12-21",color:C.coral,pale:"var(--coral-pale)",title:"Private Van Day",sub:"Private van $2,000+/day · 10:00 – 01:00",items:[
       {t:"10:00",name:"Meet at the Airbnb",note:"",tags:["van"],ic:"van",anim:true},
       {t:"Noon",name:"Lunch",note:"",tags:["van"],ic:"bowl",anim:true},
       {t:"PM",name:"Santa Claus House",note:"",tags:["van"],ic:"santa",must:true,anim:true},
@@ -828,11 +831,11 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
   tick();setInterval(tick,1000);
 
   /* ---------- 可編輯卡片 ---------- */
-  var fields=store.get("fbxen-fields-v3",{});
+  var fields=store.get("fbxen-fields-v4",{});
   document.querySelectorAll("[data-field]").forEach(function(el){
     var k=el.getAttribute("data-field");
     if(fields[k]!=null)el.textContent=fields[k];
-    el.addEventListener("blur",function(){fields[k]=el.textContent.trim();store.set("fbxen-fields-v3",fields)});
+    el.addEventListener("blur",function(){fields[k]=el.textContent.trim();store.set("fbxen-fields-v4",fields)});
     el.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();el.blur()}});
   });
   document.querySelectorAll("[data-card]").forEach(function(card){
@@ -848,10 +851,10 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
 
   /* ---------- 待辦清單 ---------- */
   var GROUPS=[
-    {id:"pack",name:"Packing",color:C.mizu,items:["Down jacket + wind pants","Snow boots (rated to −30°C)","Hat, neck warmer, two layers of gloves","Thermal base layers, wool socks","Hand and toe warmers","Tripod + camera","Power bank","Moisturizer, lip balm"]},
-    {id:"go",name:"Travel day",color:C.waka,items:["ID","Phone","Check the aurora forecast"]}
+    {id:"pack",name:"Packing",color:C.mizu,items:["Down jacket + wind pants","Snow boots (rated to −30°C)","Hat, neck warmer, two layers of gloves","Thermal base layers, wool socks","Hand and toe warmers","Power bank","Moisturizer, lip balm"]},
+    {id:"go",name:"Travel day",color:C.waka,items:["ID","Phone"]}
   ];
-  var todo=store.get("fbxen-todo",{done:{},custom:[]});
+  var todo=store.get("fbxen-todo2",{done:{},custom:[]});
   if(!todo.done)todo.done={};if(!todo.custom)todo.custom=[];
   var wrap=document.getElementById("todoWrap");
   function renderTodo(){
@@ -870,11 +873,11 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     document.getElementById("bar").style.width=(total?done/total*100:0)+"%";
     document.getElementById("progTxt").textContent=done+" / "+total+(done===total&&total?" 🎉":"");
   }
-  wrap.addEventListener("change",function(e){var id=e.target.getAttribute("data-id");if(!id)return;if(e.target.checked)todo.done[id]=true;else delete todo.done[id];store.set("fbxen-todo",todo);renderTodo();var n=document.getElementById("td-"+id);if(n)n.focus()});
-  wrap.addEventListener("click",function(e){var id=e.target.getAttribute&&e.target.getAttribute("data-del");if(!id)return;todo.custom=todo.custom.filter(function(c){return c.id!==id});delete todo.done[id];store.set("fbxen-todo",todo);renderTodo()});
+  wrap.addEventListener("change",function(e){var id=e.target.getAttribute("data-id");if(!id)return;if(e.target.checked)todo.done[id]=true;else delete todo.done[id];store.set("fbxen-todo2",todo);renderTodo();var n=document.getElementById("td-"+id);if(n)n.focus()});
+  wrap.addEventListener("click",function(e){var id=e.target.getAttribute&&e.target.getAttribute("data-del");if(!id)return;todo.custom=todo.custom.filter(function(c){return c.id!==id});delete todo.done[id];store.set("fbxen-todo2",todo);renderTodo()});
   document.getElementById("addForm").addEventListener("submit",function(e){
     e.preventDefault();var inp=document.getElementById("addInput"),v=inp.value.trim();if(!v)return;
-    todo.custom.push({id:"c"+Date.now(),text:v,g:"pack"});store.set("fbxen-todo",todo);inp.value="";renderTodo();
+    todo.custom.push({id:"c"+Date.now(),text:v,g:"pack"});store.set("fbxen-todo2",todo);inp.value="";renderTodo();
   });
   renderTodo();
 
@@ -957,7 +960,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
   var TANANA=[[-147.25,64.712],[-147.42,64.735],[-147.60,64.762],[-147.78,64.786],[-147.90,64.797],[-148.05,64.802]];
   var CATC={home:C.coral,trip:C.coral,food:C.yam,spot:C.waka,aurora:C.mizu,base:C.white};
   var PLACES=[
-    {id:"bnb",n:"Our Airbnb (Kentshire Dr)",cat:"home",lon:AIRBNB[0],lat:AIRBNB[1],d:"On Kentshire Dr in the Chena Ridge area. The pin is approximate.",q:"Kentshire Dr Fairbanks AK 99709"},
+    {id:"bnb",n:"Our Airbnb (near Kentshire Dr)",cat:"home",lon:AIRBNB[0],lat:AIRBNB[1],d:"In the Chena Ridge area, near Kentshire Dr. The pin is approximate.",q:"Kentshire Dr Fairbanks AK 99709"},
     {id:"fai",n:"Fairbanks Airport (FAI)",cat:"base",lon:-147.8561,lat:64.8151,d:"Everyone arrives 12/20–12/21. East Ramp Pizza is right by the airport.",q:"Fairbanks International Airport"},
     {id:"dt",n:"Downtown",cat:"spot",lon:-147.716,lat:64.8435,d:"Morris Thompson Cultural Center, the Chena riverwalk, Big Daddy's, Thai House and The Crepery are all here.",q:"Downtown Fairbanks"},
     {id:"costco",n:"Costco",cat:"trip",lon:-147.6985,lat:64.8557,d:"12/21 van tour: stop here after Santa Claus House for breakfast food, snacks and hand warmers.",q:"Costco Fairbanks"},
@@ -1138,6 +1141,12 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     bobFront:function(c){return '<path d="M37 60 Q38 37 60 36 Q82 37 83 60 Q78 48 66 46 Q58 54 44 52 Q39 54 37 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
     sideFront:function(c){return '<path d="M37 62 Q36 36 60 35 Q84 36 83 62 Q82 50 74 44 Q60 42 50 54 Q42 52 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
     longBack:function(c){return '<path d="M36 60 Q34 32 60 31 Q86 32 84 60 L90 116 Q74 120 70 106 L50 106 Q46 120 30 116Z" fill="'+c+'" '+S+'/>'},
+    fullBack:function(c){return '<path d="M34 60 Q31 29 60 28 Q89 29 86 60 Q93 84 90 106 Q76 111 70 98 L50 98 Q44 111 30 106 Q27 84 34 60Z" fill="'+c+'" '+S+'/>'},
+    fullStrands:function(c){return '<path d="M35 78 Q37 94 32 105 M85 78 Q83 94 88 105" fill="none" stroke="'+c+'" stroke-width="12" stroke-linecap="round"/>'},
+    pulledFront:function(c){return '<path d="M37 60 Q36 33 60 32 Q84 33 83 60 Q80 45 62 41 Q44 42 37 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M50 37 q6 -2 14 1" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round"/><circle cx="79" cy="42" r="3.4" fill="'+C.coral+'" '+S+' stroke-width="1.6"/>'},
+    sidePartFront:function(c){return '<path d="M37 62 Q36 38 46 33 Q74 27 85 52 Q86 62 83 68 Q79 54 68 50 Q56 47 49 39 Q45 46 41 51 Q38 56 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M48 34 q14 0 24 8 M52 38 q12 2 20 10" fill="none" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="1.5" stroke-linecap="round"/>'},
+    chestBack:function(c){return '<path d="M36 60 Q34 32 60 31 Q86 32 84 60 L88 106 Q74 110 70 98 L50 98 Q46 110 32 106Z" fill="'+c+'" '+S+'/>'},
+    chestStrands:function(c){return '<path d="M36 80 Q38 94 34 104 M84 80 Q82 94 86 104" fill="none" stroke="'+c+'" stroke-width="9" stroke-linecap="round"/>'},
     longStrands:function(c){return '<path d="M36 80 Q38 98 33 114 M84 80 Q82 98 87 114" fill="none" stroke="'+c+'" stroke-width="9" stroke-linecap="round"/>'},
     middleFront:function(c){return '<path d="M37 62 Q37 36 60 35 Q83 36 83 62 Q78 44 61 42 L60 37 L59 42 Q42 44 37 62Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
     sweepFront:function(c){return '<path d="M37 60 Q37 36 60 35 Q83 36 83 60 Q80 46 70 42 Q62 52 46 50 Q40 53 37 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'},
@@ -1156,27 +1165,39 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     curlFront:function(c){var pts=[[42,50],[48,43],[56,39],[65,39],[73,43],[79,50]],a='',b='';pts.forEach(function(q){a+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="6" fill="'+c+'" '+S+' stroke-width="2"/>';b+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="4.8" fill="'+c+'"/>'});return a+b+'<path d="M40 50 Q60 36 81 50 L80 44 Q60 32 41 44Z" fill="'+c+'"/>'},
     kFront:function(c){return '<path d="M36 60 Q33 34 60 32 Q87 34 84 58 Q83 48 77 45 Q74 56 63 58 Q67 50 61 47 Q53 57 43 56 Q39 57 36 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'}
   };
+  function lashArc(x,w,y,n){var r='<path d="M'+(x-w)+' '+(y+4.6)+' Q'+x+' '+(y-0.6)+' '+(x+w)+' '+(y+4.6)+'" fill="none" stroke="'+C.ink+'" stroke-width="2" stroke-linecap="round"/>',k=w/5.4;
+    (n===4?[[-3.8,2,-1.8,-2],[-1.3,.8,-.6,-2.5],[1.3,.8,.6,-2.5],[3.8,2,1.8,-2]]:[[-5,3.6,-2.4,-1.4],[-3.8,2,-1.8,-2],[-2,1,-1,-2.4],[0,.6,0,-2.5],[2,1,1,-2.4],[3.8,2,1.8,-2],[5,3.6,2.4,-1.4]]).forEach(function(l){r+='<path d="M'+(x+l[0]*k).toFixed(2)+' '+(y+l[1]*k).toFixed(2)+' l'+(l[2]*k).toFixed(2)+' '+(l[3]*k).toFixed(2)+'" stroke="'+C.ink+'" stroke-width="1.3" stroke-linecap="round"/>'});return r}
   function av(o){
     var sil=!!o.sil, sk=sil?SIL:SKIN, hc=sil?SILD:o.hair, sw=sil?SILL:o.sweater, sc=sil?SIL:o.scarf, dy=o.oval?2:0, r='';
     if(o.back)r+=o.back(hc);
-    r+='<path d="'+BODY[o.build||"normal"]+'" fill="'+sw+'" '+S+'/>';
-    if(o.tee)r+='<path d="M50 90 Q60 99 70 90" fill="none" '+S+' stroke-width="2.2"/>';
+    if(o.tank)r+='<path d="'+BODY.normal+'" fill="'+sk+'" '+S+'/><path d="M37 122 Q38 102 45 91.5 L50 90.5 Q60 102 70 90.5 L75 91.5 Q82 102 83 122Z" fill="'+sw+'" '+S+'/>';
+    else r+='<path d="'+BODY[o.build||"normal"]+'" fill="'+sw+'" '+S+'/>';
+    if(o.tank){}
+    else if(o.fluffy){var fz='';[[43,92],[48,96],[54,98.5],[60,99.5],[66,98.5],[72,96],[77,92],[46,89],[74,89]].forEach(function(q){fz+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="5" fill="'+sc+'" '+S+' stroke-width="1.8"/>'});[[43,92],[48,96],[54,98.5],[60,99.5],[66,98.5],[72,96],[77,92],[46,89],[74,89]].forEach(function(q){fz+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="3.8" fill="'+sc+'"/>'});r+=fz+'<path d="M50 95 q2 -1 4 0 M64 96 q2 -1 4 0" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="1.3" stroke-linecap="round"/>';}
+    else if(o.vneck)r+='<path d="M50 89.5 L60 103 L70 89.5Z" fill="'+sk+'" '+S+' stroke-width="2.2"/>'+(sil?'':'<path d="M51.5 89.8 Q60 99.5 68.5 89.8" fill="none" stroke="#9EA8B5" stroke-width="1.8"/><path d="M60 96.4 l3 3 -3 4 -3 -4Z" fill="#EAF3FB" stroke="'+C.ink+'" stroke-width="1" stroke-linejoin="round"/><path d="M58.6 98.6 l1.4 -1.2" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>');
+    else if(o.tee||o.noScarf)r+='<path d="M50 90 Q60 99 70 90" fill="none" '+S+' stroke-width="2.2"/>';
     else r+='<path d="M44 88 Q60 98 76 88 L78 96 Q60 106 42 96Z" fill="'+sc+'" '+S+' stroke-width="2.2"/><path class="scarf-tail" d="M66 98 l4 16 l7 -2 l-3 -15Z" fill="'+sc+'" '+S+' stroke-width="2.2"/>';
-    r+='<path d="M56 82 h8 v9 h-8Z" fill="'+sk+'"/>';
+    r+='<path d="M56 82 h8 v'+(o.vneck||o.tank?7:9)+' h-8Z" fill="'+sk+'"/>';
     if(o.over)r+=o.over(hc);
     if(o.ears){var ex=o.ears==="big"?[34.5,85.5]:[37,83],erx=o.ears==="big"?7:4,ery=o.ears==="big"?9.5:6;
       r+='<ellipse cx="'+ex[0]+'" cy="64" rx="'+erx+'" ry="'+ery+'" fill="'+sk+'" '+S+' stroke-width="2.2"/><ellipse cx="'+ex[1]+'" cy="64" rx="'+erx+'" ry="'+ery+'" fill="'+sk+'" '+S+' stroke-width="2.2"/>';}
     r+='<ellipse cx="60" cy="'+(62+dy)+'" rx="'+(o.oval?21:23)+'" ry="'+(o.oval?26:23)+'" fill="'+sk+'" '+S+'/>';
     if(!sil){
-      if(o.eyes==="big")r+='<g class="blink"><circle cx="51" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="52.4" cy="62.6" r="1.4" fill="#FFFFFF"/><circle cx="69" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="70.4" cy="62.6" r="1.4" fill="#FFFFFF"/></g>';
+      if(o.eyes==="ring"){var ir=o.iris||"#6B4532";r+='<g class="blink">';[51,69].forEach(function(x){r+='<circle cx="'+x+'" cy="64" r="3.9" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1.4"/><circle cx="'+x+'" cy="64.3" r="2.7" fill="'+ir+'"/><circle cx="'+x+'" cy="64.5" r="1.4" fill="'+C.ink+'"/><circle cx="'+(x+1)+'" cy="63.2" r=".85" fill="#FFFFFF"/>'+lashArc(x,4.6,57.8)});r+='</g>';}
+      else if(o.eyes==="big")r+='<g class="blink"><circle cx="51" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="52.4" cy="62.6" r="1.4" fill="#FFFFFF"/><circle cx="69" cy="64" r="4.2" fill="'+C.ink+'"/><circle cx="70.4" cy="62.6" r="1.4" fill="#FFFFFF"/></g>';
       else r+='<g class="blink"><ellipse cx="51" cy="63" rx="2.6" ry="3" fill="'+C.ink+'"/><ellipse cx="69" cy="63" rx="2.6" ry="3" fill="'+C.ink+'"/></g>';
-      if(o.brows)r+='<path d="M44 '+(o.brows==="thick"?53:54)+' q6 -3 11 0 M65 '+(o.brows==="thick"?53:54)+' q6 -3 11 0" fill="none" stroke="'+C.ink+'" stroke-width="'+(o.brows==="thick"?3.2:2)+'" stroke-linecap="round"/>';
-      if(o.lashes)r+='<path d="M53 63 q-2 -3 -5 -2 M67 63 q2 -3 5 -2" fill="none" stroke="'+C.ink+'" stroke-width="1.6" stroke-linecap="round"/>';
+      if(o.brows)r+='<path d="M44 '+(o.brows==="thick"?53:54)+' q6 -3 11 0 M65 '+(o.brows==="thick"?53:54)+' q6 -3 11 0" fill="none" stroke="'+C.ink+'" stroke-width="'+({thick:3.2,mid:2.6}[o.brows]||2)+'" stroke-linecap="round"/>';
+      
       r+='<circle cx="44" cy="'+(72+dy)+'" r="4" fill="'+C.coral+'" opacity=".6"/><circle cx="76" cy="'+(72+dy)+'" r="4" fill="'+C.coral+'" opacity=".6"/>';
       r+=o.sloth?'<path d="M55 '+(75+dy)+' q5 3 10 0" fill="none" '+S+' stroke-width="2.2"/>':'<path d="M54 '+(73+dy)+' q6 5 12 0" fill="none" '+S+' stroke-width="2.2"/>';
+      if(o.older)r+='<path d="M42.5 61 l-2.4 -1 M42.5 63.5 l-2.6 .4 M77.5 61 l2.4 -1 M77.5 63.5 l2.6 .4" fill="none" stroke="'+C.ink+'" stroke-opacity=".35" stroke-width="1.2" stroke-linecap="round"/>';
       if(o.lines)r+='<path d="M41 68 q-1 3 1 5 M79 68 q1 3 -1 5" fill="none" stroke="'+C.ink+'" stroke-opacity=".4" stroke-width="1.4" stroke-linecap="round"/>';
     }
     if(o.front)r+=o.front(hc);
+    if(o.necklace&&!sil)r+='<path d="M51.5 89.8 Q60 99.5 68.5 89.8" fill="none" stroke="#9EA8B5" stroke-width="1.8"/><path d="M60 96.4 l3 3 -3 4 -3 -4Z" fill="#EAF3FB" stroke="'+C.ink+'" stroke-width="1" stroke-linejoin="round"/><path d="M58.6 98.6 l1.4 -1.2" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>';
+    if(o.lashes==='full'&&!sil)r+='<path d="M49.6 60.2 l-1.6 -3 M71.7 60.2 l1.6 -3" fill="none" stroke="'+C.ink+'" stroke-width="1.5" stroke-linecap="round"/>';
+    if(o.lashes==='arc4'&&!sil)r+=lashArc(51,4.8,55.2,4)+lashArc(69,4.8,55.2,4);
+    else if(o.lashes&&!sil)r+='<path d="M48.7 61 l-2.8 -2.4 M48.3 62.6 l-3.4 -0.7 M71.3 61 l2.8 -2.4 M71.7 62.6 l3.4 -0.7" fill="none" stroke="'+C.ink+'" stroke-width="1.6" stroke-linecap="round"/>';
     if(o.acc)r+=o.acc(sil);
     if(sil)r+='<text x="60" y="'+(74+dy)+'" text-anchor="middle" class="q-mark">?</text>';
     return r;
@@ -1188,31 +1209,52 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     clip:function(){return '<circle cx="80" cy="44" r="4" fill="'+C.yam+'" '+S+' stroke-width="1.8"/>'},
     bow:function(){return '<path d="M74 40 l-6 -5 v10Z M74 40 l6 -5 v10Z" fill="'+C.coral+'" '+S+' stroke-width="1.6"/><circle cx="74" cy="40" r="2" fill="'+C.coral+'" '+S+' stroke-width="1.4"/>'},
     goggles:function(){return '<path d="M37 47 Q60 39 83 47" fill="none" stroke="'+C.ink+'" stroke-width="5" stroke-linecap="round"/><path d="M37 47 Q60 39 83 47" fill="none" stroke="'+C.coral+'" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="51" cy="44.5" rx="6.5" ry="4.5" fill="'+C.mizu+'" '+S+' stroke-width="2"/><ellipse cx="69" cy="44.5" rx="6.5" ry="4.5" fill="'+C.mizu+'" '+S+' stroke-width="2"/><path d="M48 43 l2 -1.4 M66 43 l2 -1.4" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/>'},
+    earmuffs:function(){var f="#FFF3E2",m='';[[33,66],[87,66]].forEach(function(q){var x=q[0],y=q[1];[[0,-5.5],[4.8,-3],[5.5,2.4],[2.4,6],[-3,5.6],[-5.5,0.8],[-4,-4.6]].forEach(function(d){m+='<circle cx="'+(x+d[0])+'" cy="'+(y+d[1])+'" r="3.8" fill="'+f+'" '+S+' stroke-width="1.6"/>'});m+='<circle cx="'+x+'" cy="'+y+'" r="6.2" fill="'+f+'"/><circle cx="'+(x-2)+'" cy="'+(y-2)+'" r="1.6" fill="#FFFFFF"/>'});return '<path d="M34 60 Q35 26 60 26 Q85 26 86 60" fill="none" stroke="'+C.ink+'" stroke-width="6.5" stroke-linecap="round"/><path d="M34 60 Q35 26 60 26 Q85 26 86 60" fill="none" stroke="'+C.coral+'" stroke-width="3.6" stroke-linecap="round"/>'+m},
+    hoops:function(){return '<circle cx="38.5" cy="75.5" r="2.3" fill="none" stroke="'+C.ink+'" stroke-width="2.2"/><circle cx="38.5" cy="75.5" r="2.3" fill="none" stroke="'+C.yam+'" stroke-width="1.1"/><circle cx="81.5" cy="75.5" r="2.3" fill="none" stroke="'+C.ink+'" stroke-width="2.2"/><circle cx="81.5" cy="75.5" r="2.3" fill="none" stroke="'+C.yam+'" stroke-width="1.1"/>'},
+    sunnies:function(){return '<g transform="rotate(-6 60 40)"><path d="M44 40 h32" '+S+' stroke-width="2.2"/><rect x="43" y="36" width="14" height="9" rx="4.5" fill="#3A3534" '+S+' stroke-width="2"/><rect x="63" y="36" width="14" height="9" rx="4.5" fill="#3A3534" '+S+' stroke-width="2"/><path d="M46 38.5 l3 -1 M66 38.5 l3 -1" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="1.4" stroke-linecap="round"/></g>'},
+    diamonds:function(){var d='';[[38.5,75],[81.5,75]].forEach(function(q){d+='<path d="M'+q[0]+' '+(q[1]-3)+' l2.4 3 -2.4 3 -2.4 -3Z" fill="#EAF3FB" stroke="'+C.ink+'" stroke-width="1.1" stroke-linejoin="round"/><path class="a-blink" d="M'+(q[0]+3.6)+' '+(q[1]-4.6)+' l.7 1.6 1.6 .7 -1.6 .7 -.7 1.6 -.7 -1.6 -1.6 -.7 1.6 -.7Z" fill="#FFFFFF" stroke="#9EA8B5" stroke-width=".6"/>'});return d},
+    ponytail:function(c){return '<path d="M76 38 Q98 40 97 66 Q96 86 86 96 Q91 76 85 58 Q82 46 74 42Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M90 60 q2 10 -1 20" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round"/>'},
     headband:function(){return '<path d="M37 52 Q60 30 83 52" fill="none" stroke="'+C.ink+'" stroke-width="8" stroke-linecap="round"/><path d="M37 52 Q60 30 83 52" fill="none" stroke="'+SILL+'" stroke-width="4.6" stroke-linecap="round"/>'}
   };
   var MEMBERS=[
-    {n:"Eddie",bg:C.mizu,hair:"#2B2726",sweater:C.waka,scarf:C.coral,front:function(c){return '<path d="M38 58 Q37 36 60 35 Q83 36 82 58 Q79 46 70 45 Q60 48 50 45 Q41 46 38 58Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M47 41 q4 -3 8 0 M63 40 q4 -3 8 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.6" stroke-linecap="round"/>'},ears:"normal",brows:"thin",lines:true,acc:ACC.eddieGlasses},
-    {n:"Jessica",bg:C.waka,hair:"#2A2524",sweater:C.coral,scarf:C.waka,back:function(c){return HAIR.bobBack(c,100)},front:HAIR.sideFront,lashes:true,lines:true,acc:ACC.pearls},
-    {n:"Stephanie",bg:C.coral,hair:"#2E2A29",sweater:C.yam,scarf:C.mizu,back:function(c){return HAIR.bobBack(c)},front:HAIR.bobFront,lashes:true},
+    {n:"Eddie",bg:C.mizu,hair:"#2B2726",sweater:C.waka,scarf:C.coral,front:function(c){return '<path d="M38 58 Q37 36 60 35 Q83 36 82 58 Q79 46 70 45 Q60 48 50 45 Q41 46 38 58Z" fill="'+c+'" '+S+' stroke-width="2.2"/><path d="M47 41 q4 -3 8 0 M63 40 q4 -3 8 0" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1.6" stroke-linecap="round"/>'},ears:"normal",brows:"mid",lines:true,acc:ACC.eddieGlasses},
+    {n:"Jessica",bg:C.waka,hair:"#2A2524",sweater:C.coral,scarf:C.waka,back:function(c){return HAIR.bobBack(c,100)},front:HAIR.sideFront,lashes:true,lines:true,acc:ACC.hoops},
+    {n:"Stephanie",bg:C.coral,hair:"#2E2A29",sweater:C.yam,scarf:C.mizu,back:function(c){return HAIR.bobBack(c)},front:HAIR.bobFront,lashes:true,lines:true},
     {n:"Joanne",bg:C.yam,hair:"#4A3E3A",sweater:C.mizu,scarf:C.yam,back:function(c){return HAIR.bobBack(c,88)},front:HAIR.bobFront,lines:true,acc:ACC.roundGlasses},
-    {n:"Jason",bg:C.mizu,hair:"#2B2726",sweater:C.coral,scarf:C.yam,build:"stocky",front:HAIR.shortFront,ears:"normal",brows:"thick"},
-    {n:"Katie",bg:C.coral,hair:"#8A5A42",sweater:C.waka,scarf:C.mizu,oval:true,back:HAIR.waveBob,front:HAIR.bobFront,lashes:true},
-    {n:"Isabel",bg:C.waka,hair:"#6E4B3A",sweater:C.coral,scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,acc:ACC.clip},
+    {n:"Jason",bg:C.mizu,hair:"#2B2726",sweater:"#5B5654",noScarf:true,build:"stocky",oval:true,front:HAIR.shortFront,ears:"normal",brows:"thick"},
+    {n:"Katie",bg:C.coral,hair:"#8A5A42",sweater:C.waka,scarf:"#F7CFC6",fluffy:true,oval:true,back:HAIR.waveBob,front:HAIR.bobFront,lashes:true,acc:ACC.diamonds},
+    {n:"Isabel",bg:C.waka,hair:"#3F2A20",sweater:"#2F4A72",tank:true,necklace:true,back:HAIR.fullBack,over:HAIR.fullStrands,front:HAIR.sidePartFront,brows:"thin",eyes:"big",lashes:"arc4"},
     {n:"Yvonne",bg:C.yam,hair:"#2F2627",sweater:C.mizu,scarf:C.coral,back:HAIR.looseBack,over:HAIR.looseOver,front:HAIR.looseFront,lashes:true},
-    {n:"Tata",bg:"#C4E2F5",hair:"#B98B6A",sweater:"#C4E2F5",scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,eyes:"big",sloth:true},
+    {n:"Tata",bg:"#C4E2F5",hair:"#B98B6A",sweater:"#C4E2F5",scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,eyes:"big",sloth:true,acc:ACC.earmuffs},
     {n:"Nana",bg:C.waka,hair:"#7A5236",sweater:C.yam,scarf:C.coral,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.middleFront,eyes:"big",sloth:true,acc:ACC.bow},
     {n:"Charles",bg:C.mizu,hair:"#3A2E2A",sweater:C.mizu,scarf:C.coral,oval:true,front:HAIR.shortFront,ears:"big",brows:"thin",acc:ACC.goggles},
-    {n:"Terry",bg:C.coral,hair:"#4A3B35",sweater:C.yam,scarf:C.mizu,oval:true,front:HAIR.buzzFront,ears:"big",acc:ACC.goggles,tee:true}
+    {n:"Terry",bg:C.coral,hair:"#4A3B35",sweater:C.yam,scarf:C.mizu,oval:true,front:HAIR.buzzFront,ears:"big",brows:"thick",acc:ACC.goggles,tee:true}
   ];
   var MYSTERY=[
-    {sil:true,front:HAIR.shortFront,ears:"normal",hint:"M"},
-    {sil:true,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,acc:ACC.headband,hint:"S"},
-    {sil:true,front:HAIR.kFront,ears:"normal",hint:"F"}
+    {sil:true,front:HAIR.shortFront,ears:"normal",hint:"Michael"},
+    {sil:true,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,acc:ACC.headband,hint:"Shaina"},
+    {sil:true,front:HAIR.kFront,ears:"normal",hint:"Frankie"}
   ];
   function avSvg(o,label,bg){
     var svg=av(o).replace(/<(\w+)([^>]*?)class="([^"]*)"([^>]*?)class="([^"]*)"/g,'<$1$2class="$3 $5"$4');
     return '<svg viewBox="0 0 120 122" role="img" aria-label="'+label+'"><circle cx="60" cy="60" r="56" fill="'+bg+'" opacity=".45"/><circle class="snow-dot" cx="22" cy="26" r="2.5" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s2" cx="98" cy="22" r="2" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s3" cx="102" cy="58" r="2.4" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><g class="bob">'+svg+'</g></svg>';
   }
+  (function(){
+    var g=document.getElementById("sledCrew");if(!g)return;var out='';
+    var longHair={Jessica:1,Stephanie:1,Joanne:1,Katie:1,Isabel:1,Yvonne:1,Tata:1,Nana:1};
+    MEMBERS.forEach(function(m,i){
+      var row=i%2, x=-37+i*6.7, y=row?-12:-17, h=m.hair, part='';
+      if(longHair[m.n])part+='<ellipse cx="0" cy="1.6" rx="5.3" ry="5.8" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
+      part+='<circle r="4.3" fill="'+SKIN+'" stroke="'+C.ink+'" stroke-width="1.1"/>';
+      part+='<path d="M-4.5 0.4 Q-4.6 -5 0 -5 Q4.6 -5 4.5 0.4 Q2 -2.6 -4.5 0.4Z" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
+      part+='<circle cx="-1.5" cy="0.6" r=".6" fill="'+C.ink+'"/><circle cx="1.5" cy="0.6" r=".6" fill="'+C.ink+'"/>';
+      if(m.n==="Eddie"||m.n==="Joanne")part+='<path d="M-3.4 0.6 h2.6 M0.8 0.6 h2.6" stroke="'+(m.n==="Joanne"?C.coral:C.ink)+'" stroke-width="1.6" stroke-linecap="round"/>';
+      if(m.n==="Tata")part+='<circle cx="-4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/><circle cx="4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/>';
+      if(m.n==="Charles"||m.n==="Terry")part+='<path d="M-3.8 -2.6 h7.6" stroke="'+C.mizu+'" stroke-width="1.4" stroke-linecap="round"/>';
+      out+='<g class="crew-bob" style="animation-delay:'+(-i*0.13).toFixed(2)+'s"><g transform="translate('+x.toFixed(1)+' '+y+')">'+part+'</g></g>';
+    });
+    g.innerHTML=out;
+  })();
   document.getElementById("members").innerHTML=MEMBERS.map(function(m,i){
     return '<article class="card member" style="--mc:'+m.bg+';--d:'+(i*0.35)+'s"><div class="avatar">'+avSvg(m,m.n+" illustration",m.bg)+'</div><h3>'+esc(m.n)+'</h3>'+(m.tag?'<span class="m-tag">'+m.tag+'</span>':'')+'</article>';
   }).join("");
