@@ -336,12 +336,35 @@ svg *{transform-box:fill-box;transform-origin:center}
 .tracker-body h3{font-size:22px}
 .tracker-body p{font-size:14px}
 .tracker-body .mini-btn{align-self:flex-start;font-size:14px;padding:4px 14px}
+.game{display:flex;flex-direction:column;gap:10px;padding:14px;background:var(--card)}
+.game-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.game-head h4{font-size:18px}
+.game-head span{font-size:13px;color:var(--ink-soft)}
+.lad-svg{border:2px solid var(--ink);border-radius:14px;background:var(--paper);overflow:hidden}
+.lad-svg svg{width:100%;height:auto;font-family:var(--font)}
+.lad-svg svg *{transform-box:view-box;transform-origin:0 0}
+.lad-svg svg .lad-slot{transform-box:fill-box;transform-origin:center}
+.lad-head{cursor:pointer;outline:none}
+.lad-head:focus-visible circle{stroke:var(--coral);stroke-width:3}
+.lad-name{font-size:9.5px;fill:var(--ink)}
+.lad-q{font-size:13px;fill:var(--ink);font-family:var(--font)}
+.lad-slot.pop-in{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.lad-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn.alt{background:var(--mizu)}
+.lad-tip{font-size:12px;color:var(--ink-soft)}
+.lad-result{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.lad-pair{display:flex;flex-direction:column;align-items:flex-start;gap:4px;border:2px solid var(--ink);border-radius:14px;padding:6px 10px;background:var(--paper);font-size:14px;min-width:0}
+.lad-pair b{font-weight:400;font-size:12px;padding:0 8px;border-radius:999px;border:1.5px solid var(--ink);background:var(--gc);flex-basis:auto}
+.lad-pair .names{font-size:14px;line-height:1.35}
+.lad-pair .amp{color:var(--ink-soft);margin:0 4px}
 .mini-map{display:flex;flex-direction:column;gap:10px;padding:12px}
 .mini-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .mini-head h4{font-size:17px}
 .mini-svg{border:2px solid var(--ink);border-radius:14px;overflow:hidden}
 .mini-svg svg{width:100%;height:auto;font-family:var(--font)}
-.mini-stops{font-size:13px}
+.mini-stops,.seq{font-size:13px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;line-height:1.5}
+.leg{display:inline-flex;align-items:center;font-size:12px;padding:0 8px;border-radius:999px;border:1.5px solid var(--ink);background:var(--yamabuki-pale);white-space:nowrap}
+.seq-note{flex-basis:100%;font-size:12px;color:var(--ink-soft)}
 .members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .member{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px 12px;background:var(--card)}
 .member:nth-child(odd){transform:rotate(-1deg)}
@@ -726,6 +749,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     gift:'<rect x="8" y="20" width="32" height="22" rx="3" fill="'+C.coral+'" '+S+'/><rect x="5" y="14" width="38" height="8" rx="3" fill="'+C.coral+'" '+S+'/><path d="M24 14 V42" stroke="'+C.yam+'" stroke-width="5"/><path d="M24 14 V42" fill="none" '+S+' stroke-width="1.5"/><path d="M24 14 q-10 -10 -12 -2 q2 4 12 2 q10 -10 12 -2 q-2 4 -12 2" fill="'+C.yam+'" '+S+' stroke-width="2"/>',
     moon:'<path d="M30 8 A16 16 0 1 0 40 32 A13 13 0 1 1 30 8Z" fill="'+C.yam+'" '+S+'/><path d="M34 10 h6 l-6 6 h6" fill="none" '+S+' stroke-width="2"/>',
     alaska:'<rect x="2" y="2" width="44" height="44" rx="10" fill="'+C.mizu+'" opacity=".35"/><path class="a-wave" d="M2 14 C12 6 22 18 32 10 S42 6 46 9 L46 15 C40 12 32 20 24 17 S10 14 2 20Z" fill="'+C.waka+'" '+S+' stroke-width="1.8"/><path d="M2 40 L15 20 L22 29 L30 16 L46 40Z" fill="'+C.white+'" '+S+' stroke-width="2.2"/><path d="M15 20 L11 26 L15 25 L19 27Z M30 16 L25 23 L30 21 L35 24Z" fill="'+C.mizu+'" '+S+' stroke-width="1.6"/><path d="M2 40 H46" '+S+' stroke-width="2.2"/><g class="a-bump"><path d="M30 31 L42 27 L40 30 L36 31 L38 35 L36 35 L33 32 L31 33Z" fill="'+C.yam+'" '+S+' stroke-width="1.5"/></g><circle class="a-blink" cx="9" cy="28" r="1.6" fill="'+C.yam+'"/><circle class="a-blink k2" cx="40" cy="20" r="1.6" fill="'+C.yam+'"/>',
+    onsen:'<path class="a-steam" d="M17 20 q-3 -4 0 -8 q3 -4 0 -8" fill="none" '+S+' stroke-width="2"/><path class="a-steam k2" d="M25 20 q-3 -4 0 -8 q3 -4 0 -8" fill="none" '+S+' stroke-width="2"/><path class="a-steam" d="M33 20 q-3 -4 0 -8 q3 -4 0 -8" fill="none" '+S+' stroke-width="2"/><ellipse cx="24" cy="33" rx="19" ry="8" fill="'+C.mizu+'" '+S+'/><path d="M11 32 q4 -2 8 0 M27 34 q4 -2 8 0" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="27" r="3" fill="'+C.white+'" '+S+' stroke-width="1.6"/><circle cx="40" cy="27" r="3" fill="'+C.white+'" '+S+' stroke-width="1.6"/>',
     spark:'<path d="M24 4 l5 12 13 1 -10 8 3 13 -11 -7 -11 7 3 -13 -10 -8 13 -1Z" fill="'+C.yam+'" '+S+'/><circle cx="40" cy="40" r="3" fill="'+C.waka+'" '+S+' stroke-width="2"/>'
   };
   function icon(n){
@@ -748,13 +772,13 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       {t:"Night",name:"Aurora Chasing",note:"",tags:["van"],ic:"aurora",must:true,anim:true},
       {t:"01:00",name:"Back to the Airbnb",note:"",tags:["van"],ic:"moon"}
     ]},
-    {date:"12/22",wk:"Tue",iso:"2026-12-22",color:C.yam,pale:"var(--yamabuki-pale)",title:"Snow Adventure Day",sub:"Activities $160+ per person",items:[
-      {t:"TBD",name:"Dog Sledding (30 min)",note:"",tags:["sled"],ic:"dog",must:true,anim:true},
-      {t:"TBD",name:"Snowmobiling (30 min)",note:"",tags:["snowmo"],ic:"snowmo",must:true,anim:true},
-      {t:"Night",name:"Aurora Chasing",note:"",tags:["van"],ic:"aurora",must:true,anim:true}
+    {date:"12/22",wk:"Tue",route:"d22x",game:true,iso:"2026-12-22",color:C.yam,pale:"var(--yamabuki-pale)",title:"Snowmobile · Hot Springs · Aurora",sub:"",items:[
+      {t:"13:30",name:"Snowmobiling (30 min)",note:"",tags:["snowmo"],ic:"snowmo",must:true,anim:true},
+      {t:"15:00",name:"Chena Hot Springs",note:"",tags:["van"],ic:"onsen",must:true,anim:true},
+      {t:"Night",name:"Aurora Camp",note:"",tags:["van"],ic:"aurora",must:true,anim:true}
     ]},
-    {date:"12/23",wk:"Wed",iso:"2026-12-23",color:C.waka,pale:"var(--card)",title:"Where should we go?",sub:"",items:[
-      {t:"Day",name:"Where should we go?",note:"",tags:["tbd"],ic:"spark",ideas:["Chena Hot Springs","Aurora Ice Museum (Chena)","UA Museum of the North","Running Reindeer Ranch walk","Ice fishing","Snowshoeing","Creamer's Field trails","Morris Thompson Cultural Center","Pioneer Park","Downtown shops + coffee","Sleep in"]},
+    {date:"12/23",wk:"Wed",iso:"2026-12-23",color:C.waka,pale:"var(--card)",title:"Snow Adventure Day",sub:"Activities $160+ per person",items:[
+      {t:"TBD",name:"Dog Sledding (30 min)",note:"",tags:["sled"],ic:"dog",must:true,anim:true},
       {t:"Night",name:"Aurora Chasing",note:"",tags:["tbd"],ic:"aurora",must:true,anim:true}
     ]},
     {date:"12/24",wk:"Thu",iso:"2026-12-24",color:C.coral,pale:"var(--coral-pale)",title:"Christmas Eve",sub:"",items:[
@@ -765,7 +789,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
   ];
 
   /* ---------- 日期切換 ---------- */
-  var renderMini=null, pendingRoute=null;
+  var renderMini=null, pendingRoute=null, renderLadder=null;
   var tabsEl=document.getElementById("tabs"), dayEl=document.getElementById("day");
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
@@ -795,9 +819,11 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       html+='</div></div></li>';
     });
     if(d.items.length)html+='</ol>';
+    if(d.game)html+='<div class="card game"><div class="game-head"><h4>🛷 Snowmobile Pair Draw</h4><span>Just Kidding</span></div><div id="ladderBox"></div></div>';
     if(d.route)html+='<div class="card mini-map"><div class="mini-head"><h4>Today’s route</h4><a class="mini-btn" href="#map" data-route="'+d.route+'">Open full map</a></div><div class="mini-svg" id="miniSvg"></div><p class="mini-stops" id="miniStops"></p></div>';
     dayEl.innerHTML=html;
     if(renderMini)renderMini(d.route);
+    if(d.game&&renderLadder)renderLadder();
     if(animate){dayEl.classList.remove("pop");void dayEl.offsetWidth;dayEl.classList.add("pop")}
     store.set("fbxen-day",i);
     var t=tabsEl.children[i];
@@ -938,7 +964,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
   recList.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-goto]");if(a){pendingPlace=a.getAttribute("data-goto")}});
 
   /* ---------- 地圖 ---------- */
-  var ZOOMS={city:{w:-147.97,e:-147.66,n:64.885,s:64.80,label:"Town"},wide:{w:-148.05,e:-147.25,n:65.08,s:64.72,label:"Wide"}};
+  var ZOOMS={city:{w:-147.97,e:-147.66,n:64.885,s:64.80,label:"Town"},wide:{w:-148.05,e:-147.25,n:65.08,s:64.72,label:"Wide"},west:{w:-148.42,e:-147.78,n:65.0,s:64.80,hidden:true},chena:{w:-148.0,e:-145.95,n:65.12,s:64.78,hidden:true},both:{w:-148.45,e:-145.95,n:65.12,s:64.76,hidden:true}};
   var EXT=ZOOMS.city,MW=400,MH=258;
   function setExt(z){EXT=ZOOMS[z];MH=Math.round(MW*(EXT.n-EXT.s)/((EXT.e-EXT.w)*Math.cos(64.85*Math.PI/180)));}
   function P(lon,lat){return [+((lon-EXT.w)/(EXT.e-EXT.w)*MW).toFixed(1),+((EXT.n-lat)/(EXT.n-EXT.s)*MH).toFixed(1)]}
@@ -951,12 +977,14 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     airport:[[-147.8561,64.8151],[-147.83,64.822],[-147.79,64.828],[-147.75,64.834],[-147.716,64.8435]],
     college:[[-147.835,64.858],[-147.78,64.857],[-147.74,64.857],[-147.702,64.856]],
     univ:[[-147.815,64.818],[-147.815,64.835],[-147.818,64.858]],
-    chhs:[[-147.68,64.895],[-147.58,64.90],[-147.45,64.905],[-147.25,64.91]],
+    chhs:[[-147.68,64.895],[-147.58,64.90],[-147.45,64.905],[-147.25,64.90],[-147.05,64.88],[-146.85,64.90],[-146.60,64.95],[-146.38,65.00],[-146.18,65.04],[-146.0556,65.0531]],
+    sheep:[[-147.875,64.857],[-147.92,64.875],[-147.98,64.895],[-148.04,64.915]],
+    murphyRd:[[-148.04,64.915],[-148.12,64.93],[-148.20,64.94],[-148.28,64.948],[-148.3555,64.9523]],
     gold:[[-147.655,64.93],[-147.75,64.925],[-147.86,64.915],[-147.95,64.905]],
     chenapump:[[-147.775,64.842],[-147.80,64.832],[-147.84,64.826],[-147.87,64.828]],
     ridge:[[-147.87,64.828],[-147.89,64.829],[-147.905,64.830],[-147.93,64.836],[-147.95,64.845]]
   };
-  var CHENA=[[-147.25,64.862],[-147.38,64.848],[-147.52,64.838],[-147.63,64.842],[-147.70,64.845],[-147.75,64.840],[-147.80,64.830],[-147.85,64.818],[-147.89,64.802]];
+  var CHENA=[[-146.08,65.035],[-146.40,64.975],[-146.70,64.92],[-147.00,64.875],[-147.25,64.862],[-147.38,64.848],[-147.52,64.838],[-147.63,64.842],[-147.70,64.845],[-147.75,64.840],[-147.80,64.830],[-147.85,64.818],[-147.89,64.802]];
   var TANANA=[[-147.25,64.712],[-147.42,64.735],[-147.60,64.762],[-147.78,64.786],[-147.90,64.797],[-148.05,64.802]];
   var CATC={home:C.coral,trip:C.coral,food:C.yam,spot:C.waka,aurora:C.mizu,base:C.white};
   var PLACES=[
@@ -974,14 +1002,18 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     {id:"pike",n:"Pike's Landing",cat:"food",lon:-147.838,lat:64.8228,d:"Big riverside restaurant that fits 12, close to the Airbnb.",q:"Pike's Landing"},
     {id:"pump",n:"Chena Pump Rd restaurants",cat:"food",lon:-147.803,lat:64.831,d:"Pump House, Lemongrass Thai and Lulu's bagels are all on this road, near the Airbnb.",q:"Pump House Restaurant Fairbanks"},
     {id:"chena",n:"Chena Hot Springs (about 60 mi east)",cat:"spot",lon:-146.0556,lat:65.0531,d:"A bit over an hour east on Chena Hot Springs Rd. Two Rivers Lodge is on the way.",q:"Chena Hot Springs Resort"},
+    {id:"camp",n:"Aurora Camp (near Murphy Dome)",cat:"aurora",lon:-148.21,lat:64.94,d:"Where we watch the aurora on 12/22: a hilltop cabin with big windows near Murphy Dome. The pin is approximate.",q:"Aurora Camp 2710 McCall St Fairbanks"},
     {id:"murphy",n:"Murphy Dome (northwest)",cat:"aurora",lon:-148.3555,lat:64.9523,d:"A northwest summit and another popular aurora spot.",q:"Murphy Dome"}
   ];
   var toDt=[AIRBNB,[-147.93,64.836],[-147.95,64.845],[-147.92,64.851],[-147.84,64.847],[-147.775,64.842],[-147.716,64.8435]];
   var ROUTES={
-    d20:{label:"12/20 arrival",zoom:"city",pts:[[-147.8561,64.8151],[-147.83,64.822],[-147.84,64.826],[-147.87,64.828],[-147.89,64.829],AIRBNB],stops:["fai","bnb"]},
-    d21:{label:"12/21 van tour",zoom:"wide",pts:toDt.concat(ROADS.rich.slice(1,7)).concat(ROADS.rich.slice(0,6).reverse()).concat([[-147.702,64.856],[-147.6985,64.8557],[-147.702,64.856],[-147.716,64.8435]]).concat(toDt.slice(0,6).reverse()).concat(toDt.slice(1)).concat(ROADS.steese.slice(1)).concat(ROADS.steese.slice(0,8).reverse()).concat(toDt.slice().reverse()),stops:["bnb","dt","santa","costco","bnb","cleary"]}
+    d20:{label:"12/20 arrival",zoom:"city",pts:[[-147.8561,64.8151],[-147.83,64.822],[-147.84,64.826],[-147.87,64.828],[-147.89,64.829],AIRBNB],stops:["fai","bnb"],legs:["~10 min"]},
+    d22:{label:"12/23 Aurora Camp",zoom:"west",pts:[AIRBNB,[-147.93,64.836],[-147.95,64.845],[-147.92,64.851],[-147.875,64.857]].concat(ROADS.sheep.slice(1)).concat([[-148.12,64.93],[-148.21,64.94]]),stops:["bnb","camp"],legs:["~30–40 min"],note:"The last stretch is a hill road, so allow extra time in winter."},
+    d23:{label:"12/22 Chena Hot Springs",zoom:"chena",pts:toDt.concat([[-147.702,64.856],[-147.695,64.875],[-147.68,64.895]]).concat(ROADS.chhs.slice(1)),stops:["bnb","dt","chena"],legs:["~15 min","~1 hr 10 min"],note:"About 1 hr 30 min each way (about 60 miles). Allow extra time on snowy roads."},
+    d22x:{label:"12/22 Chena + Aurora Camp",zoom:"both",pts:toDt.concat([[-147.702,64.856],[-147.695,64.875],[-147.68,64.895]]).concat(ROADS.chhs.slice(1)).concat(ROADS.chhs.slice(0,-1).reverse()).concat([[-147.695,64.875],[-147.702,64.856]]).concat(ROADS.college.slice().reverse()).concat(ROADS.sheep).concat([[-148.12,64.93],[-148.21,64.94]]),stops:["bnb","chena","camp"],legs:["~1 hr 30 min","~2 hr"],note:"The hot springs and Aurora Camp are on opposite sides of Fairbanks. Driving straight from the springs takes about 2 hours, so allow extra time on snowy roads."},
+    d21:{label:"12/21 van tour",zoom:"wide",pts:toDt.concat(ROADS.rich.slice(1,7)).concat(ROADS.rich.slice(0,6).reverse()).concat([[-147.702,64.856],[-147.6985,64.8557],[-147.702,64.856],[-147.716,64.8435]]).concat(toDt.slice(0,6).reverse()).concat(toDt.slice(1)).concat(ROADS.steese.slice(1)).concat(ROADS.steese.slice(0,8).reverse()).concat(toDt.slice().reverse()),stops:["bnb","dt","santa","costco","bnb","cleary"],legs:["~15 min","~25 min","~25 min","~20 min","~45–50 min"],note:"The drive back from Cleary Summit to the Airbnb is also about 45–50 min."}
   };
-  var FILTERS=[{k:"all",l:"All"},{k:"d21",l:"12/21 van route"},{k:"d20",l:"12/20 arrival"},{k:"food",l:"Food"},{k:"spot",l:"Sights"},{k:"aurora",l:"Aurora spots"}];
+  var FILTERS=[{k:"all",l:"All"},{k:"d20",l:"12/20 arrival"},{k:"d21",l:"12/21 van route"},{k:"d22x",l:"12/22 Hot springs + Aurora Camp"},{k:"food",l:"Food"},{k:"spot",l:"Sights"},{k:"aurora",l:"Aurora spots"}];
   var svgNS="http://www.w3.org/2000/svg", mapSvg=document.getElementById("mapSvg");
   function el(tag,attrs,parent){var e=document.createElementNS(svgNS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
   var routeLayer,markerLayer,vanLayer,vanG,curZoom=null;
@@ -1007,6 +1039,13 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       label(-147.93,64.851,-18,-8,"Parks Hwy","road");
       label(-147.79,64.828,-20,14,"Airport Way","road");
       label(-147.84,64.826,-10,-16,"Chena Pump Rd","road");
+    }else if(z==="chena"||z==="both"){
+      if(z==="both")label(-148.3555,64.9523,-30,-10,"Murphy Dome");
+      label(-147.72,64.85,-30,-12,"Fairbanks","big");
+      label(-146.0556,65.0531,-122,22,"Chena Hot Springs","big");
+      label(-146.9,64.9,-20,-10,"Chena Hot Springs Rd","road");
+      label(-147.05,64.88,-14,16,"Two Rivers");
+      label(-147.626,64.957,8,4,"Fox");
     }else{
       label(-147.72,64.825,-6,10,"Fairbanks","big");
       label(-147.35,64.75,-22,20,"North Pole","big");
@@ -1016,13 +1055,14 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
       label(-147.69,64.91,8,0,"Steese Hwy","road");
       label(-147.53,64.796,4,-6,"Richardson Hwy","road");
       label(-147.97,64.852,-10,-8,"Parks Hwy","road");
+      if(z==="west"){label(-148.3555,64.9523,-30,-12,"Murphy Dome");label(-147.92,64.83,-20,22,"Chena Ridge");}
     }
     var g=el("g",{transform:"translate(24 "+(MH-26)+")"},mapSvg);
     el("circle",{r:"13",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"2"},g);
     el("path",{d:"M0 -9 L5 3 L0 0 L-5 3Z",fill:C.coral,stroke:C.ink,"stroke-width":"1.5","stroke-linejoin":"round"},g);
     var nt=el("text",{x:"-3.5",y:"11",class:"map-label",style:"font-size:8px"},g);nt.textContent="N";
-    var kmPx=MW/((EXT.e-EXT.w)*111.32*Math.cos(64.85*Math.PI/180)), km=z==="city"?2:10;
-    var sb=el("g",{transform:"translate(50 "+(MH-20)+")"},mapSvg);
+    var kmPx=MW/((EXT.e-EXT.w)*111.32*Math.cos(64.85*Math.PI/180)), km={city:2,west:5,wide:10,chena:20,both:20}[z]||10;
+    var sb=el("g",{transform:"translate("+(z==="chena"?MW-140:50)+" "+(MH-20)+")"},mapSvg);
     el("rect",{x:"0",y:"0",width:(km*kmPx).toFixed(1),height:"6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},sb);
     el("rect",{x:"0",y:"0",width:(km*kmPx/2).toFixed(1),height:"6",fill:C.ink},sb);
     var sbt=el("text",{x:(km*kmPx+6).toFixed(1),y:"7",class:"map-label"},sb);sbt.textContent=km+" km";
@@ -1038,12 +1078,12 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
   if(!ZOOMS[zoomPref])zoomPref="city";
   var filterEl=document.getElementById("mapFilters"), zoomEl=document.getElementById("mapZoom"), cardEl=document.getElementById("placeCard"), listEl=document.getElementById("placeList");
   FILTERS.forEach(function(f){var b=document.createElement("button");b.type="button";b.className="seg-btn";b.dataset.k=f.k;b.textContent=f.l;b.addEventListener("click",function(){mapFilter=f.k;store.set("fbxen-mapf2",f.k);selected=null;if(ROUTES[f.k])zoomPref=ROUTES[f.k].zoom;else if(f.k==="aurora")zoomPref="wide";renderMap()});filterEl.appendChild(b)});
-  Object.keys(ZOOMS).forEach(function(z){var b=document.createElement("button");b.type="button";b.className="zoom-btn";b.dataset.z=z;b.textContent=ZOOMS[z].label;b.addEventListener("click",function(){zoomPref=z;store.set("fbxen-zoom",z);renderMap()});zoomEl.appendChild(b)});
+  Object.keys(ZOOMS).forEach(function(z){if(ZOOMS[z].hidden)return;var b=document.createElement("button");b.type="button";b.className="zoom-btn";b.dataset.z=z;b.textContent=ZOOMS[z].label;b.addEventListener("click",function(){zoomPref=z;store.set("fbxen-zoom",z);renderMap()});zoomEl.appendChild(b)});
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function isOut(p){var q=P(p.lon,p.lat);return q[0]<14||q[0]>MW-14||q[1]<14||q[1]>MH-14}
   function uniq(a){var o=[];a.forEach(function(x){if(o.indexOf(x)<0)o.push(x)});return o}
-  function seqText(stops){var seen=[];return stops.map(function(id){var p=byId(id);if(seen.indexOf(id)>=0)return "Back to "+p.n.replace(/\s*\(.*?\)/,"");seen.push(id);return seen.length+". "+p.n}).join("  →  ")}
+  function seqText(stops,legs){var seen=[];var names=stops.map(function(id){var p=byId(id);if(seen.indexOf(id)>=0)return "Back to "+p.n.replace(/\s*\(.*?\)/,"");seen.push(id);return seen.length+". "+p.n});return names.map(function(n,i){return '<span class="stop">'+esc(n)+'</span>'+(i<names.length-1?'<span class="leg">🚐 '+esc((legs&&legs[i])||"")+'</span>':"")}).join("")}
   function byId(id){return PLACES.filter(function(p){return p.id===id})[0]}
   function visiblePlaces(){
     if(ROUTES[mapFilter])return uniq(ROUTES[mapFilter].stops).map(byId);
@@ -1084,7 +1124,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     listEl.innerHTML=places.map(function(p,i){return '<li><button type="button" class="place-btn'+(selected===p.id?" on":"")+'" data-id="'+p.id+'"><span class="pin-dot" style="background:'+CATC[p.cat]+'">'+(i+1)+'</span><span>'+esc(p.n)+'</span>'+(curZoom==="city"&&isOut(p)?'<span class="far">Wide</span>':'')+'</button></li>'}).join("");
     var sp=byId(selected);
     if(sp){cardEl.hidden=false;cardEl.innerHTML='<h3>'+esc(sp.n)+'</h3><p>'+esc(sp.d)+'</p><a class="mini-btn" href="'+gmap(sp.q)+'" target="_blank" rel="noopener">Open in Google Maps ↗</a>'}
-    else if(r){cardEl.hidden=false;cardEl.innerHTML='<h3>'+esc(r.label)+'</h3><p>'+esc(seqText(r.stops))+'</p>'}
+    else if(r){cardEl.hidden=false;cardEl.innerHTML='<h3>'+esc(r.label)+'</h3><p class="seq">'+seqText(r.stops,r.legs)+'</p>'+(r.note?'<p class="seq-note">'+esc(r.note)+'</p>':'')}
     else{cardEl.hidden=true;cardEl.innerHTML=""}
   }
   function pick(id){selected=selected===id?null:id;var pp=byId(id),q=pp&&(function(){setExt(zoomPref);var r=P(pp.lon,pp.lat);if(curZoom)setExt(curZoom);return r})();if(selected&&q&&(q[0]<14||q[0]>MW-14||q[1]<14||q[1]>MH-14))zoomPref="wide";if(selected&&!visiblePlaces().some(function(p){return p.id===id})){mapFilter="all";store.set("fbxen-mapf2","all")}renderMap()}
@@ -1117,7 +1157,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     el("circle",{cx:"-5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vg);
     el("circle",{cx:"5",cy:"5",r:"2.6",fill:"#FFFFFF",stroke:C.ink,"stroke-width":"1.5"},vg);
     box.innerHTML="";box.appendChild(svg);
-    document.getElementById("miniStops").textContent=seqText(r.stops);
+    document.getElementById("miniStops").innerHTML=seqText(r.stops,r.legs)+(r.note?'<span class="seq-note">'+esc(r.note)+'</span>':"");
     var len=line.getTotalLength();
     if(reduce||!len){vg.style.display="none"}
     else{
@@ -1239,22 +1279,91 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     var svg=av(o).replace(/<(\w+)([^>]*?)class="([^"]*)"([^>]*?)class="([^"]*)"/g,'<$1$2class="$3 $5"$4');
     return '<svg viewBox="0 0 120 122" role="img" aria-label="'+label+'"><circle cx="60" cy="60" r="56" fill="'+bg+'" opacity=".45"/><circle class="snow-dot" cx="22" cy="26" r="2.5" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s2" cx="98" cy="22" r="2" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><circle class="snow-dot s3" cx="102" cy="58" r="2.4" fill="#FFFFFF" stroke="'+C.ink+'" stroke-width="1"/><g class="bob">'+svg+'</g></svg>';
   }
+  var LONGHAIR={Jessica:1,Stephanie:1,Joanne:1,Katie:1,Isabel:1,Yvonne:1,Tata:1,Nana:1};
+  function miniHead(m){var h=m.hair,part='';
+    if(LONGHAIR[m.n])part+='<ellipse cx="0" cy="1.6" rx="5.3" ry="5.8" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
+    part+='<circle r="4.3" fill="'+SKIN+'" stroke="'+C.ink+'" stroke-width="1.1"/>';
+    part+='<path d="M-4.5 0.4 Q-4.6 -5 0 -5 Q4.6 -5 4.5 0.4 Q2 -2.6 -4.5 0.4Z" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
+    part+='<circle cx="-1.5" cy="0.6" r=".6" fill="'+C.ink+'"/><circle cx="1.5" cy="0.6" r=".6" fill="'+C.ink+'"/>';
+    if(m.n==="Eddie"||m.n==="Joanne")part+='<path d="M-3.4 0.6 h2.6 M0.8 0.6 h2.6" stroke="'+(m.n==="Joanne"?C.coral:C.ink)+'" stroke-width="1.6" stroke-linecap="round"/>';
+    if(m.n==="Tata")part+='<circle cx="-4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/><circle cx="4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/>';
+    if(m.n==="Charles"||m.n==="Terry")part+='<path d="M-3.8 -2.6 h7.6" stroke="'+C.mizu+'" stroke-width="1.4" stroke-linecap="round"/>';
+    return part}
   (function(){
     var g=document.getElementById("sledCrew");if(!g)return;var out='';
-    var longHair={Jessica:1,Stephanie:1,Joanne:1,Katie:1,Isabel:1,Yvonne:1,Tata:1,Nana:1};
     MEMBERS.forEach(function(m,i){
-      var row=i%2, x=-37+i*6.7, y=row?-12:-17, h=m.hair, part='';
-      if(longHair[m.n])part+='<ellipse cx="0" cy="1.6" rx="5.3" ry="5.8" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
-      part+='<circle r="4.3" fill="'+SKIN+'" stroke="'+C.ink+'" stroke-width="1.1"/>';
-      part+='<path d="M-4.5 0.4 Q-4.6 -5 0 -5 Q4.6 -5 4.5 0.4 Q2 -2.6 -4.5 0.4Z" fill="'+h+'" stroke="'+C.ink+'" stroke-width="1"/>';
-      part+='<circle cx="-1.5" cy="0.6" r=".6" fill="'+C.ink+'"/><circle cx="1.5" cy="0.6" r=".6" fill="'+C.ink+'"/>';
-      if(m.n==="Eddie"||m.n==="Joanne")part+='<path d="M-3.4 0.6 h2.6 M0.8 0.6 h2.6" stroke="'+(m.n==="Joanne"?C.coral:C.ink)+'" stroke-width="1.6" stroke-linecap="round"/>';
-      if(m.n==="Tata")part+='<circle cx="-4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/><circle cx="4.6" cy="0.6" r="1.8" fill="#FFF3E2" stroke="'+C.ink+'" stroke-width=".8"/>';
-      if(m.n==="Charles"||m.n==="Terry")part+='<path d="M-3.8 -2.6 h7.6" stroke="'+C.mizu+'" stroke-width="1.4" stroke-linecap="round"/>';
-      out+='<g class="crew-bob" style="animation-delay:'+(-i*0.13).toFixed(2)+'s"><g transform="translate('+x.toFixed(1)+' '+y+')">'+part+'</g></g>';
+      var row=i%2, x=-37+i*6.7, y=row?-12:-17;
+      out+='<g class="crew-bob" style="animation-delay:'+(-i*0.13).toFixed(2)+'s"><g transform="translate('+x.toFixed(1)+' '+y+')">'+miniHead(m)+'</g></g>';
     });
     g.innerHTML=out;
   })();
+
+  /* ---------- 雪上摩托分組：爬梯子抽籤 ---------- */
+  var GCOL=[C.coral,C.yam,C.mizu,C.waka,"#C9B8E6","#F7C59F"];
+  var LCOLS=MEMBERS.length, LROWS=14, LX0=15, LDX=30, LTOP=96, LBOT=330, LW=360, LH=372;
+  function lx(i){return LX0+i*LDX}
+  function ly(r){return LTOP+12+r*((LBOT-LTOP-24)/(LROWS-1))}
+  function newLadder(){
+    var rungs=[];for(var r=0;r<LROWS;r++){var row=[];for(var c=0;c<LCOLS-1;c++){row.push(!row[c-1]&&Math.random()<0.42)}rungs.push(row)}
+    var slots=[];for(var g=0;g<LCOLS/2;g++){slots.push(g,g)}
+    for(var i=slots.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=slots[i];slots[i]=slots[j];slots[j]=t}
+    return {rungs:rungs,slots:slots,shown:[]};
+  }
+  function tracePath(st,c){
+    var pts=[[lx(c),LTOP]];
+    for(var r=0;r<LROWS;r++){var y=ly(r);
+      if(st.rungs[r][c]){pts.push([lx(c),y],[lx(c+1),y]);c=c+1}
+      else if(c>0&&st.rungs[r][c-1]){pts.push([lx(c),y],[lx(c-1),y]);c=c-1}}
+    pts.push([lx(c),LBOT]);return {pts:pts,end:c};
+  }
+  var ladder=null;
+  try{var sv=JSON.parse(localStorage.getItem("fbxen-ladder")||"null");if(sv&&sv.rungs&&sv.rungs.length===LROWS&&sv.slots.length===LCOLS)ladder=sv}catch(e){}
+  if(!ladder)ladder=newLadder();
+  function saveLadder(){try{localStorage.setItem("fbxen-ladder",JSON.stringify(ladder))}catch(e){}}
+  var ladderTimers=[];
+  renderLadder=function(){
+    var box=document.getElementById("ladderBox");if(!box)return;
+    ladderTimers.forEach(clearTimeout);ladderTimers=[];
+    var h='<svg viewBox="0 0 '+LW+' '+LH+'" role="img" aria-label="Snowmobile pairing ladder">';
+    MEMBERS.forEach(function(m,i){h+='<line x1="'+lx(i)+'" y1="'+LTOP+'" x2="'+lx(i)+'" y2="'+LBOT+'" stroke="'+C.ink+'" stroke-width="2.4" stroke-linecap="round"/>'});
+    ladder.rungs.forEach(function(row,r){row.forEach(function(on,c){if(on)h+='<line x1="'+lx(c)+'" y1="'+ly(r)+'" x2="'+lx(c+1)+'" y2="'+ly(r)+'" stroke="'+C.ink+'" stroke-width="2.4" stroke-linecap="round"/>'})});
+    h+='<g id="ladderPaths"></g>';
+    MEMBERS.forEach(function(m,i){
+      h+='<g class="lad-head" data-i="'+i+'" tabindex="0" role="button" aria-label="'+m.n+' draw"><circle cx="'+lx(i)+'" cy="18" r="13" fill="'+m.bg+'" opacity=".55"/><g transform="translate('+lx(i)+' 19) scale(2)">'+miniHead(m)+'</g>';
+      h+='<text x="'+lx(i)+'" y="40" class="lad-name" transform="rotate(90 '+lx(i)+' 40)">'+esc(m.n)+'</text></g>';
+    });
+    ladder.slots.forEach(function(g,s){
+      h+='<g class="lad-slot" id="slot-'+s+'"><circle cx="'+lx(s)+'" cy="'+(LBOT+20)+'" r="12" fill="#FFF7E6" stroke="'+C.ink+'" stroke-width="2"/><text x="'+lx(s)+'" y="'+(LBOT+25)+'" text-anchor="middle" class="lad-q">?</text></g>';
+    });
+    h+='</svg>';
+    box.innerHTML='<div class="lad-svg">'+h+'</div><div class="lad-btns"><button type="button" class="btn" id="ladAll">✨ Reveal all</button><button type="button" class="btn alt" id="ladNew">🎲 Reshuffle</button></div><p class="lad-tip">Tap a face to see which group they slide into. The two people with the same number share a snowmobile.</p><div class="lad-result" id="ladResult"></div>';
+    ladder.shown.forEach(function(i){drawTrace(i,false)});
+    renderResult();
+    document.getElementById("ladAll").onclick=function(){var k=0;MEMBERS.forEach(function(m,i){if(ladder.shown.indexOf(i)<0){(function(i,k){ladderTimers.push(setTimeout(function(){drawTrace(i,true)},reduce?0:k*450))})(i,k);k++}})};
+    document.getElementById("ladNew").onclick=function(){ladder=newLadder();saveLadder();renderLadder()};
+    box.querySelector("svg").addEventListener("click",function(e){var g=e.target.closest&&e.target.closest(".lad-head");if(g)drawTrace(+g.getAttribute("data-i"),true)});
+    box.querySelector("svg").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var g=e.target.closest&&e.target.closest(".lad-head");if(g){e.preventDefault();drawTrace(+g.getAttribute("data-i"),true)}}});
+  };
+  function drawTrace(i,anim){
+    var layer=document.getElementById("ladderPaths");if(!layer)return;
+    if(anim&&ladder.shown.indexOf(i)>=0)return;
+    var t=tracePath(ladder,i),m=MEMBERS[i],g=ladder.slots[t.end];
+    var d=t.pts.map(function(p,k){return (k?"L":"M")+p[0]+" "+p[1]}).join(" ");
+    var line=document.createElementNS("http://www.w3.org/2000/svg","path");
+    line.setAttribute("d",d);line.setAttribute("fill","none");line.setAttribute("stroke",GCOL[g]);line.setAttribute("stroke-width","5");line.setAttribute("stroke-linecap","round");line.setAttribute("stroke-linejoin","round");line.setAttribute("opacity",".9");
+    layer.appendChild(line);
+    function reveal(){var sl=document.getElementById("slot-"+t.end);if(sl){sl.querySelector("circle").setAttribute("fill",GCOL[g]);sl.querySelector("text").textContent=g+1;sl.classList.add("pop-in")}
+      if(ladder.shown.indexOf(i)<0){ladder.shown.push(i);saveLadder()}renderResult()}
+    if(anim&&!reduce){var len=line.getTotalLength();line.style.strokeDasharray=len;line.style.strokeDashoffset=len;line.getBoundingClientRect();line.style.transition="stroke-dashoffset 1.3s ease-in-out";line.style.strokeDashoffset="0";ladderTimers.push(setTimeout(reveal,1300))}
+    else reveal();
+  }
+  function renderResult(){
+    var el2=document.getElementById("ladResult");if(!el2)return;
+    var groups={};ladder.shown.forEach(function(i){var g=ladder.slots[tracePath(ladder,i).end];(groups[g]=groups[g]||[]).push(MEMBERS[i].n)});
+    var html='';for(var g=0;g<LCOLS/2;g++){var names=groups[g]||[];html+='<div class="lad-pair" style="--gc:'+GCOL[g]+'"><b>Group '+(g+1)+'</b><span class="names">'+(names[0]?esc(names[0]):'?')+'<span class="amp">+</span>'+(names[1]?esc(names[1]):'?')+'</span></div>'}
+    el2.innerHTML=html;
+  }
+  if(document.getElementById("ladderBox"))renderLadder();
   document.getElementById("members").innerHTML=MEMBERS.map(function(m,i){
     return '<article class="card member" style="--mc:'+m.bg+';--d:'+(i*0.35)+'s"><div class="avatar">'+avSvg(m,m.n+" illustration",m.bg)+'</div><h3>'+esc(m.n)+'</h3>'+(m.tag?'<span class="m-tag">'+m.tag+'</span>':'')+'</article>';
   }).join("");
