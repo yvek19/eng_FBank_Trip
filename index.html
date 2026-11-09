@@ -779,7 +779,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     ]},
     {date:"12/23",wk:"Wed",iso:"2026-12-23",color:C.waka,pale:"var(--card)",title:"Snow Adventure Day",sub:"Activities $160+ per person",items:[
       {t:"TBD",name:"Dog Sledding (30 min)",note:"",tags:["sled"],ic:"dog",must:true,anim:true},
-      {t:"Night",name:"Aurora Chasing",note:"",tags:["tbd"],ic:"aurora",must:true,anim:true}
+      {t:"Night",name:"Aurora Chasing",note:"",tags:["van"],ic:"aurora",must:true,anim:true}
     ]},
     {date:"12/24",wk:"Thu",iso:"2026-12-24",color:C.coral,pale:"var(--coral-pale)",title:"Christmas Eve",sub:"",items:[
       {t:"AM",name:"Breakfast",tags:[],ic:"bowl",empty:true},
@@ -1206,7 +1206,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     kFront:function(c){return '<path d="M36 60 Q33 34 60 32 Q87 34 84 58 Q83 48 77 45 Q74 56 63 58 Q67 50 61 47 Q53 57 43 56 Q39 57 36 60Z" fill="'+c+'" '+S+' stroke-width="2.2"/>'}
   };
   function lashArc(x,w,y,n){var r='<path d="M'+(x-w)+' '+(y+4.6)+' Q'+x+' '+(y-0.6)+' '+(x+w)+' '+(y+4.6)+'" fill="none" stroke="'+C.ink+'" stroke-width="2" stroke-linecap="round"/>',k=w/5.4;
-    (n===4?[[-3.8,2,-1.8,-2],[-1.3,.8,-.6,-2.5],[1.3,.8,.6,-2.5],[3.8,2,1.8,-2]]:[[-5,3.6,-2.4,-1.4],[-3.8,2,-1.8,-2],[-2,1,-1,-2.4],[0,.6,0,-2.5],[2,1,1,-2.4],[3.8,2,1.8,-2],[5,3.6,2.4,-1.4]]).forEach(function(l){r+='<path d="M'+(x+l[0]*k).toFixed(2)+' '+(y+l[1]*k).toFixed(2)+' l'+(l[2]*k).toFixed(2)+' '+(l[3]*k).toFixed(2)+'" stroke="'+C.ink+'" stroke-width="1.3" stroke-linecap="round"/>'});return r}
+    (n===2?[[-2.6,1.2,-1.2,-2.4],[2.6,1.2,1.2,-2.4]]:n===4?[[-3.8,2,-1.8,-2],[-1.3,.8,-.6,-2.5],[1.3,.8,.6,-2.5],[3.8,2,1.8,-2]]:[[-5,3.6,-2.4,-1.4],[-3.8,2,-1.8,-2],[-2,1,-1,-2.4],[0,.6,0,-2.5],[2,1,1,-2.4],[3.8,2,1.8,-2],[5,3.6,2.4,-1.4]]).forEach(function(l){r+='<path d="M'+(x+l[0]*k).toFixed(2)+' '+(y+l[1]*k).toFixed(2)+' l'+(l[2]*k).toFixed(2)+' '+(l[3]*k).toFixed(2)+'" stroke="'+C.ink+'" stroke-width="1.3" stroke-linecap="round"/>'});return r}
   function av(o){
     var sil=!!o.sil, sk=sil?SIL:SKIN, hc=sil?SILD:o.hair, sw=sil?SILL:o.sweater, sc=sil?SIL:o.scarf, dy=o.oval?2:0, r='';
     if(o.back)r+=o.back(hc);
@@ -1236,7 +1236,8 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     if(o.front)r+=o.front(hc);
     if(o.necklace&&!sil)r+='<path d="M51.5 89.8 Q60 99.5 68.5 89.8" fill="none" stroke="#9EA8B5" stroke-width="1.8"/><path d="M60 96.4 l3 3 -3 4 -3 -4Z" fill="#EAF3FB" stroke="'+C.ink+'" stroke-width="1" stroke-linejoin="round"/><path d="M58.6 98.6 l1.4 -1.2" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>';
     if(o.lashes==='full'&&!sil)r+='<path d="M49.6 60.2 l-1.6 -3 M71.7 60.2 l1.6 -3" fill="none" stroke="'+C.ink+'" stroke-width="1.5" stroke-linecap="round"/>';
-    if(o.lashes==='arc4'&&!sil)r+=lashArc(51,4.8,55.2,4)+lashArc(69,4.8,55.2,4);
+    if(o.lashes==='arc2'&&!sil)r+=lashArc(51,4.8,55.2,2)+lashArc(69,4.8,55.2,2);
+    else if(o.lashes==='arc4'&&!sil)r+=lashArc(51,4.8,55.2,4)+lashArc(69,4.8,55.2,4);
     else if(o.lashes&&!sil)r+='<path d="M48.7 61 l-2.8 -2.4 M48.3 62.6 l-3.4 -0.7 M71.3 61 l2.8 -2.4 M71.7 62.6 l3.4 -0.7" fill="none" stroke="'+C.ink+'" stroke-width="1.6" stroke-linecap="round"/>';
     if(o.acc)r+=o.acc(sil);
     if(sil)r+='<text x="60" y="'+(74+dy)+'" text-anchor="middle" class="q-mark">?</text>';
@@ -1265,7 +1266,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-soft);padding-bottom:24p
     {n:"Katie",bg:C.coral,hair:"#8A5A42",sweater:C.waka,scarf:"#F7CFC6",fluffy:true,oval:true,back:HAIR.waveBob,front:HAIR.bobFront,lashes:true,acc:ACC.diamonds},
     {n:"Isabel",bg:C.waka,hair:"#3F2A20",sweater:"#2F4A72",tank:true,necklace:true,back:HAIR.fullBack,over:HAIR.fullStrands,front:HAIR.sidePartFront,eyes:"big",eyeR:3.6,noShine:true,lashes:"arc4"},
     {n:"Yvonne",bg:C.yam,hair:"#2F2627",sweater:C.mizu,scarf:C.coral,back:HAIR.looseBack,over:HAIR.looseOver,front:HAIR.looseFront,lashes:true},
-    {n:"Tata",bg:"#C4E2F5",hair:"#B98B6A",sweater:"#C4E2F5",scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,eyes:"big",sloth:true,acc:ACC.earmuffs},
+    {n:"Tata",bg:"#C4E2F5",hair:"#B98B6A",sweater:"#C4E2F5",scarf:C.yam,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.sweepFront,eyes:"big",sloth:true,lashes:"arc2",acc:ACC.earmuffs},
     {n:"Nana",bg:C.waka,hair:"#7A5236",sweater:C.yam,scarf:C.coral,back:HAIR.longBack,over:HAIR.longStrands,front:HAIR.middleFront,eyes:"big",sloth:true,acc:ACC.bow},
     {n:"Charles",bg:C.mizu,hair:"#3A2E2A",sweater:C.mizu,scarf:C.coral,oval:true,front:HAIR.shortFront,ears:"big",brows:"thin",acc:ACC.goggles},
     {n:"Terry",bg:C.coral,hair:"#4A3B35",sweater:C.yam,scarf:C.mizu,oval:true,front:HAIR.buzzFront,ears:"big",brows:"thick",acc:ACC.goggles,tee:true}
